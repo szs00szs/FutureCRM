@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.future.hist.crm.dao.UserMapper" >
@@ -10,43 +9,43 @@
     -->
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
     <result column="updater" property="updater" jdbcType="VARCHAR" />
-    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="beginDate" property="begindate" jdbcType="TIMESTAMP" />
-    <result column="endDate" property="enddate" jdbcType="TIMESTAMP" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="beginDate" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="endDate" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="department_id" property="department.id" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="commendMan" property="commendman" jdbcType="VARCHAR" />
-    <result column="movetelePhone" property="movetelephone" jdbcType="VARCHAR" />
-    <result column="nowAddress" property="nowaddress" jdbcType="VARCHAR" />
-    <result column="nowTelePhone" property="nowtelephone" jdbcType="VARCHAR" />
-    <result column="identityCode" property="identitycode" jdbcType="VARCHAR" />
-    <result column="insuranceCode" property="insurancecode" jdbcType="VARCHAR" />
-    <result column="instancyLinkman" property="instancylinkman" jdbcType="VARCHAR" />
-    <result column="instancytelePhone" property="instancytelephone" jdbcType="VARCHAR" />
+    <result column="commendMan" property="commendMan" jdbcType="VARCHAR" />
+    <result column="moveTelephone" property="moveTelephone" jdbcType="VARCHAR" />
+    <result column="nowAddress" property="nowAddress" jdbcType="VARCHAR" />
+    <result column="nowTelePhone" property="nowTelephone" jdbcType="VARCHAR" />
+    <result column="identityCode" property="identityCode" jdbcType="VARCHAR" />
+    <result column="insuranceCode" property="insuranceCode" jdbcType="VARCHAR" />
+    <result column="instancyLinkman" property="instancyLinkman" jdbcType="VARCHAR" />
+    <result column="instancytelePhone" property="instancyTelephone" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="personnelType" property="personneltype" jdbcType="VARCHAR" />
+    <result column="personnelType" property="personnelType" jdbcType="VARCHAR" />
     <result column="duty" property="duty" jdbcType="VARCHAR" />
-    <result column="workDate" property="workdate" jdbcType="DATE" />
-    <result column="highSchool" property="highschool" jdbcType="VARCHAR" />
-    <result column="finishSchool" property="finishschool" jdbcType="VARCHAR" />
-    <result column="finishSchoolDate" property="finishschooldate" jdbcType="DATE" />
-    <result column="consortName" property="consortname" jdbcType="VARCHAR" />
-    <result column="youngoneName" property="youngonename" jdbcType="VARCHAR" />
-    <result column="officetelePhone" property="officetelephone" jdbcType="VARCHAR" />
-    <result column="consorttelePhone" property="consorttelephone" jdbcType="VARCHAR" />
+    <result column="workDate" property="workDate" jdbcType="DATE" />
+    <result column="highSchool" property="highSchool" jdbcType="VARCHAR" />
+    <result column="finishSchool" property="finishSchool" jdbcType="VARCHAR" />
+    <result column="finishSchoolDate" property="finishSchoolDate" jdbcType="DATE" />
+    <result column="consortName" property="consortName" jdbcType="VARCHAR" />
+    <result column="youngoneName" property="youngoneName" jdbcType="VARCHAR" />
+    <result column="officetelePhone" property="officeTelephone" jdbcType="VARCHAR" />
+    <result column="consorttelePhone" property="consortTelephone" jdbcType="VARCHAR" />
     <result column="avocation" property="avocation" jdbcType="VARCHAR" />
-    <result column="consortCompany" property="consortcompany" jdbcType="VARCHAR" />
-    <result column="strongSuit" property="strongsuit" jdbcType="VARCHAR" />
-    <result column="commUniCate" property="communicate" jdbcType="VARCHAR" />
+    <result column="consortCompany" property="consortCompany" jdbcType="VARCHAR" />
+    <result column="strongSuit" property="strongSuit" jdbcType="VARCHAR" />
+    <result column="communicate" property="communicate" jdbcType="VARCHAR" />
     <result column="bringup" property="bringup" jdbcType="VARCHAR" />
     <result column="organise" property="organise" jdbcType="VARCHAR" />
     <result column="analyse" property="analyse" jdbcType="VARCHAR" />
@@ -120,7 +119,7 @@
     consortName, youngoneName, officetelePhone, consorttelePhone, avocation, consortCompany, 
     strongSuit, commUniCate, bringup, organise, analyse, planing, empolder, relation
   </sql>
-  <select id="selectByUser" resultMap="BaseResultMap" parameterType="com.future.hist.crm.domain.UserExample" >
+  <select id="selectByUser" resultMap="BaseResultMap" parameterType="com.future.hist.crm.domain.User" >
     select
     <if test="distinct" >
       distinct
@@ -170,8 +169,8 @@
     values (#{id,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{begindate,jdbcType=TIMESTAMP}, 
-      #{enddate,jdbcType=TIMESTAMP}, #{departmentId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{departmentId,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
       #{commendman,jdbcType=VARCHAR}, #{movetelephone,jdbcType=VARCHAR}, #{nowaddress,jdbcType=VARCHAR}, 
       #{nowtelephone,jdbcType=VARCHAR}, #{identitycode,jdbcType=VARCHAR}, #{insurancecode,jdbcType=VARCHAR}, 
       #{instancylinkman,jdbcType=VARCHAR}, #{instancytelephone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
@@ -220,10 +219,10 @@
       <if test="email != null" >
         email,
       </if>
-      <if test="begindate != null" >
+      <if test="beginDate != null" >
         beginDate,
       </if>
-      <if test="enddate != null" >
+      <if test="endDate != null" >
         endDate,
       </if>
       <if test="departmentId != null" >
@@ -357,11 +356,11 @@
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="begindate != null" >
-        #{begindate,jdbcType=TIMESTAMP},
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="enddate != null" >
-        #{enddate,jdbcType=TIMESTAMP},
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="departmentId != null" >
         #{departmentId,jdbcType=INTEGER},
@@ -503,11 +502,11 @@
       <if test="user.email != null" >
         email = #{user.email,jdbcType=VARCHAR},
       </if>
-      <if test="user.begindate != null" >
+      <if test="user.beginDate != null" >
         beginDate = #{user.begindate,jdbcType=TIMESTAMP},
       </if>
-      <if test="user.enddate != null" >
-        endDate = #{user.enddate,jdbcType=TIMESTAMP},
+      <if test="user.endDate != null" >
+        endDate = #{user.endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="user.departmentId != null" >
         department_id = #{user.departmentId,jdbcType=INTEGER},
@@ -623,8 +622,8 @@
       address = #{user.address,jdbcType=VARCHAR},
       telephone = #{user.telephone,jdbcType=VARCHAR},
       email = #{user.email,jdbcType=VARCHAR},
-      beginDate = #{user.begindate,jdbcType=TIMESTAMP},
-      endDate = #{user.enddate,jdbcType=TIMESTAMP},
+      beginDate = #{user.beginDate,jdbcType=TIMESTAMP},
+      endDate = #{user.endDate,jdbcType=TIMESTAMP},
       department_id = #{user.departmentId,jdbcType=INTEGER},
       status = #{user.status,jdbcType=VARCHAR},
       commendMan = #{user.commendman,jdbcType=VARCHAR},
@@ -694,11 +693,11 @@
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="begindate != null" >
-        beginDate = #{begindate,jdbcType=TIMESTAMP},
+      <if test="beginDate != null" >
+        beginDate = #{beginDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="enddate != null" >
-        endDate = #{enddate,jdbcType=TIMESTAMP},
+      <if test="endDate != null" >
+        endDate = #{endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="departmentId != null" >
         department_id = #{departmentId,jdbcType=INTEGER},
@@ -811,8 +810,8 @@
       address = #{address,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      beginDate = #{begindate,jdbcType=TIMESTAMP},
-      endDate = #{enddate,jdbcType=TIMESTAMP},
+      beginDate = #{beginDate,jdbcType=TIMESTAMP},
+      endDate = #{endDate,jdbcType=TIMESTAMP},
       department_id = #{departmentId,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
       commendMan = #{commendman,jdbcType=VARCHAR},
@@ -847,11 +846,4 @@
       relation = #{relation,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.future.hist.crm.dao.UserMapper">
-    
->>>>>>> branch 'dev' of ssh://fan@10.1.24.239:29418/FutureCRM.git
 </mapper>

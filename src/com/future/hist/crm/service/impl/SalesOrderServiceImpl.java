@@ -21,13 +21,11 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	@Autowired
 	private SalesOrderMapper salesOrderMapper;
 
-	@Override
 	public List<SalesOrder> findOrdersList() {
 
 		return salesOrderMapper.findOrdersList();
 	}
 
-	@Override
 	public long getOrdersCount() {
 		return salesOrderMapper.getOrdersCount();
 	}

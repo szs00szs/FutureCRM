@@ -1,7 +1,6 @@
 package com.future.hist.crm.dao;
 
 import com.future.hist.crm.domain.User;
-import com.future.hist.crm.domain.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
