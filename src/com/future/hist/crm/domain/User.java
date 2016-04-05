@@ -437,4 +437,23 @@ public class User {
 		this.roles = roles;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", creator=" + creator + ", createTime=" + createTime + ", updater=" + updater
+				+ ", updateTime=" + updateTime + ", remark=" + remark + ", name=" + name + ", password=" + password
+				+ ", address=" + address + ", telephone=" + telephone + ", email=" + email + ", beginDate=" + beginDate
+				+ ", endDate=" + endDate + ", department=" + department + ", accessFileLevel=" + accessFileLevel
+				+ ", status=" + status + ", commendMan=" + commendMan + ", moveTelephone=" + moveTelephone
+				+ ", nowAddress=" + nowAddress + ", nowTelephone=" + nowTelephone + ", identityCode=" + identityCode
+				+ ", insuranceCode=" + insuranceCode + ", instancyLinkman=" + instancyLinkman + ", instancyTelephone="
+				+ instancyTelephone + ", sex=" + sex + ", birthday=" + birthday + ", personnelType=" + personnelType
+				+ ", duty=" + duty + ", workDate=" + workDate + ", highSchool=" + highSchool + ", finishSchool="
+				+ finishSchool + ", finishSchoolDate=" + finishSchoolDate + ", consortName=" + consortName
+				+ ", youngoneName=" + youngoneName + ", officeTelephone=" + officeTelephone + ", consortTelephone="
+				+ consortTelephone + ", avocation=" + avocation + ", consortCompany=" + consortCompany + ", strongSuit="
+				+ strongSuit + ", communicate=" + communicate + ", bringup=" + bringup + ", organise=" + organise
+				+ ", analyse=" + analyse + ", planing=" + planing + ", empolder=" + empolder + ", relation=" + relation
+				+ ", roles=" + roles + "]";
+	}
+
 }
