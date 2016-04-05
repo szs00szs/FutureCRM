@@ -8,5 +8,6 @@
 </head>
 <body>
 <h2>首页测试！</h2>
+<jsp:forward page="/WEB-INF/views/login.jsp"></jsp:forward>
 </body>
 </html>
