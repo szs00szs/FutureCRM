@@ -1,5 +1,9 @@
 package com.future.hist.crm.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import com.future.hist.crm.domain.User;
 import com.future.hist.crm.domain.User;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -19,11 +23,16 @@ public interface UserMapper {
 
     User selectById(long id);
 
-    int updateByUserSelective(@Param("user") User user);
+	User getUserByName(String name);
 
-    int updateByUser(@Param("user") User user);
+	void insert(User user);
 
-    int updateByIdSelective(User user);
+	void update(User user);
 
-    int updateById(User user);
+	void deleteById(String user_id);
+
+	List<User> getAllUserByPage(Map<String, Object> map);
+
+	User getById(String user_id);
+
 }

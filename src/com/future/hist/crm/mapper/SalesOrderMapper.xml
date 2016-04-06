@@ -7,10 +7,10 @@
 	<select id="findOrdersList" resultType="SalesOrder">
 		select
 		*
-		from saleorder 
+		from saleorder where salesman_id=#{userId}
 	</select>
 	<!-- 取得记录的总数 -->
 	<select id="getOrdersCount" resultType="long">
-		SELECT COUNT(*) FROM saleorder
+		SELECT COUNT(*) FROM saleorder where salesman_id=#{userId}
 	</select>
 </mapper>

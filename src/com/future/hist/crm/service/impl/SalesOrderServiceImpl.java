@@ -21,13 +21,14 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	@Autowired
 	private SalesOrderMapper salesOrderMapper;
 
-	public List<SalesOrder> findOrdersList() {
+	public List<SalesOrder> findOrdersList(Long userId) {
 
-		return salesOrderMapper.findOrdersList();
+		return salesOrderMapper.findOrdersList(userId);
 	}
 
 	public long getOrdersCount() {
 		return salesOrderMapper.getOrdersCount();
 	}
+
 
 }

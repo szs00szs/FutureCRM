@@ -1,7 +1,21 @@
 package com.future.hist.crm.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import com.future.hist.crm.domain.Department;
 
 public interface DepartmentMapper {
+
+	void insert(Department department);
+
+	void update(Department department);
+
+	void delete(String department_id);
+
+	List<Department> getAllInstituteByPage(Map<String, Object> map);
+
+	Department getById(String department_id);
 
 	/*public List<Department> getAllDp();
 	
