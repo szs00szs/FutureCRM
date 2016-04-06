@@ -16,7 +16,7 @@ public interface UserMapper {
 
 	void deleteById(String user_id);
 
-	List<Department> getAllUserByPage(Map<String, Object> map);
+	List<User> getAllUserByPage(Map<String, Object> map);
 
 	User getById(String user_id);
 

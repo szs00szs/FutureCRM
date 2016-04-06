@@ -5,6 +5,7 @@ package com.future.hist.crm.service;
 import java.util.List;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,9 @@ public class SystemService implements InitializingBean {
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
 
+	@Autowired
+	private UserService userService;
+	
 	public User getUserByLoginName(String account) {
 
 		System.out.println("getUserByLoginName(String loginName)函数执行。。。。。。。");
@@ -37,13 +41,13 @@ public class SystemService implements InitializingBean {
 		return user;
 	}
 	
-	public static void updatePasswordById(String id, String loginName, String newPassword) {
+	public void updatePasswordById(String id, String loginName, String newPassword) {
 		
 		User user = UserUtils.getByLoginName(loginName);
 		
 		if(user!=null){
 			user.setPassword(entryptPassword(newPassword));
-			OfficeService.updateUser(user);
+			userService.updateUser(user);
 		}
 		
 		// 清除用户缓存
