@@ -13,7 +13,7 @@ import com.future.hist.crm.domain.SalesOrder;
 public interface SalesOrderService {
 	
 	// 销售单查询列表
-	public List<SalesOrder> findOrdersList();
+	public List<SalesOrder> findOrdersList(Long userId);
 	
 	//销售单的数量
 	public long getOrdersCount();
