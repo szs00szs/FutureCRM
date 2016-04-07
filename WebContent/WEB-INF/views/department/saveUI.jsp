@@ -7,6 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<form action="department/save" method="post">
+		<table border="1">
+		<tr>
+			<td>部门名称</td>
+			<td>部门负责人</td>
+			<td>部门职能</td>
+			<td>部门备注</td>
+		</tr>
+		<tr>
+			<td><input type="text" name="name"/></td>
+			<td><input type="text" name="principal"/></td>
+			<td><input type="text" name="inclumbment"/></td>
+			<td><input type="text" name="remark"/></td>
+		</tr>
+	</table>
+	</form>
 </body>
 </html>
