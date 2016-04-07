@@ -30,5 +30,4 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 		return salesOrderMapper.getOrdersCount();
 	}
 
-
 }
