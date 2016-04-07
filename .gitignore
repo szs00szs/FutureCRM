@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -19,3 +20,26 @@
 hs_err_pid*
 /build/
 /bin/
+=======
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target/
+/.settings/
+/.classpath
+
+/.project
+/.class
+
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/build/
+/bin/
+>>>>>>> branch 'dev' of http://shuai@10.1.24.239:10101/r/FutureCRM.git
