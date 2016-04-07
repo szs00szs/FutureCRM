@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.future.hist.crm.domain.Privilege;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.SystemService;
+import com.future.hist.crm.service.impl.SystemServiceImpl;
 import com.future.hist.crm.util.Encodes;
 import com.future.hist.crm.util.SpringContextHolder;
 import com.future.hist.crm.util.UserUtils;
@@ -36,12 +37,8 @@ import com.future.hist.crm.util.UserUtils;
 @Transactional
 public class SystemAuthorizingRealm extends AuthorizingRealm {
 
-	
-
 	@Autowired
 	private SystemService systemService;
-	
-	
 
 	/**
 	 * 认证回调函数
@@ -51,60 +48,59 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 
 		System.out.println("**********************开始验证*****************");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		/* 校验登录验证码
-		 if (LoginController.isValidateCodeLogin(token.getUsername(), false,
-		 false)){
-		 Session session = UserUtils.getSession();
-		 String code =
-		 (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
-		 if (token.getCaptcha() == null ||
-		 !token.getCaptcha().toUpperCase().equals(code)){
-		 throw new AuthenticationException("msg:验证码错误");
-		 }
-		 }*/
-		
+		/*
+		 * 校验登录验证码 if (LoginController.isValidateCodeLogin(token.getUsername(),
+		 * false, false)){ Session session = UserUtils.getSession(); String code
+		 * = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE); if
+		 * (token.getCaptcha() == null ||
+		 * !token.getCaptcha().toUpperCase().equals(code)){ throw new
+		 * AuthenticationException("msg:验证码错误"); } }
+		 */
+
 		User user = getSystemService().getUserByLoginName(token.getUsername());
 		byte[] salt = Encodes.decodeHex(user.getPassword().substring(0, 16));
 		return new SimpleAuthenticationInfo(new Principal(user), user.getPassword().substring(16),
 				ByteSource.Util.bytes(salt), getName());
 
 	}
-	
+
 	/**
 	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-//		Principal principal = (Principal) getAvailablePrincipal(principals);
-//
-//		System.out.println("权限检查的时候才会调用这个方法" + principal);
-//
-//		User user = getSystemService().getUserByLoginName(principal.getName());
-//		if (user != null) {
-//			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//
-//			List<Privilege> list = UserUtils.getPrivilegeList();
-//			for (Privilege pri : list) {
-//				if (StringUtils.isNotBlank(pri.getPermission())) {
-//					// 添加基于Permission的权限
-//					for (String permission : StringUtils.split(pri.getPermission(), ",")) {
-//						info.addStringPermission(permission);
-//					}
-//				}
-//			}
-//			/* 添加用户角色信息
-//			 info.addRole(user.getRole().getName());*/
-//			return info;
-//		} else {
-//			return null;
-//		}
-		String username = (String)principals.getPrimaryPrincipal();
+		// Principal principal = (Principal) getAvailablePrincipal(principals);
+		//
+		// System.out.println("权限检查的时候才会调用这个方法" + principal);
+		//
+		// User user =
+		// getSystemService().getUserByLoginName(principal.getName());
+		// if (user != null) {
+		// SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		//
+		// List<Privilege> list = UserUtils.getPrivilegeList();
+		// for (Privilege pri : list) {
+		// if (StringUtils.isNotBlank(pri.getPermission())) {
+		// // 添加基于Permission的权限
+		// for (String permission : StringUtils.split(pri.getPermission(), ","))
+		// {
+		// info.addStringPermission(permission);
+		// }
+		// }
+		// }
+		// /* 添加用户角色信息
+		// info.addRole(user.getRole().getName());*/
+		// return info;
+		// } else {
+		// return null;
+		// }
+		String username = (String) principals.getPrimaryPrincipal();
 
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-//        authorizationInfo.setRoles(userService.findRoles(username));
-//        authorizationInfo.setStringPermissions(userService.findPermissions(username));
-        return authorizationInfo;
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		// authorizationInfo.setRoles(userService.findRoles(username));
+		// authorizationInfo.setStringPermissions(userService.findPermissions(username));
+		return authorizationInfo;
 	}
 
 	@Override
@@ -150,8 +146,8 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 
 	@PostConstruct
 	public void initCredentialsMatcher() {
-		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(SystemService.HASH_ALGORITHM);
-		matcher.setHashIterations(SystemService.HASH_INTERATIONS);
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(SystemServiceImpl.HASH_ALGORITHM);
+		matcher.setHashIterations(SystemServiceImpl.HASH_INTERATIONS);
 		setCredentialsMatcher(matcher);
 	}
 
@@ -160,7 +156,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 	 */
 	public SystemService getSystemService() {
 		if (systemService == null) {
-			systemService = SpringContextHolder.getBean(SystemService.class);
+			systemService = SpringContextHolder.getBean(SystemServiceImpl.class);
 		}
 		return systemService;
 	}
@@ -171,15 +167,13 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 	public static class Principal implements Serializable {
 
 		private static final long serialVersionUID = 1L;
-
 		private String id;
-		private String name; 
+		private String name;
 
 		public Principal(User user) {
-			
+
 			String s = user.getName();
 			this.name = user.getName();
-
 		}
 
 		public String getId() {
@@ -210,7 +204,5 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 		public String toString() {
 			return id;
 		}
-
 	}
-
 }

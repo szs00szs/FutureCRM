@@ -11,5 +11,7 @@
 <a href="${pageContext.request.contextPath}/test/hello.action">hello</a>
 <br>
 <a href="${pageContext.request.contextPath}/salesOrder/queryOrders.action">queryOrders</a>
+<a href="${pageContext.request.contextPath}/department/save.action">hello</a>
+<br>
 </body>
 </html>

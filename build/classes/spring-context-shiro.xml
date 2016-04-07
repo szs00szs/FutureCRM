@@ -19,7 +19,7 @@
 			</value>
 		</constructor-arg>
 	</bean>
-	<bean id="myRealm" class="com.hist.pe.security.SystemAuthorizingRealm" />
+	<bean id="myRealm" class="com.future.hist.crm.security.SystemAuthorizingRealm" />
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myRealm" />
 		<property name="cacheManager" ref="shiroCacheManager" />
@@ -27,7 +27,7 @@
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
-	<bean id="formAuthenticationFilter" class="com.hist.pe.security.FormAuthenticationFilter">
+	<bean id="formAuthenticationFilter" class="com.future.hist.crm.security.FormAuthenticationFilter">
 	</bean>
 	<!-- 安全认证过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

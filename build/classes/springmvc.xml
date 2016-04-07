@@ -11,21 +11,18 @@
 		2. 使用context:exclude-filter，context:include-filter子节点来规定只能扫描的注解 -->
 
 	<!-- SpringMVC 的IOC容器中的bean可以引用spring IOC容器中的bean 反之则不行。 -->
-
 	<!-- 配置扫描的包 -->
 	<context:component-scan base-package="com.future.hist.crm" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
-
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-
 	<!--支持文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -35,5 +32,4 @@
 	</bean>
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven></mvc:annotation-driven>
-
 </beans>
