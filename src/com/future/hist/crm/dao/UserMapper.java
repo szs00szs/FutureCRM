@@ -4,8 +4,24 @@ import java.util.List;
 import java.util.Map;
 
 import com.future.hist.crm.domain.User;
+import com.future.hist.crm.domain.User;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+    int count();
+    
+    int deleteByUser(User user);
+
+    int deleteById(long id);
+
+    int add(User user);
+
+    int addSelective(User user);
+
+    List<User> selectByUser(User user);
+
+    User selectById(long id);
 
 	User getUserByName(String name);
 

@@ -9,4 +9,5 @@
 	<!-- <insert id="insert" parameterType="User">
 		insert into sysuser(name,age) values(#{name},#{age})
 	</insert> -->
+
 </mapper>

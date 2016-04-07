@@ -8,10 +8,14 @@
 </head>
 <body>
 <h2>首页测试！</h2>
+<<<<<<< HEAD
 <a href="${pageContext.request.contextPath}/test/hello.action">hello</a>
 <br>
 <a href="${pageContext.request.contextPath}/salesOrder/queryOrders.action">queryOrders</a>
 <a href="${pageContext.request.contextPath}/department/save.action">hello</a>
 <br>
+=======
+<jsp:forward page="/WEB-INF/views/login.jsp"></jsp:forward>
+>>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 </body>
 </html>
