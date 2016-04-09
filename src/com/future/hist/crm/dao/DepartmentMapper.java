@@ -13,7 +13,8 @@ public interface DepartmentMapper {
 
 	void delete(String department_id);
 
-	List<Department> getAllInstituteByPage(Map<String, Object> map);
+	List<Department> getAllDepartmentByPage(Map<String, Object> map);
+	List<Department> getAllDepartment();
 
 	Department getById(String department_id);
 

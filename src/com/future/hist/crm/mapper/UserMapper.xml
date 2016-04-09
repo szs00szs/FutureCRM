@@ -2,12 +2,490 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.UserMapper">
-	<select id="getUserByName" resultType="User" parameterType="String">
-		select * from sysuser where name=#{name}
+	<!-- 根据ID查询用户 -->
+
+	<select id="getUserById" parameterType="long" resultType="User">
+		SELECT
+		*
+		FROM sysuser a
+		WHERE a.id = #{id}
 	</select>
-	
-	<!-- <insert id="insert" parameterType="User">
-		insert into sysuser(name,age) values(#{name},#{age})
-	</insert> -->
+
+	<!-- 根据登录名查询用户 -->
+	<select id="getUserByLoginName" resultType="User" parameterType="String">
+		SELECT *
+		FROM sysuser a
+		WHERE a.name = #{name}
+	</select>
+
+	<!-- 查询全部用户数目 -->
+	<select id="findAllCount" resultType="long">
+		SELECT count(*)
+		FROM sysuser
+	</select>
+	<!-- 查询全部用户 -->
+	<select id="findAllUsers" resultType="User">
+		SELECT *
+		FROM sysuser
+	</select>
+
+	<sql id="baseClass">
+		user.id ,
+		user.creator,user.createTim,user.update,user.updateTime, user.remark,
+		user.name , user.address,user.rtelephone,
+		user.email,user.beginDate,user.endDate,user.sex,user.birthday,user.workDate
+	</sql>
+
+<!-- 	<select id="getAllUserByPage" parameterType="java.util.Map"
+		resultMap="User">
+		SELECT
+		<include refid="baseClass"></include>
+		FROM sysuser user
+		<if test="top != null and pageSize != null">
+			limit #{top},#{pageSize}
+		</if>
+
+	</select>
+ -->
+	<!-- 更新用户密码 -->
+	<update id="updatePassword" parameterType="User">
+		UPDATE sysuser SET
+		password = #{password}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 通过ID删除用户 -->
+	<delete id="deleteUserById" parameterType="long">
+		DELETE FROM sysuser
+		WHERE id = #{id}
+	</delete>
+
+	<!-- 通过Name删除用户 -->
+	<delete id="deleteUserByName" parameterType="String">
+		DELETE FROM sysuser
+		WHERE name = #{name}
+	</delete>
+
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="User">
+		INSERT INTO sysuser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="createTime != null">
+				createTime,
+			</if>
+			<if test="updater != null">
+				updater,
+			</if>
+			<if test="updateTime != null">
+				updateTime,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="telephone != null">
+				telephone,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="beginDate != null">
+				beginDate,
+			</if>
+			<if test="endDate != null">
+				endDate,
+			</if>
+			<if test="department != null">
+				department_id,
+			</if>
+			<if test="accessFileLevel != null">
+				accessFileLevel,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="commendMan != null">
+				commendMan,
+			</if>
+			<if test="moveTelephone != null">
+				moveTelephone,
+			</if>
+			<if test="nowAddress != null">
+				nowAddress,
+			</if>
+			<if test="identityCode != null">
+				identityCode,
+			</if>
+			<if test="insuranceCode != null">
+				insuranceCode,
+			</if>
+			<if test="instancyLinkMan != null">
+				instancyLinkMan,
+			</if>
+			<if test="instancyTelephone != null">
+				instancyTelephone,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="personnelType != null">
+				personnelType,
+			</if>
+			<if test="duty != null">
+				duty,
+			</if>
+			<if test="workDate != null">
+				workDate,
+			</if>
+			<if test="highSchool != null">
+				highSchool,
+			</if>
+			<if test="finishSchool != null">
+				finishSchool,
+			</if>
+			<if test="finishSchoolDate != null">
+				finishSchoolDate,
+			</if>
+			<if test="consortName != null">
+				consortName,
+			</if>
+			<if test="youngoneName != null">
+				youngoneName,
+			</if>
+			<if test="officeTelephone != null">
+				officeTelephone,
+			</if>
+			<if test="consortTelephone != null">
+				consortTelephone,
+			</if>
+			<if test="avocation != null">
+				avocation,
+			</if>
+			<if test="consortCompany != null">
+				consortCompany,
+			</if>
+			<if test="strongSuit != null">
+				strongSuit,
+			</if>
+			<if test="communicate != null">
+				communicate,
+			</if>
+			<if test="bringup != null">
+				bringup,
+			</if>
+			<if test="organise != null">
+				organise,
+			</if>
+			<if test="analyse != null">
+				analyse,
+			</if>
+			<if test="planing != null">
+				planing,
+			</if>
+			<if test="empolder != null">
+				empolder,
+			</if>
+			<if test="relation != null">
+				relation,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updater != null">
+				#{updater,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="telephone != null">
+				#{telephone},
+			</if>
+			<if test="email != null">
+				#{email},
+			</if>
+			<if test="beginDate != null">
+				#{beginDate},
+			</if>
+			<if test="endDate != null">
+				#{endDate},
+			</if>
+			<if test="department.id != null">
+				#{department.id},
+			</if>
+			<if test="accessFileLevel != null">
+				#{accessFileLevel},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="commendMan != null">
+				#{commendMan},
+			</if>
+			<if test="moveTelephone != null">
+				#{moveTelephone},
+			</if>
+			<if test="nowAddress != null">
+				#{nowAddress},
+			</if>
+			<if test="identityCode != null">
+				#{identityCode},
+			</if>
+			<if test="insuranceCode != null">
+				#{insuranceCode},
+			</if>
+			<if test="instancyLinkMan != null">
+				#{instancyLinkMan},
+			</if>
+			<if test="instancyTelephone != null">
+				#{instancyTelephone},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="birthday != null">
+				#{birthday},
+			</if>
+			<if test="personnelType != null">
+				#{personnelType},
+			</if>
+			<if test="duty != null">
+				#{duty},
+			</if>
+			<if test="workDate != null">
+				#{workDate},
+			</if>
+			<if test="highSchool != null">
+				#{highSchool},
+			</if>
+			<if test="finishSchool != null">
+				#{finishSchool},
+			</if>
+			<if test="finishSchoolDate != null">
+				#{finishSchoolDate},
+			</if>
+			<if test="consortName != null">
+				#{consortName},
+			</if>
+			<if test="youngoneName != null">
+				#{youngoneName},
+			</if>
+			<if test="officeTelephone != null">
+				#{officeTelephone},
+			</if>
+			<if test="consortTelephone != null">
+				#{consortTelephone},
+			</if>
+			<if test="avocation != null">
+				#{avocation},
+			</if>
+			<if test="consortCompany != null">
+				#{consortCompany},
+			</if>
+			<if test="strongSuit != null">
+				#{strongSuit},
+			</if>
+			<if test="communicate != null">
+				#{communicate},
+			</if>
+			<if test="bringup != null">
+				#{bringup},
+			</if>
+			<if test="organise != null">
+				#{organise},
+			</if>
+			<if test="analyse != null">
+				#{analyse},
+			</if>
+			<if test="planing != null">
+				#{planing},
+			</if>
+			<if test="empolder != null">
+				#{empolder},
+			</if>
+			<if test="relation != null">
+				#{relation},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 更新用户信息 -->
+	<update id="updateUser" parameterType="User">
+		UPDATE sysuser SET
+		<!-- <if test="id != null"> id = #{id,jdbcType=INTEGER}, </if> -->
+		<if test="creator != null">
+			creator = #{creator,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+			createTime = #{createTime,jdbcType=VARCHAR},
+		</if>
+		<if test="updater != null">
+			updater = #{updater,jdbcType=INTEGER},
+		</if>
+		<if test="updateTime != null">
+			updateTime = #{updateTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="remark != null">
+			remark = #{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null">
+			name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="password != null">
+			password = #{password,jdbcType=VARCHAR},
+		</if>
+		<if test="address != null">
+			address = #{address,jdbcType=VARCHAR},
+		</if>
+		<if test="telephone != null">
+			telephone = #{telephone,jdbcType=VARCHAR},
+		</if>
+		<if test="email != null">
+			email = #{email,jdbcType=VARCHAR},
+		</if>
+		<if test="beginDate != null">
+			beginDate = #{beginDate,jdbcType = DATE},
+		</if>
+		<if test="endDate != null">
+			endDate = #{endDate , jdbcType = DATE},
+		</if>
+		<if test="department != null">
+			depertment_id = #{department.id,jdbcType = INTEGER},
+		</if>
+		<if test="accessFileLevel != null">
+			accessFileLevel = #{accessFileLevel,jdbcType=VARCHAR},
+		</if>
+		<if test="status != null">
+			status = #{status,jdbcType=VARCHAR},
+		</if>
+		<if test="commendMan != null">
+			commendMan = #{commendMan,jdbcType=VARCHAR},
+		</if>
+		<if test="moveTelephone != null">
+			moveTelephone = #{moveTelephone,jdbcType=VARCHAR},
+		</if>
+		<if test="nowAddress != null">
+			nowAddress = #{nowAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="identityCode != null">
+			identityCode = #{identityCode,jdbcType=VARCHAR},
+		</if>
+		<if test="insuranceCode != null">
+			insuranceCode = #{insuranceCode,jdbcType=VARCHAR},
+		</if>
+		<if test="instancyLinkMan != null">
+			instancyLinkMan = #{instancyLinkMan,jdbcType=VARCHAR},
+		</if>
+		<if test="instancyTelephone != null">
+			instancyTelephone = #{instancyTelephone,jdbcType=VARCHAR},
+		</if>
+		<if test="sex != null">
+			sex = #{sex},
+		</if>
+		<if test="birthday != null">
+			birthday = #{birthday,jdbcType = DATE},
+		</if>
+		<if test="personnelType != null">
+			personnelType = #{personnelType,jdbcType=VARCHAR},
+		</if>
+		<if test="duty != null">
+			duty = #{duty,jdbcType=VARCHAR},
+		</if>
+		<if test="workDate != null">
+			workDate = #{workDate,jdbcType = DATE},
+		</if>
+		<if test="highSchool != null">
+			highSchool = #{highSchool,jdbcType=VARCHAR},
+		</if>
+		<if test="finishSchool != null">
+			finishSchool = #{finishSchool,jdbcType=VARCHAR},
+		</if>
+		<if test="finishSchoolDate != null">
+			finishSchoolDate = #{finishSchoolDate,jdbcType = DATE},
+		</if>
+		<if test="consortName != null">
+			consortName = #{consortName,jdbcType=VARCHAR},
+		</if>
+		<if test="youngoneName != null">
+			youngoneName = #{youngoneName,jdbcType=VARCHAR},
+		</if>
+		<if test="officeTelephone != null">
+			officeTelephone = #{officeTelephone,jdbcType=VARCHAR},
+		</if>
+		<if test="consortTelephone != null">
+			consortTelephone = #{consortTelephone,jdbcType=VARCHAR},
+		</if>
+		<if test="avocation != null">
+			avocation = #{avocation,jdbcType=VARCHAR},
+		</if>
+		<if test="consortCompany != null">
+			consortCompany = #{consortCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="strongSuit != null">
+			strongSuit = #{strongSuit,jdbcType=VARCHAR},
+		</if>
+		<if test="communicate != null">
+			communicate = #{communicate,jdbcType=VARCHAR},
+		</if>
+		<if test="bringup != null">
+			bringup = #{bringup,jdbcType=VARCHAR},
+		</if>
+		<if test="organise != null">
+			organise = #{organise,jdbcType=VARCHAR},
+		</if>
+		<if test="analyse != null">
+			analyse = #{analyse,jdbcType=VARCHAR},
+		</if>
+		<if test="planing != null">
+			planing = #{planing,jdbcType=VARCHAR},
+		</if>
+		<if test="empolder != null">
+			empolder = #{empolder,jdbcType=VARCHAR},
+		</if>
+		<if test="relation != null">
+			relation = #{relation,jdbcType=VARCHAR}
+		</if>
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</update>
 
 </mapper>

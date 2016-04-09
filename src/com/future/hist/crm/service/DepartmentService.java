@@ -15,6 +15,7 @@ public interface DepartmentService {
 	public void deleteDepartmentById(String department_id);
 	
 	public List<Department> getAllDepartment(Map<String, Object> map);
+	public List<Department> getAllDepartment();
 	
 	public Department getDepartmentById(String department_id);
 }

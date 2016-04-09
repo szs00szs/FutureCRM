@@ -28,7 +28,9 @@
 		<property name="dataSource" ref="datasource"></property>
 		<property name="typeAliasesPackage" value="com.future.hist.crm.domain"></property>
 		<property name="mapperLocations" value="classpath:/com/future/hist/crm/mapper/*.xml" />
+		<!-- <property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
 	</bean>
+	
 	<!-- 3. mybatis自动扫描加载Sql映射文件 : MapperScannerConfigurer sqlSessionFactory 
 		/ basePackage : 指定sql映射文件/接口所在的包（自动扫描） -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

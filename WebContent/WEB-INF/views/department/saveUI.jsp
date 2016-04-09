@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="department/save" method="post">
+	<form action="department_save" method="post">
 		<table border="1">
 		<tr>
 			<td>部门名称</td>
@@ -18,10 +18,11 @@
 		<tr>
 			<td><input type="text" name="name"/></td>
 			<td><input type="text" name="principal"/></td>
-			<td><input type="text" name="inclumbment"/></td>
+			<td><input type="text" name="incumbent"/></td>
 			<td><input type="text" name="remark"/></td>
 		</tr>
 	</table>
+	<input type="submit" value="增加"/>
 	</form>
 </body>
 </html>
