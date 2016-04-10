@@ -6,8 +6,21 @@
 	<select id="getAllDepartment" resultType="Department">
 		select *from department d where d.id is not null
 	</select>
+	
+	<select id="getById" resultType="Department" parameterType="Long">
+		select *from department d where d.id = #{department_id}
+	</select>
+	
 	<insert id="insert" parameterType="Department">
 		insert into department(remark, name,principal,incumbent)
 		values(#{remark},#{name},#{principal}, #{incumbent})
 	</insert>
+	
+	<update id="update" parameterType="Department">
+		 update department set remark = #{remark}, name = #{name}, principal = #{principal},incumbent = #{incumbent} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		delete from department where id = #{department_id}
+	</delete>
 </mapper>

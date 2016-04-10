@@ -12,10 +12,10 @@ public interface DepartmentService {
 
 	public void updateDepartment(Department department);
 
-	public void deleteDepartmentById(String department_id);
+	public void deleteDepartmentById(Long department_id);
 	
 	public List<Department> getAllDepartment(Map<String, Object> map);
 	public List<Department> getAllDepartment();
 	
-	public Department getDepartmentById(String department_id);
+	public Department getDepartmentById(Long department_id);
 }

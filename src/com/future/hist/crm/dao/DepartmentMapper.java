@@ -11,12 +11,12 @@ public interface DepartmentMapper {
 
 	void update(Department department);
 
-	void delete(String department_id);
+	void delete(Long department_id);
 
 	List<Department> getAllDepartmentByPage(Map<String, Object> map);
 	List<Department> getAllDepartment();
 
-	Department getById(String department_id);
+	Department getById(Long department_id);
 
 	/*public List<Department> getAllDp();
 	

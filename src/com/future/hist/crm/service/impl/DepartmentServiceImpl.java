@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 		departmentMapper.update(department);
 	}
 
-	public void deleteDepartmentById(String department_id) {
+	public void deleteDepartmentById(Long department_id) {
 		departmentMapper.delete(department_id);
 
 	}
@@ -37,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
 	}
 
-	public Department getDepartmentById(String department_id) {
+	public Department getDepartmentById(Long department_id) {
 		return departmentMapper.getById(department_id);
 
 	}

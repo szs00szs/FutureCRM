@@ -1,6 +1,5 @@
 package com.future.hist.crm.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class UserController {
 	public String addUser(User user){
 		user.setPassword("f379eaf3c831b04de153469d1bec345e");   //给用户设置初始密码（666666）
 		userMapper.addUser(user);
-		return "redirect:sysUser/user_list";
+		return "redirect:/sysUser/user_list";
 	}
 	
 	@RequestMapping(value = "user_list")
