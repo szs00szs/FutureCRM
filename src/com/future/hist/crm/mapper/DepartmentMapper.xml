@@ -26,4 +26,8 @@
 	<delete id="delete" parameterType="Long">
 		delete from department where id = #{department_id}
 	</delete>
+	<!-- 得到所有的记录条数 -->
+	<select id="getTotalCount" resultType="Integer">
+		select count(*) from department
+	</select>
 </mapper>

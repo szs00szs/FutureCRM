@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.DepartmentMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
 import com.future.hist.crm.service.DepartmentService;
 
@@ -37,7 +38,11 @@ public class DepartmentServiceImpl implements DepartmentService{
 
 	}
 
-	public List<Department> getAllDepartmentByPage() {
-		return departmentMapper.getAllDepartmentByPage();
+	public List<Department> getAllDepartmentByPage(BaseSearch baseSearch) {
+		return departmentMapper.getAllDepartmentByPage(baseSearch);
+	}
+
+	public int getTotalCount() {
+		return departmentMapper.getTotalCount();
 	}
 }

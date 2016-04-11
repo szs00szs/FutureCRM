@@ -1,8 +1,8 @@
 package com.future.hist.crm.service;
 
 import java.util.List;
-import java.util.Map;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
 
 public interface DepartmentService {
@@ -14,7 +14,9 @@ public interface DepartmentService {
 
 	public void deleteDepartmentById(Long department_id);
 	
-	public List<Department> getAllDepartmentByPage();
+	public List<Department> getAllDepartmentByPage(BaseSearch baseSearch);
 	
 	public Department getDepartmentById(Long department_id);
+
+	public int getTotalCount();
 }

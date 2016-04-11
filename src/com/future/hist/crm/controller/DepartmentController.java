@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.service.DepartmentService;
 
 @Controller
@@ -30,9 +32,15 @@ public class DepartmentController {
 		return "redirect:/sysDepartment/department_list";
 	}
 	
-	@RequestMapping("department_list")
-	public String list(Map<String, Object> map){
-		List<Department> departmentList = departmentService.getAllDepartmentByPage();
+	@RequestMapping("department_list/{currentPage}")
+	public String list(@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
+		BaseSearch baseSearch = new BaseSearch();
+		PageParameter pageParameter = new PageParameter();
+		pageParameter.setCurrentPage(currentPage);
+		int totalCount = departmentService.getTotalCount();
+		pageParameter.setTotalCount(totalCount);
+		baseSearch.setPage(pageParameter);
+		List<Department> departmentList = departmentService.getAllDepartmentByPage(baseSearch);
 		map.put("departmentList", departmentList);
 		System.out.println("departmentList : " + departmentList);
 		return "department/department_list";
