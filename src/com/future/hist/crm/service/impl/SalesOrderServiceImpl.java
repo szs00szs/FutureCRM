@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.SalesOrderMapper;
 import com.future.hist.crm.domain.SalesOrder;
-import com.future.hist.crm.page.Page;
 import com.future.hist.crm.service.SalesOrderService;
 
 /**
@@ -22,18 +21,24 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	@Autowired
 	private SalesOrderMapper salesOrderMapper;
 
-	public List<SalesOrder> findOrdersList(Long userId,Page page) {
-		return salesOrderMapper.findOrdersList(userId,page);
+	public List<SalesOrder> findOrdersList() {
+		return salesOrderMapper.findOrdersList();
 	}
 
-	public long getOrdersCount(Long userId) {
-		return salesOrderMapper.getOrdersCount(userId);
+	public long getOrdersCount() {
+		return salesOrderMapper.getOrdersCount();
 	}
 
 	@Override
-	public void insert(SalesOrder salesOrder) {
-		salesOrderMapper.insert(salesOrder);
+	public void addOrder(SalesOrder salesOrder) {
+		System.out.println("当前order：" + salesOrder);
+		salesOrderMapper.addOrder(salesOrder);
 
+	}
+
+	@Override
+	public void deleteOrderById(int id) {
+		salesOrderMapper.deleteOrderById(id);
 	}
 
 }
