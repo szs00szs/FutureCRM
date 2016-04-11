@@ -4,7 +4,7 @@ package com.future.hist.crm.domain;
  * @author Administrator
  *
  */
-public class PuchaseOrder {
+public class PurchaseOrder {
 
 	private Long id;
 	private Supplier supplier;            //供货商

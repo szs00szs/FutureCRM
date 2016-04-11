@@ -32,17 +32,12 @@ public class DepartmentServiceImpl implements DepartmentService{
 
 	}
 	
-	public List<Department> getAllDepartment(Map<String, Object> map) {
-	return	departmentMapper.getAllDepartmentByPage(map);
-
-	}
-
 	public Department getDepartmentById(Long department_id) {
 		return departmentMapper.getById(department_id);
 
 	}
 
-	public List<Department> getAllDepartment() {
-		return departmentMapper.getAllDepartment();
+	public List<Department> getAllDepartmentByPage() {
+		return departmentMapper.getAllDepartmentByPage();
 	}
 }

@@ -32,7 +32,7 @@ public class DepartmentController {
 	
 	@RequestMapping("department_list")
 	public String list(Map<String, Object> map){
-		List<Department> departmentList = departmentService.getAllDepartment();
+		List<Department> departmentList = departmentService.getAllDepartmentByPage();
 		map.put("departmentList", departmentList);
 		System.out.println("departmentList : " + departmentList);
 		return "department/department_list";

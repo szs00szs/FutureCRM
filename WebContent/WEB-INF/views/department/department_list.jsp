@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="${pageContext.request.contextPath}/sysDepartment/department_saveUI.action">增加部门</a>
  <table border="1" style="font-size:12px;">
                     <caption>部门管理</caption>
                     <thead>

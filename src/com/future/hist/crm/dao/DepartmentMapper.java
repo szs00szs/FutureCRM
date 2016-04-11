@@ -1,7 +1,6 @@
 package com.future.hist.crm.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.future.hist.crm.domain.Department;
 
@@ -13,8 +12,7 @@ public interface DepartmentMapper {
 
 	void delete(Long department_id);
 
-	List<Department> getAllDepartmentByPage(Map<String, Object> map);
-	List<Department> getAllDepartment();
+	List<Department> getAllDepartmentByPage();
 
 	Department getById(Long department_id);
 

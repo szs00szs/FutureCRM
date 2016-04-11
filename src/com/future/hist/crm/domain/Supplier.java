@@ -11,7 +11,7 @@ public class Supplier {
 	private Long id;
 	private String name;
 	private String phone;
-	private Set<PuchaseOrder> puchaseOrders = new HashSet<PuchaseOrder>();
+	private Set<PurchaseOrder> puchaseOrders = new HashSet<PurchaseOrder>();
 	public Long getId() {
 		return id;
 	}
@@ -30,10 +30,10 @@ public class Supplier {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Set<PuchaseOrder> getPuchaseOrders() {
+	public Set<PurchaseOrder> getPuchaseOrders() {
 		return puchaseOrders;
 	}
-	public void setPuchaseOrders(Set<PuchaseOrder> puchaseOrders) {
+	public void setPuchaseOrders(Set<PurchaseOrder> puchaseOrders) {
 		this.puchaseOrders = puchaseOrders;
 	}
 	@Override

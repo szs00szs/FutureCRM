@@ -30,23 +30,14 @@
 	</select>
 
 	<sql id="baseClass">
-		user.id ,
-		user.creator,user.createTim,user.update,user.updateTime, user.remark,
-		user.name , user.address,user.rtelephone,
-		user.email,user.beginDate,user.endDate,user.sex,user.birthday,user.workDate
+		 id, creator, createTime, updater, updateTime, remark, name, password, address, telephone, 
+    email, beginDate, endDate, department_id, accessFileLevel, status, commendMan, moveTelephone, 
+    nowAddress, nowTelephone, identityCode, insuranceCode, instancyLinkMan, instancyTelephone, 
+    sex, birthday, personnelType, duty, workDate, highSchool, finishSchool, finishSchoolDate, 
+    consortName, youngoneName, officeTelephone, consortTelephone, avocation, consortCompany, 
+    strongSuit, communicate, bringup, organise, analyse, planing, empolder, relation
 	</sql>
 
-<!-- 	<select id="getAllUserByPage" parameterType="java.util.Map"
-		resultMap="User">
-		SELECT
-		<include refid="baseClass"></include>
-		FROM sysuser user
-		<if test="top != null and pageSize != null">
-			limit #{top},#{pageSize}
-		</if>
-
-	</select>
- -->
 	<!-- 更新用户密码 -->
 	<update id="updatePassword" parameterType="User">
 		UPDATE sysuser SET
