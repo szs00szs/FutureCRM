@@ -1,5 +1,4 @@
 package com.future.hist.crm.controller;
-
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +42,17 @@ public class SalesOrderController {
 	}
 
 	// 查询所有的销售订单
+//	@RequestMapping("/queryOrders")
+//	public ModelAndView queryOrders() {
+//		List<SalesOrder> ordersList = salesOrderService.findOrdersList(salesOrder.getSalesman().getId());
+//
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.addObject("ordersList", ordersList);
+//
+//		modelAndView.setViewName("ordersList");
+//		return modelAndView;
+//
+//	}
 	@RequestMapping("/queryOrders")
 	public ModelAndView queryOrders() {
 

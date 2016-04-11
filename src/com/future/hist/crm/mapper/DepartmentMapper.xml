@@ -2,32 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.DepartmentMapper">
-    
-   <!--  <select id="getAllDp" resultType="Department">
-        select*from department d where d.dp_id is not null
-    </select>
-    
-    write by zhaoshuo 系别的增删改查
-    <delete id="deleteDepartment" parameterType="Integer">
-    delete from department where dp_id = #{departmentId}
-    </delete>
-    
-    <update id="updateDepartment" parameterType="Department">
-    update department set dp_name = #{dp_name} where dp_id = #{dp_id}
-    </update>
-    
-    <select id="findById" parameterType="Integer" resultType="Department">
-    select * from department where dp_id = #{departmentId}
-    </select>
-  	  
-    
-    <select id="findByName" parameterType="String" resultType="Department">
-     select * from department  where dp_name = #{departmentName}
-    </select>
-    
-    <insert id="addDepartment" parameterType="Department">
-    insert into department(dp_id, dp_name) values(null, #{dp_name})
-    </insert> -->
-    
-    <!-- 上面那是复制以前的能用就用，不能用就删 -->
+
+	<select id="getAllDepartmentByPage" parameterType="BaseSearch" resultType="Department">
+		<!-- select *from department d where d.id is not null -->
+		<![CDATA[ 
+			select * from department d where d.id is not null
+		]]>
+	</select>
+	
+	<select id="getById" resultType="Department" parameterType="Long">
+		select *from department d where d.id = #{department_id}
+	</select>
+	
+	<insert id="insert" parameterType="Department">
+		insert into department(remark, name,principal,incumbent)
+		values(#{remark},#{name},#{principal}, #{incumbent})
+	</insert>
+	
+	<update id="update" parameterType="Department">
+		 update department set remark = #{remark}, name = #{name}, principal = #{principal},incumbent = #{incumbent} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		delete from department where id = #{department_id}
+	</delete>
+	<!-- 得到所有的记录条数 -->
+	<select id="getTotalCount" resultType="Integer">
+		select count(*) from department
+	</select>
 </mapper>

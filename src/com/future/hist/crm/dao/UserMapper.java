@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.future.hist.crm.domain.User;
-import com.future.hist.crm.domain.User;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int count();
@@ -15,7 +12,7 @@ public interface UserMapper {
 
     int deleteById(long id);
 
-    int add(User user);
+    int addUser(User user);
 
     int addSelective(User user);
 
@@ -31,7 +28,7 @@ public interface UserMapper {
 
 	void deleteById(String user_id);
 
-	List<User> getAllUserByPage(Map<String, Object> map);
+	List<User> getAllUserByPage (Map<String, Object> map);
 
 	User getById(String user_id);
 
