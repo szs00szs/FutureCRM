@@ -14,7 +14,7 @@
 <a href="${pageContext.request.contextPath}/sales/queryOrders.action">查询销售订单</a>
 <br>
 
-<a href="${pageContext.request.contextPath}/sysDepartment/department_list/1">部门列表</a>
+<a href="${pageContext.request.contextPath}/sysDepartment/department_list/2">部门列表</a>
 <a href="${pageContext.request.contextPath}/sysUser/user_saveUI.action">增加用户</a>
 <a href="${pageContext.request.contextPath}/sales/addOrderUI.action">添加订单</a>
 <br>
