@@ -1,6 +1,8 @@
  package com.future.hist.crm.domain;
 
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 销售单
  * @author Administrator
@@ -10,6 +12,7 @@ public class SalesOrder {
 
 	private Long id;
 	private String saleNumber;            //销售单号
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;              //开单日期
 	private User salesman;                //业务员
 	private Customer customer;            //客户

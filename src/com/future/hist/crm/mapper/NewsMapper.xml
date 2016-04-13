@@ -2,5 +2,117 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.NewsMapper">
-    
+    <resultMap id="BaseResultMap" type="news">
+		<id column="id"  property="id" />
+		<result column="title"  property="title" />
+		<result column="content"  property="content" />
+		<result column="issuer_id"  property="issuer.id" />
+		<result column="issur_date" property="issur_date" />
+		<result column="newsType"  property="newsType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, title, content, issuer_id, issur_date, newsType
+	</sql>
+
+	<insert id="addNews" parameterType="news">
+		insert into news (id, title, content,
+		issuer_id, issur_date, newsType
+		)
+		values (#{id}, #{title},
+		#{content},
+		#{issuer.id}, #{issur_date}, #{newsType}
+		)
+	</insert>
+	
+	<delete id="deleteNewsById" parameterType="java.lang.Long">
+		delete from news
+		where id = #{id}
+	</delete>
+	
+	<delete id="deleteNewsByTitle" parameterType="java.lang.String">
+		delete from news
+		where title = #{title}
+	</delete>
+
+	<delete id="deleteNewsByIssuer" parameterType="user">
+		delete from news
+		where issuer_id = #{id}
+	</delete>
+	
+	<update id="updateNews" parameterType="news">
+		update news
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="issuer.id != null">
+				issuer_id = #{issuer.id},
+			</if>
+			<if test="issur_date != null">
+				issur_date = #{issur_date},
+			</if>
+			<if test="newsType != null">
+				newsType = #{newsType}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="getAllNews" resultMap = "resultMap">
+		select * from news
+	</select>
+	
+	<select id="getAllNewsByTimeasc" resultMap = "resultMap">
+		select * from news order by issur_date asc
+	</select>
+	
+	<select id="getAllNewsByTimedesc" resultMap = "resultMap">
+	select * from news order by issur_date desc
+	</select>
+	
+	<select id="getNewsById" parameterType="java.lang.Long" resultMap="resultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where id = #{id}
+	</select>
+	
+	<select id="getNewsByTitle" parameterType="java.lang.String"  resultMap="resultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where title = #{title}
+	</select>
+	
+	
+	<select id="getNewsByIssuer" parameterType="user" resultMap="resultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where issuer_id = #{id}
+	</select>
+	
+	<select id="getNewsByNewsType" parameterType="java.lang.String" resultMap="resultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where newsType = #{newsType}
+	</select>
+	
+	<resultMap type="news" id="resultMap">
+		<id column="id" property="id" />
+		<result column="title"  property="title" />
+		<result column="content"  property="content" />
+		<!-- <result column="issuer_id"  property="issuer.id" /> -->
+		<result column="issur_date"  property="issur_date" />
+		<result column="newsType" property="newsType" />
+		<association property="issuer" column="issuer_id" select="getIssuer" />
+	</resultMap>
+	
+	<select id="getIssuer" parameterType="java.lang.Long" resultType="user">
+		select * from sysuser  where id = #{id}
+	</select>
 </mapper>

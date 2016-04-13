@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 用户
  * 
@@ -14,16 +16,20 @@ public class User {
 
 	private Long id;
 	private String creator; // #创建人
-	private String createTime; // 创建时间 yyyy-mm-dd HH24:mm:ss
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date createTime; // 创建时间 yyyy-mm-dd HH24:mm:ss
 	private String updater; // 修改人
-	private String updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
 	private String remark; // 备注
 	private String name; // 用户名
 	private String password; // 密码
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
 	private String email; // 电子邮件
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date beginDate; // 起始有效期 yyyy-mm-dd
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date endDate; // 终止有效期 yyyy-mm-dd
 	private Department department; // 多个用户在同一个部门
 	private String accessFileLevel; // 未定义
@@ -37,10 +43,11 @@ public class User {
 	private String instancyLinkman; // 紧急联系人
 	private String instancyTelephone; // 紧急联系人电话
 	private String sex; // 性别
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date birthday; // 出生日期
 	private String personnelType; // 职务类别
 	private String duty; // 职务
-	private Date workDate; // 入职日期
+	private String workDate; // 入职日期
 	private String highSchool; // 最高学历
 	private String finishSchool; // 毕业学校
 	private Date finishSchoolDate; // 毕业日期
@@ -77,11 +84,11 @@ public class User {
 		this.creator = creator;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -93,11 +100,11 @@ public class User {
 		this.updater = updater;
 	}
 
-	public String getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -285,11 +292,11 @@ public class User {
 		this.duty = duty;
 	}
 
-	public Date getWorkDate() {
+	public String getWorkDate() {
 		return workDate;
 	}
 
-	public void setWorkDate(Date workDate) {
+	public void setWorkDate(String workDate) {
 		this.workDate = workDate;
 	}
 

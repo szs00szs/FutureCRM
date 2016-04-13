@@ -31,5 +31,5 @@
 		<property name="maxInMemorySize" value="40960"></property>
 	</bean>
 	<mvc:default-servlet-handler />
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven ></mvc:annotation-driven>
 </beans>

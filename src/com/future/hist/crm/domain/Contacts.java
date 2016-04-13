@@ -2,18 +2,21 @@ package com.future.hist.crm.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Contacts {
 
 	private Long id;
 	private String name;
 	private String sex;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date birthday;
 	private String departmentDuties;        //部门职务
-	private String officeTelePhone;         //办公室电话
+	private String officeTelephone;         //办公室电话
 	private String homePhone;         
 	private String mobilePhone;             //手机
 	private String email;                   //邮件
-	private String postcode;                //邮政编码
+	private String postCode;                //邮政编码
 	private String QQNumber;                //QQ
 	private String contactAddress;          //联系地址
 	private String hobby;                   //爱好
@@ -49,11 +52,11 @@ public class Contacts {
 	public void setDepartmentDuties(String departmentDuties) {
 		this.departmentDuties = departmentDuties;
 	}
-	public String getOfficeTelePhone() {
-		return officeTelePhone;
+	public String getOfficeTelephone() {
+		return officeTelephone;
 	}
-	public void setOfficeTelePhone(String officeTelePhone) {
-		this.officeTelePhone = officeTelePhone;
+	public void setOfficeTelephone(String officeTelephone) {
+		this.officeTelephone = officeTelephone;
 	}
 	public String getHomePhone() {
 		return homePhone;
@@ -73,11 +76,11 @@ public class Contacts {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPostcode() {
-		return postcode;
+	public String getPostCode() {
+		return postCode;
 	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 	public String getQQNumber() {
 		return QQNumber;
@@ -112,8 +115,8 @@ public class Contacts {
 	@Override
 	public String toString() {
 		return "Contacts [id=" + id + ", name=" + name + ", sex=" + sex + ", birthday=" + birthday
-				+ ", departmentDuties=" + departmentDuties + ", officeTelePhone=" + officeTelePhone + ", homePhone="
-				+ homePhone + ", mobilePhone=" + mobilePhone + ", email=" + email + ", postcode=" + postcode
+				+ ", departmentDuties=" + departmentDuties + ", officeTelephone=" + officeTelephone + ", homePhone="
+				+ homePhone + ", mobilePhone=" + mobilePhone + ", email=" + email + ", postCode=" + postCode
 				+ ", QQNumber=" + QQNumber + ", contactAddress=" + contactAddress + ", hobby=" + hobby + ", taboo="
 				+ taboo + ", remark=" + remark + "]";
 	}
