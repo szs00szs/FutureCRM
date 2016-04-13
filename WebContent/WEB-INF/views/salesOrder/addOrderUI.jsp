@@ -9,7 +9,7 @@
 <body>
 
 <h1 align="center" style="font-family:华义彩云;"> 订单信息添加</h1>
-			<form action="addCustomerInfo.action" method="post" target="main">
+			<form action="${pageContext.request.contextPath }/sales/addOrder.action" method="post" >
 			      <table width="100%" height="48" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolordark="#aaaaaa"  bordercolorlight="#FFFFFF">
 				    <tr style="padding:5px;">
 				      <td bgcolor="#eeeeee"> 订单编号：</td>

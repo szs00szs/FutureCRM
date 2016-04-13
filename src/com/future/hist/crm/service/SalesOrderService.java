@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.domain.SalesOrder;
-import com.future.hist.crm.page.Page;
 
 /**
  * 销售单service接口
@@ -14,12 +13,15 @@ import com.future.hist.crm.page.Page;
 public interface SalesOrderService {
 	
 	// 销售单查询列表(分页)
-	public List<SalesOrder> findOrdersList(Long userId,Page page);
+	public List<SalesOrder> findOrdersList();
 	
 	//销售单的数量
-	public long getOrdersCount(Long userId);
+	public long getOrdersCount();
 	
 	//添加新的销售单
-	public void insert(SalesOrder salesOrder);
+	public void addOrder(SalesOrder salesOrder);
+	
+	// 删除订单
+	public void deleteOrderById(int id);
 	
 }
