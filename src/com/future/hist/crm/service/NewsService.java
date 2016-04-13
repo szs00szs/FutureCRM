@@ -1,15 +1,11 @@
-package com.future.hist.crm.dao;
+package com.future.hist.crm.service;
 
 import java.util.List;
 
 import com.future.hist.crm.domain.News;
 import com.future.hist.crm.domain.User;
 
-/**
- * @author 羊羊
- * @date 2016年4月11日
- */
-public interface NewsMapper {
+public interface NewsService {
 
 	/**
 	 * 添加新闻
@@ -45,13 +41,13 @@ public interface NewsMapper {
 	 * @param news
 	 */
 	void updateNews(News news);
-	
+
 	/**
 	 * 得到全部新闻
 	 * @return
 	 */
 	List<News> getAllNews();
-
+	
 	/**
 	 * 升序查找所有新闻
 	 * @return
@@ -71,8 +67,6 @@ public interface NewsMapper {
 	 * @return
 	 */
 	News getNewsById(long id);
-	
-	
 
 	/**
 	 * 通过标题得到新闻

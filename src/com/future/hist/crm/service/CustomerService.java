@@ -1,4 +1,4 @@
-package com.future.hist.crm.dao;
+package com.future.hist.crm.service;
 
 import java.util.List;
 
@@ -6,9 +6,10 @@ import com.future.hist.crm.domain.Customer;
 
 /**
  * @author 羊羊
- * @date 2016年4月11日
+ * @date 2016年4月9日
  */
-public interface CustomerMapper {
+public interface CustomerService {
+
 	/**
 	 * 添加客户
 	 * 
@@ -44,10 +45,6 @@ public interface CustomerMapper {
 	 */
 	void updateCustomer(Customer customer);
 
-	/**
-	 * 得到全部客户
-	 * @return
-	 */
 	List<Customer> getAllCustomer();
 	
 	/**
