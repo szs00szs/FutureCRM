@@ -24,7 +24,6 @@ public class ContactServiceImpl implements ContactService {
 	 * 
 	 * @param contact
 	 */
-	@Override
 	public void addContact(Contacts contact) {
 		contactMapper.addContact(contact);
 	}
@@ -34,7 +33,6 @@ public class ContactServiceImpl implements ContactService {
 	 * 
 	 * @param id
 	 */
-	@Override
 	public void deleteContactById(long id) {
 		contactMapper.deleteContactById(id);
 	}
@@ -44,7 +42,6 @@ public class ContactServiceImpl implements ContactService {
 	 * 
 	 * @param name
 	 */
-	@Override
 	public void deleteContactByName(String name) {
 		contactMapper.deleteContactByName(name);
 	}
@@ -54,12 +51,10 @@ public class ContactServiceImpl implements ContactService {
 	 * 
 	 * @param contact
 	 */
-	@Override
 	public void updateContact(Contacts contact) {
 		contactMapper.updateContact(contact);
 	}
 	
-	@Override
 	public List<Contacts> getAllContacts(){
 		return contactMapper.getAllContacts();
 	}
@@ -70,7 +65,6 @@ public class ContactServiceImpl implements ContactService {
 	 * @param id
 	 * @return
 	 */
-	@Override
 	public Contacts getContactById(long id) {
 		return contactMapper.getContactById(id);
 	}
@@ -81,7 +75,6 @@ public class ContactServiceImpl implements ContactService {
 	 * @param name
 	 * @return
 	 */
-	@Override
 	public Contacts getContactByName(String name) {
 		return contactMapper.getContactByName(name);
 	}
@@ -92,7 +85,6 @@ public class ContactServiceImpl implements ContactService {
 	 * @param departmentDuties
 	 * @return
 	 */
-	@Override
 	public List<Contacts> getContactByDepartmentDuties(String departmentDuties) {
 		return contactMapper.getContactByDepartmentDuties(departmentDuties);
 	}
@@ -103,7 +95,6 @@ public class ContactServiceImpl implements ContactService {
 	 * @param QQNumber
 	 * @return
 	 */
-	@Override
 	public Contacts getContactByQQ(String QQNumber) {
 		return contactMapper.getContactByQQ(QQNumber);
 	}

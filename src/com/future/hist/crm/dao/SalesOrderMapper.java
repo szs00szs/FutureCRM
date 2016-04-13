@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.future.hist.crm.domain.SalesOrder;
 
-
 /**
  * 销售订单
  */
@@ -24,7 +23,12 @@ public interface SalesOrderMapper {
 	 * 添加新的销售单
 	 */
 	public void addOrder(SalesOrder salesOrder);
-	
+
+	/**
+	 * 根据id查询订单
+	 */
+	public SalesOrder findOrderById(int id);
+
 	/**
 	 * 根据id删除订单
 	 */

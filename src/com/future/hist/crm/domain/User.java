@@ -23,7 +23,7 @@ public class User {
 	private Date updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
 	private String remark; // 备注
 	private String name; // 用户名
-	private String loginName; // 登录名
+	private String loginName;  //登录名
 	private String password; // 密码
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
@@ -51,6 +51,8 @@ public class User {
 	private String workDate; // 入职日期
 	private String highSchool; // 最高学历
 	private String finishSchool; // 毕业学校
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date finishSchoolDate; // 毕业日期
 
 	private String consortName; // 配偶姓名
@@ -75,6 +77,54 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getMoveTelephone() {
+		return moveTelephone;
+	}
+
+	public void setMoveTelephone(String moveTelephone) {
+		this.moveTelephone = moveTelephone;
+	}
+
+	public String getNowTelephone() {
+		return nowTelephone;
+	}
+
+	public void setNowTelephone(String nowTelephone) {
+		this.nowTelephone = nowTelephone;
+	}
+
+	public String getInstancyTelephone() {
+		return instancyTelephone;
+	}
+
+	public void setInstancyTelephone(String instancyTelephone) {
+		this.instancyTelephone = instancyTelephone;
+	}
+
+	public String getOfficeTelephone() {
+		return officeTelephone;
+	}
+
+	public void setOfficeTelephone(String officeTelephone) {
+		this.officeTelephone = officeTelephone;
+	}
+
+	public String getConsortTelephone() {
+		return consortTelephone;
+	}
+
+	public void setConsortTelephone(String consortTelephone) {
+		this.consortTelephone = consortTelephone;
+	}
+
+	public String getCommunicate() {
+		return communicate;
+	}
+
+	public void setCommunicate(String communicate) {
+		this.communicate = communicate;
 	}
 
 	public String getCreator() {

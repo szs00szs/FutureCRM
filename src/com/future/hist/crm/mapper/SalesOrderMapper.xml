@@ -57,6 +57,10 @@
 		saleorder
 	</select>
 
+	<select id="findOrderById" parameterType="int" resultType="com.future.hist.crm.domain.SalesOrder">
+		SELECT * FROM saleorder s WHERE s.id=#{id}
+	</select>
+
 
 	<!-- 取得记录的总数 -->
 	<select id="getOrdersCount" resultType="Integer">
@@ -70,9 +74,15 @@
 		VALUES(#{saleNumber},#{createTime},#{contactPhone},#{deliveryAddress},#{remark},#{goods})
 	</insert>
 	
+	
 	<!-- 删除订单 -->
 	<delete id="deleteOrderById" parameterType="int">
 		DELETE FROM saleorder WHERE id = #{id}
 	</delete>
+	
+	<!-- 修改订单 -->
+	<update id="editOrder" parameterType="com.future.hist.crm.domain.SalesOrder">
+		
+	</update>
 	
 </mapper>
