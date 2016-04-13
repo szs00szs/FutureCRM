@@ -45,7 +45,31 @@ public interface CustomerService {
 	 */
 	void updateCustomer(Customer customer);
 
+	/**
+	 * 得到全部客户
+	 * @return
+	 */
 	List<Customer> getAllCustomer();
+	
+	/**
+	 * 得到升序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerByasc();
+	
+	/**
+	 * 得到降序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerBydesc();
+	
+	
+	/**
+	 * 得到用户的数量
+	 * @return
+	 */
+	long getCustomerCount();
+	
 	
 	/**
 	 * 通过ID得到客户

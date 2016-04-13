@@ -16,20 +16,21 @@ public class User {
 
 	private Long id;
 	private String creator; // #创建人
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime; // 创建时间 yyyy-mm-dd HH24:mm:ss
 	private String updater; // 修改人
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
 	private String remark; // 备注
 	private String name; // 用户名
+	private String loginName; // 登录名
 	private String password; // 密码
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
 	private String email; // 电子邮件
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date beginDate; // 起始有效期 yyyy-mm-dd
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endDate; // 终止有效期 yyyy-mm-dd
 	private Department department; // 多个用户在同一个部门
 	private String accessFileLevel; // 未定义
@@ -43,7 +44,7 @@ public class User {
 	private String instancyLinkman; // 紧急联系人
 	private String instancyTelephone; // 紧急联系人电话
 	private String sex; // 性别
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date birthday; // 出生日期
 	private String personnelType; // 职务类别
 	private String duty; // 职务
@@ -122,6 +123,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getPassword() {

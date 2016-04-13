@@ -5,14 +5,13 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Customer {
-
 	private Long id;
 	private String code;           //客户编码
 	private String name;
 	private String grade;          //客户等级（下拉）
 	private String regionName;     //区域名称
 	private String source;         //客户来源
-	private String trade;          //所属行业
+	private String trade;          //�?属行�?
 	private String scale;          //公司规模
 	private String province;       //省份
 	private String city;
@@ -20,34 +19,35 @@ public class Customer {
 	private String address;        //联系地址
 	private String email;
 	private String web;            //公司网址
-	private String tel1;           //电话一
+	private String tel1;           //电话�?
 	private String mobile;         //手机
-	private String tel2;           //电话二
-	private String nextTouchDate;    //下次联系时间
+	private String tel2;           //电话�?
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date nextTouchDate;    //下次联系时间
 	private String quality;        //客户性质
 	private String remark;
 	private String dealin;         //经营范围
 	private String kind;           //企业性质
 	private String artificialPerson;  //法人代表
 	private String registeMoney;      //注册资金
-	private String bank;              //开户银行
+	private String bank;              //�?户银�?
 	private String account;           //银行账号
 	private String taxCode;           //公司税号
-	private String creator;           //创建人（本条记录的添加者，添加的用户名）
+	private String creator;           //创建人（本条记录的添加�?�，添加的用户名�?
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;        
-	private String updater;           //修改人 （本条记录的修改者 ，中间可能发生多次变更）
+	private String updater;           //修改�? （本条记录的修改�? ，中间可能发生多次变更）
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 	
-	//多个客户对应一个用户
+	//多个客户对应�?个用�?
 	private User user;
 	
-	private String dispensePerson;              //所属人的分配日期
+	private String dispensePerson;              //�?属人的分配日�?
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date dispenseDate;                //#分配日期(经手人变更的日期)-----
-	private Character shareFlag;                //#共享标志 Y(共享)和N(不共享)
-	private String shareIds;                    // #共享ID客户资料共享给业务人员 格式 #人事编号#人事编号...例如(#12#11#)
+	private Character shareFlag;                //#共享标志 Y(共享)和N(不共�?)
+	private String shareIds;                    // #共享ID客户资料共享给业务人�? 格式 #人事编号#人事编号...例如(#12#11#)
 	public Long getId() {
 		return id;
 	}
@@ -150,10 +150,10 @@ public class Customer {
 	public void setTel2(String tel2) {
 		this.tel2 = tel2;
 	}
-	public String getNextTouchDate() {
+	public Date getNextTouchDate() {
 		return nextTouchDate;
 	}
-	public void setNextTouchDate(String nextTouchDate) {
+	public void setNextTouchDate(Date nextTouchDate) {
 		this.nextTouchDate = nextTouchDate;
 	}
 	public String getQuality() {
