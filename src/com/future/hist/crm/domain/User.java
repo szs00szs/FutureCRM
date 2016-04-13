@@ -23,6 +23,7 @@ public class User {
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
 	private String email; // 电子邮件
+	
 	private Date beginDate; // 起始有效期 yyyy-mm-dd
 	private Date endDate; // 终止有效期 yyyy-mm-dd
 	private Department department; // 多个用户在同一个部门
