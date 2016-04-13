@@ -40,4 +40,9 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 		salesOrderMapper.deleteOrderById(id);
 	}
 
+	@Override
+	public SalesOrder findOrderById(int id) {
+		return salesOrderMapper.findOrderById(id);
+	}
+
 }

@@ -24,4 +24,7 @@ public interface SalesOrderService {
 	// 删除订单
 	public void deleteOrderById(int id);
 	
+	// 根据id查询订单
+	public SalesOrder findOrderById(int id);
+	
 }
