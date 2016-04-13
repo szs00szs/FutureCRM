@@ -1,6 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.future.hist.crm.dao.CostomerMapper">
-    
+<mapper namespace="com.future.hist.crm.dao.CustomerMapper">
+	<resultMap id="BaseResultMap" type="com.future.hist.crm.domain.Customer">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="grade" jdbcType="VARCHAR" property="grade" />
+		<result column="regionName" jdbcType="VARCHAR" property="regionName" />
+		<result column="source" jdbcType="VARCHAR" property="source" />
+		<result column="trade" jdbcType="VARCHAR" property="trade" />
+		<result column="scale" jdbcType="VARCHAR" property="scale" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="postCode" jdbcType="VARCHAR" property="postCode" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="web" jdbcType="VARCHAR" property="web" />
+		<result column="tel1" jdbcType="VARCHAR" property="tel1" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="tel2" jdbcType="VARCHAR" property="tel2" />
+		<result column="nextTouchDate" jdbcType="DATE" property="nextTouchDate" />
+		<result column="quality" jdbcType="VARCHAR" property="quality" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="dealin" jdbcType="VARCHAR" property="dealin" />
+		<result column="kind" jdbcType="VARCHAR" property="kind" />
+		<result column="artificialPerson" jdbcType="VARCHAR" property="artificialPerson" />
+		<result column="registeMoney" jdbcType="VARCHAR" property="registeMoney" />
+		<result column="bank" jdbcType="VARCHAR" property="bank" />
+		<result column="account" jdbcType="VARCHAR" property="account" />
+		<result column="taxCode" jdbcType="VARCHAR" property="taxCode" />
+		<result column="creator" jdbcType="VARCHAR" property="creator" />
+		<result column="createTime" jdbcType="DATE" property="createTime" />
+		<result column="updater" jdbcType="VARCHAR" property="updater" />
+		<result column="updateTime" jdbcType="DATE" property="updateTime" />
+		<result column="ownerUser_id" jdbcType="INTEGER" property="user.id" />
+		<result column="dispensePerson" jdbcType="VARCHAR" property="dispensePerson" />
+		<result column="dispenseDate" jdbcType="DATE" property="dispenseDate" />
+		<result column="shareFlag" jdbcType="CHAR" property="shareFlag" />
+		<result column="shareIds" jdbcType="VARCHAR" property="shareIds" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, code, name, grade, regionName, source, trade, scale, province, city,
+		postCode,
+		address, email, web, tel1, mobile, tel2, nextTouchDate, quality, remark,
+		dealin,
+		kind, artificialPerson, registeMoney, bank, account, taxCode, creator,
+		createTime,
+		updater, updateTime, ownerUser_id, dispensePerson, dispenseDate, shareFlag,
+		shareIds
+	</sql>
+	
+	<insert id="addCustomer" parameterType="com.future.hist.crm.domain.Customer">
+		insert into customer (id, code, name,
+		grade, regionName, source,
+		trade, scale, province,
+		city, postCode, address,
+		email, web, tel1, mobile,
+		tel2, nextTouchDate, quality,
+		remark, dealin, kind,
+		artificialPerson, registeMoney, bank,
+		account, taxCode, creator,
+		createTime, updater, updateTime,
+		ownerUser_id, dispensePerson, dispenseDate,
+		shareFlag, shareIds)
+		values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{grade,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR},
+		#{trade,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{web,jdbcType=VARCHAR},
+		#{tel1,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+		#{tel2,jdbcType=VARCHAR}, #{nextTouchDate,jdbcType=DATE},
+		#{quality,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{dealin,jdbcType=VARCHAR}, #{kind,jdbcType=VARCHAR},
+		#{artificialPerson,jdbcType=VARCHAR},
+		#{registeMoney,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR}, #{taxCode,jdbcType=VARCHAR},
+		#{creator,jdbcType=VARCHAR},
+		#{createTime,jdbcType=DATE}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE},
+		#{user.id,jdbcType=INTEGER}, #{dispensePerson,jdbcType=VARCHAR},
+		#{dispenseDate,jdbcType=DATE},
+		#{shareFlag,jdbcType=CHAR}, #{shareIds,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="deleteCustomerById" parameterType="java.lang.Long">
+		delete from customer
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteCustomerByCode" parameterType="java.lang.String">
+		delete from customer
+		where code = #{code,jdbcType=VARCHAR}
+	</delete>
+
+	<delete id="deleteCustomerByName" parameterType="java.lang.String">
+		delete from customer
+		where name = #{name,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="updateCustomer" parameterType="com.future.hist.crm.domain.Customer">
+		update customer
+		set code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		grade = #{grade,jdbcType=VARCHAR},
+		regionName = #{regionName,jdbcType=VARCHAR},
+		source = #{source,jdbcType=VARCHAR},
+		trade = #{trade,jdbcType=VARCHAR},
+		scale = #{scale,jdbcType=VARCHAR},
+		province = #{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		postCode = #{postCode,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		web = #{web,jdbcType=VARCHAR},
+		tel1 = #{tel1,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		tel2 = #{tel2,jdbcType=VARCHAR},
+		nextTouchDate = #{nextTouchDate,jdbcType=DATE},
+		quality = #{quality,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		dealin = #{dealin,jdbcType=VARCHAR},
+		kind = #{kind,jdbcType=VARCHAR},
+		artificialPerson = #{artificialPerson,jdbcType=VARCHAR},
+		registeMoney = #{registeMoney,jdbcType=VARCHAR},
+		bank = #{bank,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		taxCode = #{taxCode,jdbcType=VARCHAR},
+		creator = #{creator,jdbcType=VARCHAR},
+		createTime = #{createTime,jdbcType=VARCHAR},
+		updater = #{updater,jdbcType=VARCHAR},
+		updateTime = #{updateTime,jdbcType=VARCHAR},
+		ownerUser_id = #{user.id,jdbcType=INTEGER},
+		dispensePerson = #{dispensePerson,jdbcType=VARCHAR},
+		dispenseDate = #{dispenseDate,jdbcType=VARCHAR},
+		shareFlag = #{shareFlag,jdbcType=CHAR},
+		shareIds = #{shareIds,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getAllCustomer" resultType="com.future.hist.crm.domain.Customer">
+		select * from customer
+	</select>
+
+	<select id="getCustomerById" parameterType="java.lang.Long"
+		resultType="com.future.hist.crm.domain.Customer">
+		select
+		<include refid="Base_Column_List" />
+		from customer
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getCustomerByCode" parameterType="java.lang.String"
+		resultType="com.future.hist.crm.domain.Customer">
+		select
+		<include refid="Base_Column_List" />
+		from customer
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getCustomerByName" parameterType="java.lang.String"
+		resultType="com.future.hist.crm.domain.Customer">
+		select
+		<include refid="Base_Column_List" />
+		from customer
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getCustomerByGrade" parameterType="java.lang.String"
+		resultType="com.future.hist.crm.domain.Customer">
+		select
+		<include refid="Base_Column_List" />
+		from customer
+		where grade = #{grade,jdbcType=VARCHAR}
+	</select>
+	
 </mapper>

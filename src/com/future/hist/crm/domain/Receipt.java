@@ -1,5 +1,7 @@
 package com.future.hist.crm.domain;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 收款单
  * @author Administrator
@@ -9,6 +11,7 @@ public class Receipt {
 
 	private Long id;
 	private Customer customer;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	private double amountReceivable;    //应收金额
 	private String salesmen;            //业务人

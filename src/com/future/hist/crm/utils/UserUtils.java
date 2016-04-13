@@ -80,19 +80,19 @@ public class UserUtils {
 	 * @param name
 	 * @return 取不到返回null
 	 */
-	public static User getByLoginName(String name) {
+	public static User getByLoginName(String loginName) {
 
-		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_ACCOUNT_ + name);
+		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_ACCOUNT_ + loginName);
 
 		if (user == null) {
 			System.out.println("utils的getByLoginName函数开始执行。。。。。。。。。。。。。。。。。");
-			user = userMapper.getUserByName(name);
+			user = userMapper.getUserByName(loginName);
 
 			if (user == null) {
 				return null;
 			}
 
-			CacheUtils.put(USER_CACHE, USER_CACHE_ACCOUNT_ + user.getName(), user);
+			CacheUtils.put(USER_CACHE, USER_CACHE_ACCOUNT_ + user.getLoginName(), user);
 		}
 		return user;
 	}

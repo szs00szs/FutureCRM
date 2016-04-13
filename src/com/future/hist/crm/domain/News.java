@@ -5,12 +5,15 @@ package com.future.hist.crm.domain;
  */
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class News {
 
 	private Long id;              
 	private String title;       // 标题
 	private String content;     //内容
 	private User issuer;        //发布人
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date issur_date;    //发布日期
 	private String newsType;    //新闻类型
 	public Long getId() {

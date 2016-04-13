@@ -23,7 +23,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/addUser" , method = RequestMethod.POST)
-	public String addUser(User user){    
+	public String addUser(User user){
 		user.setPassword("f379eaf3c831b04de153469d1bec345e");   //给用户设置初始密码（666666）
 		userMapper.addUser(user);
 		return "redirect:/sysUser/user_list";

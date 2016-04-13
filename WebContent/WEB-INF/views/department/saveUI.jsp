@@ -12,14 +12,17 @@
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
-			var url = "${pageContext.request.contextPath }/sysDepartment/department_update";
+			var url = "${pageContext.request.contextPath }/sysDepartment/department_update/" + ${currentPage};
+				
 			//更改form的action  
 			$("#form").attr("action", url);
-			//触发submit事件，提交表单   
+			//触发submit事件，提交表单 
 			$("#form").submit();
 		});
 		$("#addInfo").click(function() {
+			alert(0);
 			var url = "${pageContext.request.contextPath }/sysDepartment/department_save";
+			alert(url)
 			//更改form的action  
 			$("#form").attr("action", url);
 			//触发submit事件，提交表单   

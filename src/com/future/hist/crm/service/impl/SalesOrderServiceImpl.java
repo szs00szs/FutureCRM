@@ -29,13 +29,11 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 		return salesOrderMapper.getOrdersCount();
 	}
 
-	@Override
 	public void addOrder(SalesOrder salesOrder) {
 		System.out.println("当前order：" + salesOrder);
 		salesOrderMapper.addOrder(salesOrder);
 	}
 
-	@Override
 	public void deleteOrderById(int id) {
 		salesOrderMapper.deleteOrderById(id);
 	}
