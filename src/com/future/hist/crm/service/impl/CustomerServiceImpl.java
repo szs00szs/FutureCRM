@@ -59,17 +59,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getCustomerByGrade(grade);
 	}
 
-	@Override
 	public List<Customer> getAllCustomerByasc() {
 		return customerMapper.getAllCustomerByasc();
 	}
 
-	@Override
 	public List<Customer> getAllCustomerBydesc() {
 		return customerMapper.getAllCustomerBydesc();
 	}
 
-	@Override
 	public long getCustomerCount() {
 		return customerMapper.getCustomerCount();
 	}
