@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -27,6 +28,7 @@ public class User {
 	private String password; // 密码
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
+	@Email
 	private String email; // 电子邮件
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date beginDate; // 起始有效期 yyyy-mm-dd

@@ -168,24 +168,24 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 
 		private static final long serialVersionUID = 1L;
 		private String id;
-		private String name;
+		private String loginName;
 
 		public Principal(User user) {
 
 			String s = user.getName();
-			this.name = user.getName();
+			this.loginName = user.getLoginName();
 		}
 
 		public String getId() {
 			return id;
 		}
 
-		public String getName() {
-			return name;
+		public String getLoginName() {
+			return loginName;
 		}
 
-		public void setName(String name) {
-			this.name = name;
+		public void setLoginName(String loginName) {
+			this.loginName = loginName;
 		}
 
 		public void setId(String id) {

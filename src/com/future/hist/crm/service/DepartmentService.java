@@ -19,4 +19,6 @@ public interface DepartmentService {
 	public Department getDepartmentById(Long department_id);
 
 	public int getTotalCount();
+
+	public List<Department> getAllDepartment();
 }

@@ -10,6 +10,7 @@ public class Customer {
 	private String code;           //客户编码
 	private String name;
 	private String grade;          //客户等级（下拉）
+	private Contacts contacts;     //联系人
 	private String regionName;     //区域名称
 	private String source;         //客户来源
 	private String trade;          //所属行业
@@ -51,6 +52,7 @@ public class Customer {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -75,6 +77,15 @@ public class Customer {
 	public String getRegionName() {
 		return regionName;
 	}
+	
+	public Contacts getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contacts contacts) {
+		this.contacts = contacts;
+	}
+
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
 	}

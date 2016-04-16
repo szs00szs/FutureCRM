@@ -59,7 +59,7 @@
 			<input type="button" value="修改" id="updateInfo" />
 		</c:if>
 		<c:if test="${department == null }">
-			<input type="submit" value="增加" id="addInfo" />
+			<input type="button" value="增加" id="addInfo" />
 		</c:if>
 	</form:form>
 </body>
