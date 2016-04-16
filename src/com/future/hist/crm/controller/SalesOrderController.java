@@ -1,8 +1,6 @@
 package com.future.hist.crm.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.future.hist.crm.domain.SalesOrder;
+import com.future.hist.crm.domain.User;
+import com.future.hist.crm.service.ContactService;
+import com.future.hist.crm.service.CustomerService;
 import com.future.hist.crm.service.SalesOrderService;
+import com.future.hist.crm.service.UserService;
 
 @Controller
 @RequestMapping("/sales")
@@ -22,49 +24,36 @@ public class SalesOrderController {
 	// 注入 SalesOrderService
 	@Autowired
 	private SalesOrderService salesOrderService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private ContactService contactService;
+	
+	@Autowired
+	private UserService userService;
 
 	// 添加订单页面
 	@RequestMapping("/addOrderUI")
 	public String addOrderUI() {
+		customerService.getAllCustomer();
+		
+		
 		return "salesOrder/addOrderUI";
 	}
 
 	// 添加订单
 	@RequestMapping("/addOrder")
-	public String addOrder(HttpServletRequest request) throws ParseException {
-		SalesOrder salesOrder = new SalesOrder();
-		salesOrder.setSaleNumber(request.getParameter("saleNumber"));
-		salesOrder.setContactPhone(request.getParameter("contactPhone"));
-		salesOrder.setDeliveryAddress(request.getParameter("deliveryAddress"));
-		salesOrder.setRemark(request.getParameter("remark"));
-		salesOrder.setGoods(request.getParameter("goods"));
-
-		// 解析日期字符串
-		String str = request.getParameter("createTime");
-		System.out.println(str);
-		if (str != null && str != "") {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-			Date date = format.parse(str);
-			salesOrder.setCreateTime(date);
-		}
+	public String addOrder(SalesOrder salesOrder) throws ParseException {
+		
+		System.out.println("待添加的："+salesOrder);
 		salesOrderService.addOrder(salesOrder);
-		System.out.println("执行添加");
+		System.out.println("执行添加....");
 		return "forward:queryOrders.action";
 	}
 
 	// 查询所有的销售订单
-	// @RequestMapping("/queryOrders")
-	// public ModelAndView queryOrders() {
-	// List<SalesOrder> ordersList =
-	// salesOrderService.findOrdersList(salesOrder.getSalesman().getId());
-	//
-	// ModelAndView modelAndView = new ModelAndView();
-	// modelAndView.addObject("ordersList", ordersList);
-	//
-	// modelAndView.setViewName("ordersList");
-	// return modelAndView;
-	//
-	// }
 	@RequestMapping("/queryOrders")
 	public ModelAndView queryOrders() {
 
@@ -92,14 +81,17 @@ public class SalesOrderController {
 	public String editOrderById(int id, HttpServletRequest request) {
 		System.out.println("修改:" + id);
 		SalesOrder salesOrder = salesOrderService.findOrderById(id);
+		System.out.println("待修改的："+salesOrder);
 		request.setAttribute("salesOrder", salesOrder);
 		return "salesOrder/editOrder";
 	}
 
 	// 修改订单
 	@RequestMapping("editOrder")
-	public String editOrder() {
-		
+	public String editOrder(SalesOrder salesOrder) {
+		System.out.println("修改后："+salesOrder);
+		System.out.println("修改的id="+salesOrder.getId());
+		System.out.println("执行修改");
 		return "forward:queryOrders.action";
 	}
 
