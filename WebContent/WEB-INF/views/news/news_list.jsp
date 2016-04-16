@@ -46,7 +46,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-						目前本公司没有部门
+						目前本公司没有新闻
 				</c:otherwise>
 			</c:choose>
 			

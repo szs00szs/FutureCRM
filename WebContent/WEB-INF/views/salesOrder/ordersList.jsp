@@ -30,7 +30,9 @@
 		<td>${order.deliveryAddress }</td>
 		<td>${order.remark }</td>
 		<td>${order.goods }</td>
-		<td><a href="${pageContext.request.contextPath }/sales/deleteOrderById.action?id=${order.id}">删除</a></td>		
+		<td><a href="${pageContext.request.contextPath }/sales/deleteOrderById.action?id=${order.id}">删除</a>
+			<a href="${pageContext.request.contextPath }/sales/editOrderById.action?id=${order.id}">修改</a>
+		</td>		
 	</tr>
 	
 	</c:forEach>

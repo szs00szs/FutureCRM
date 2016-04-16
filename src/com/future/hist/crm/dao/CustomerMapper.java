@@ -6,9 +6,10 @@ import com.future.hist.crm.domain.Customer;
 
 /**
  * @author 羊羊
- * @date 2016年4月11日
+ * @date 2016年4月9日
  */
 public interface CustomerMapper {
+
 	/**
 	 * 添加客户
 	 * 
@@ -51,6 +52,26 @@ public interface CustomerMapper {
 	List<Customer> getAllCustomer();
 	
 	/**
+	 * 得到升序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerByasc();
+	
+	/**
+	 * 得到降序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerBydesc();
+	
+	
+	
+	/**
+	 * 得到用户的数量
+	 * @return
+	 */
+	long getCustomerCount();
+	
+	/**
 	 * 通过ID得到客户
 	 * 
 	 * @param id
@@ -81,4 +102,6 @@ public interface CustomerMapper {
 	 * @return
 	 */
 	List<Customer> getCustomerByGrade(String grade);
+
+	
 }

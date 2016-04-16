@@ -56,8 +56,7 @@ public class CustomerServiceImplTest {
 		
 		customer.setName("客户1");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd:hh-mm-ss");
-		String nextTouchDate = sdf.format(new Date());
+		Date nextTouchDate = new Date();
 		customer.setNextTouchDate(nextTouchDate);
 		customer.setPostCode("postcode");
 		customer.setProvince("province");
@@ -95,13 +94,7 @@ public class CustomerServiceImplTest {
 	public void testDeleteCustomerByCode() {
 		customerService.deleteCustomerByCode("code");
 	}
-
-	/**
-	 * 
-	 */
-	/**
-	 * 
-	 */
+	
 	@Test
 	public void testDeleteCustomerByName() {
 		customerService.deleteCustomerByName("客户1");
@@ -121,6 +114,27 @@ public class CustomerServiceImplTest {
 		for(Customer customer : list){
 			System.out.println(customer);
 		}
+	}
+	
+	@Test
+	public void testGetAllCustomerByasc(){
+		List<Customer> list = customerService.getAllCustomerByasc();
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
+	
+	@Test
+	public void testGetAllCustomerBydesc(){
+		List<Customer> list = customerService.getAllCustomerBydesc();
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
+	
+	@Test
+	public void testGetCustomerCount(){
+		System.out.println(customerService.getCustomerCount());
 	}
 	
 	@Test
