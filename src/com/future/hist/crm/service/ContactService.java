@@ -34,7 +34,23 @@ public interface ContactService {
 	 */
 	void updateContact(Contacts contact);
 
+	/**
+	 * 得到全部联系人
+	 * @return
+	 */
 	List<Contacts> getAllContacts();
+	
+	/**
+	 * 根据姓名升序
+	 * @return
+	 */
+	List<Contacts> getAllContactsByNameasc();
+	
+	/**
+	 * 得到联系人的个数
+	 * @return
+	 */
+	long getContactsCount();
 	
 	/**
 	 * 通过ID 得到联系人

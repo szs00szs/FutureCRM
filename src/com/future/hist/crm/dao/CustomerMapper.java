@@ -2,13 +2,16 @@ package com.future.hist.crm.dao;
 
 import java.util.List;
 
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.User;
 
 /**
  * @author 羊羊
- * @date 2016年4月11日
+ * @date 2016年4月9日
  */
 public interface CustomerMapper {
+
 	/**
 	 * 添加客户
 	 * 
@@ -51,6 +54,26 @@ public interface CustomerMapper {
 	List<Customer> getAllCustomer();
 	
 	/**
+	 * 得到升序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerByasc();
+	
+	/**
+	 * 得到降序客户列表
+	 * @return
+	 */
+	List<Customer> getAllCustomerBydesc();
+	
+	
+	
+	/**
+	 * 得到用户的数量
+	 * @return
+	 */
+	long getCustomerCount();
+	
+	/**
 	 * 通过ID得到客户
 	 * 
 	 * @param id
@@ -81,4 +104,35 @@ public interface CustomerMapper {
 	 * @return
 	 */
 	List<Customer> getCustomerByGrade(String grade);
+	
+	/**
+	 * 通过来源得到客户
+	 * 
+	 * @param source
+	 * @return
+	 */
+	List<Customer> getCustomerBySource(String source);
+	
+	/**
+	 * 通过客户性质得到客户
+	 * @param quality
+	 * @return
+	 */
+	List<Customer> getCustomerByQuality(String quality);
+	
+	/**
+	 * 通过联系人得到客户
+	 * @param contacts
+	 * @return
+	 */
+	List<Customer> getCustomerByContacts(Contacts contacts);
+	
+	/**
+	 * 通过所属用户得到客户
+	 * @param user
+	 * @return
+	 */
+	List<Customer> getCustomerByUser(User user);
+
+	
 }

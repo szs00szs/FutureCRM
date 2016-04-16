@@ -26,6 +26,7 @@
 	</div>
 	<div>
 		<h2>客户相关版块</h2>
+		<a href="${pageContext.request.contextPath }/customer/customer_list">查看客户列表</a>
 	</div>
 	<div>
 		<h2>销售单审核版块</h2>

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.CustomerMapper;
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.CustomerService;
 
 /**
@@ -57,6 +59,38 @@ public class CustomerServiceImpl implements CustomerService {
 
 	public List<Customer> getCustomerByGrade(String grade) {
 		return customerMapper.getCustomerByGrade(grade);
+	}
+
+	public List<Customer> getAllCustomerByasc() {
+		return customerMapper.getAllCustomerByasc();
+	}
+
+	public List<Customer> getAllCustomerBydesc() {
+		return customerMapper.getAllCustomerBydesc();
+	}
+
+	public long getCustomerCount() {
+		return customerMapper.getCustomerCount();
+	}
+
+	@Override
+	public List<Customer> getCustomerBySource(String source) {
+		return customerMapper.getCustomerBySource(source);
+	}
+
+	@Override
+	public List<Customer> getCustomerByQuality(String quality) {
+		return customerMapper.getCustomerByQuality(quality);
+	}
+
+	@Override
+	public List<Customer> getCustomerByContacts(Contacts contacts) {
+		return customerMapper.getCustomerByContacts(contacts);
+	}
+
+	@Override
+	public List<Customer> getCustomerByUser(User user) {
+		return customerMapper.getCustomerByUser(user);
 	}
 
 }

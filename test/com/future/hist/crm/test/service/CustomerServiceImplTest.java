@@ -1,6 +1,5 @@
 package com.future.hist.crm.test.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +8,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
-import com.future.hist.crm.domain.User;
+import com.future.hist.crm.service.ContactService;
 import com.future.hist.crm.service.CustomerService;
 import com.future.hist.crm.service.UserService;
 
@@ -23,12 +23,14 @@ public class CustomerServiceImplTest {
 	ApplicationContext applicationContext;
 	CustomerService customerService;
 	UserService userService;
+	ContactService contactService;
 	
 	@Before
 	public void before() {
 		applicationContext = new ClassPathXmlApplicationContext("classpath:springbeans.xml");
 		customerService = applicationContext.getBean(CustomerService.class);
 		userService = applicationContext.getBean(UserService.class);
+		contactService = applicationContext.getBean(ContactService.class);
 	}
 	
 	@Test
@@ -56,8 +58,7 @@ public class CustomerServiceImplTest {
 		
 		customer.setName("客户1");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd:hh-mm-ss");
-		String nextTouchDate = sdf.format(new Date());
+		Date nextTouchDate = new Date();
 		customer.setNextTouchDate(nextTouchDate);
 		customer.setPostCode("postcode");
 		customer.setProvince("province");
@@ -77,6 +78,8 @@ public class CustomerServiceImplTest {
 		Date updateTime = new Date();
 		customer.setUpdateTime(updateTime);
 		
+		Contacts contacts = contactService.getContactById(9l);
+		customer.setContacts(contacts);
 		
 		customer.setWeb("web");
 		
@@ -95,13 +98,7 @@ public class CustomerServiceImplTest {
 	public void testDeleteCustomerByCode() {
 		customerService.deleteCustomerByCode("code");
 	}
-
-	/**
-	 * 
-	 */
-	/**
-	 * 
-	 */
+	
 	@Test
 	public void testDeleteCustomerByName() {
 		customerService.deleteCustomerByName("客户1");
@@ -121,6 +118,27 @@ public class CustomerServiceImplTest {
 		for(Customer customer : list){
 			System.out.println(customer);
 		}
+	}
+	
+	@Test
+	public void testGetAllCustomerByasc(){
+		List<Customer> list = customerService.getAllCustomerByasc();
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
+	
+	@Test
+	public void testGetAllCustomerBydesc(){
+		List<Customer> list = customerService.getAllCustomerBydesc();
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
+	
+	@Test
+	public void testGetCustomerCount(){
+		System.out.println(customerService.getCustomerCount());
 	}
 	
 	@Test
@@ -145,5 +163,34 @@ public class CustomerServiceImplTest {
 			System.out.println(customer);
 		}
 	}
+	
+	@Test
+	public void testGetCutomerBySource(){
+		List<Customer> list = customerService.getCustomerBySource("source");
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getSource());
+		}
+	}
+	
+	@Test
+	public void testGetCutomerByQuality(){
+		List<Customer> list = customerService.getCustomerByQuality("quality1");
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getQuality());
+		}
+	}
+	
+	/**
+	 * 不通过。userService方法不对
+	 * @Test
+	public void testGetCutomerByUser(){
+		List<Customer> list = customerService.getCustomerByUser(userService.getUserById(user_id)));
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getQuality());
+		}
+	}*/
 
 }

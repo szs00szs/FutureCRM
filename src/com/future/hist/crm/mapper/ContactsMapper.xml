@@ -2,23 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.ContactsMapper">
-    <resultMap id="BaseResultMap" type="com.future.hist.crm.domain.Contacts">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="departmentDuties" jdbcType="VARCHAR" property="departmentDuties" />
-    <result column="officeTelephone" jdbcType="VARCHAR" property="officeTelephone" />
-    <result column="homePhone" jdbcType="VARCHAR" property="homePhone" />
-    <result column="mobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="postCode" jdbcType="VARCHAR" property="postCode" />
-    <result column="QQNumber" jdbcType="VARCHAR" property="QQnumber" />
-    <result column="contactAddress" jdbcType="VARCHAR" property="contactAddress" />
-    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
-    <result column="taboo" jdbcType="VARCHAR" property="taboo" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
   <sql id="Base_Column_List">
     id, name, sex, birthday, departmentDuties, officeTelephone, homePhone, mobilePhone, 
     email, postCode, QQNumber, contactAddress, hobby, taboo, remark
@@ -31,66 +14,74 @@
       postCode, QQNumber, contactAddress, 
       hobby, taboo, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=DATE}, #{departmentDuties,jdbcType=VARCHAR}, #{officeTelephone,jdbcType=VARCHAR}, 
-      #{homePhone,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{postCode,jdbcType=VARCHAR}, #{QQNumber,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR}, 
-      #{hobby,jdbcType=VARCHAR}, #{taboo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+    values (#{id}, #{name}, #{sex}, 
+      #{birthday}, #{departmentDuties}, #{officeTelephone}, 
+      #{homePhone}, #{mobilePhone}, #{email}, 
+      #{postCode}, #{QQNumber}, #{contactAddress}, 
+      #{hobby}, #{taboo}, #{remark}
       )
   </insert>
   
   <delete id="deleteContactById" parameterType="java.lang.Long">
   	delete from contacts
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
   
   <delete id="deleteContactByName" parameterType="java.lang.String">
   	delete from contacts
-  	where name = #{name,jdbcType=VARCHAR}
+  	where name = #{name}
   </delete>
   
   <update id="updateContact" parameterType="com.future.hist.crm.domain.Contacts">
   	 update contacts
-    set name = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      departmentDuties = #{departmentDuties,jdbcType=VARCHAR},
-      officeTelephone = #{officeTelephone,jdbcType=VARCHAR},
-      homePhone = #{homePhone,jdbcType=VARCHAR},
-      mobilePhone = #{mobilePhone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      postCode = #{postCode,jdbcType=VARCHAR},
-      QQNumber = #{QQNumber,jdbcType=VARCHAR},
-      contactAddress = #{contactAddress,jdbcType=VARCHAR},
-      hobby = #{hobby,jdbcType=VARCHAR},
-      taboo = #{taboo,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set name = #{name},
+      sex = #{sex},
+      birthday = #{birthday},
+      departmentDuties = #{departmentDuties},
+      officeTelephone = #{officeTelephone},
+      homePhone = #{homePhone},
+      mobilePhone = #{mobilePhone},
+      email = #{email},
+      postCode = #{postCode},
+      QQNumber = #{QQNumber},
+      contactAddress = #{contactAddress},
+      hobby = #{hobby},
+      taboo = #{taboo},
+      remark = #{remark}
+    where id = #{id}
   </update>
   
   <select id="getAllContacts" resultType="com.future.hist.crm.domain.Contacts">
   	select * from contacts
   </select>
   
+  <select id="getAllContactsByNameasc" resultType="com.future.hist.crm.domain.Contacts">
+  	select * from contacts order by convert(name using gbk)
+  </select>
+  
+  <select id="getContactsCount" resultType="java.lang.Long">
+  	select count(1) from contacts
+  </select>
+  
   <select id="getContactById" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Contacts">
   	select 
     <include refid="Base_Column_List" />
     from contacts
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
   
   <select id="getContactByName" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.Contacts">
   	select 
     <include refid="Base_Column_List" />
     from contacts
-    where name = #{name,jdbcType=VARCHAR}
+    where name = #{name}
   </select>
   
   <select id="getContactByDepartmentDuties" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.Contacts">
   	select 
     <include refid="Base_Column_List" />
     from contacts
-    where departmentDuties = #{departmentDuties,jdbcType=VARCHAR}
+    where departmentDuties = #{departmentDuties}
   </select>
   
   
@@ -98,6 +89,6 @@
   	select 
     <include refid="Base_Column_List" />
     from contacts
-    where QQNumber = #{QQNumber,jdbcType=VARCHAR}
+    where QQNumber = #{QQNumber}
   </select>
 </mapper>

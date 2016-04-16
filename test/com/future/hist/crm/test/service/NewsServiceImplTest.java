@@ -1,6 +1,5 @@
 package com.future.hist.crm.test.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.future.hist.crm.domain.News;
-import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.NewsService;
 import com.future.hist.crm.service.UserService;
 

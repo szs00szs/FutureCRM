@@ -19,4 +19,6 @@ public interface DepartmentMapper {
 
 	int getTotalCount();
 
+	List<Department> getAllDepartment();
+
 }

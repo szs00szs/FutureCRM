@@ -1,13 +1,13 @@
 package com.future.hist.crm.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.UserMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.UserService;
 
@@ -26,16 +26,19 @@ public class UserServiceImpl implements UserService{
 		userMapper.update(user);
 	}
 
-	public void deleteUserById(String user_id) {
-		userMapper.deleteById(user_id);
+	public User getUserById(Long id) {
+		return userMapper.getUserById(id);
 	}
-	
-	public List<User> getAllUser(Map<String, Object> map) {
-	return	userMapper.getAllUserByPage(map);
 
+	public int getTotalCount() {
+		return userMapper.getTotalCount();
 	}
-	
-	public User getUserById(String user_id) {
-		return userMapper.getById(user_id);
+
+	public void deleteUserById(Long id) {
+		userMapper.deleteById(id);
+	}
+
+	public List<User> getAllUserByPage(BaseSearch baseSearch) {
+		return userMapper.getAllUserByPage(baseSearch);
 	}
 }

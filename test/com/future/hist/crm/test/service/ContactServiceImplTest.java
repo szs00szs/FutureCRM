@@ -31,21 +31,20 @@ public class ContactServiceImplTest {
 	public void testAddContact() {
 		Contacts contact = new Contacts();
 		
-		contact.setBirthday(new Date());
 		contact.setContactAddress("联系地址1");
-		contact.setDepartmentDuties("公司植物2");
+		contact.setDepartmentDuties("公司职务2");
 		contact.setEmail("emails1");
 		contact.setHobby("hobby1");
-		contact.setHomePhone("homePhone1");
-		contact.setMobilePhone("mobilePhone1");
+		contact.setHomePhone("12345");
+		contact.setMobilePhone("12345678");
 		contact.setName("联系人3");
-		contact.setOfficeTelephone("officeTelephone1");
-		contact.setPostCode("postCode1");
-		contact.setQQNumber("QQ2");
-		contact.setRemark("remark1");
+		contact.setOfficeTelephone("1234568");
+		contact.setPostCode("123456");
+		contact.setQQNumber("987654");
+		contact.setRemark("qwertyu");
 		contact.setSex("男");
 		contact.setBirthday(new Date());
-		contact.setTaboo("taboo1");
+		contact.setTaboo("1234567ygfdcvbhytrfb");
 		
 		contactService.addContact(contact);
 	}
@@ -70,6 +69,14 @@ public class ContactServiceImplTest {
 	@Test
 	public void testGetAllContacts(){
 		List<Contacts> list = contactService.getAllContacts();
+		for(Contacts contact : list){
+			System.out.println(contact);
+		}
+	}
+	
+	@Test
+	public void testGetALlContactsByNameasc(){
+		List<Contacts> list = contactService.getAllContactsByNameasc();
 		for(Contacts contact : list){
 			System.out.println(contact);
 		}
