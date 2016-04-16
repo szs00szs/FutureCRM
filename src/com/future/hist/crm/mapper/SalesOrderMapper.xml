@@ -3,64 +3,45 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.SalesOrderMapper">
 
-<!-- 	<resultMap type="com.future.hist.crm.domain.SalesOrder" id="salesOrderMap">
+	<resultMap type="com.future.hist.crm.domain.SalesOrder" id="salesOrderMap">
 		<id column="id" property="id" />
 		<result column="saleNumber" property="saleNumber" />
 		<result column="createTime" property="createTime" />
-		<result column="salesman_id" property="salesman" />
-		<result column="customer_id" property="customer" />
-		<result column="contacts_id" property="contacts" />
 		<result column="deliveryAddress" property="deliveryAddress" />
+		<result column="contactPhone"  property="contactPhone" />
 		<result column="remark" property="remark" />
 		<result column="goods" property="goods" />
 
-		关联信息的映射
-		<association property="salesman" javaType="com.future.hist.crm.domain.User">
-			<id column="salesman_id" property="id" />
-			<result column="name" property="name" />
-		</association>
-		<association property="customer"
-			javaType="com.future.hist.crm.domain.Customer">
-			<id column="customer_id" property="id" />
-			<result column="name" property="name" />
-
-		</association>
-		<association property="contacts"
-			javaType="com.future.hist.crm.domain.Contacts">
-			<id column="contacts_id" property="id" />
-			<result column="name" property="name" />
-		</association>
+		<!-- 关联信息的映射 -->
+		<association property="salesman" column="salesman_id" select="getSalesman" />
+		<association property="customer" column="customer_id" select="getCustomer"/>
+		<association property="contacts" column="contacts_id" select="getContacts"/>
 	</resultMap>
- -->
+	
+	<select id="getSalesman" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.User">
+		select * from sysuser where id = #{id}
+	</select>
+	
+	<select id="getCustomer" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Customer">
+		select * from customer where id = #{id}
+	</select>
+	
+	<select id="getContacts" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Contacts">
+		select * from contacts  where id = #{id}
+	</select>
+	
+	
 
 
 	<!-- 查询所有销售记录 -->
-	<select id="findOrdersList" resultType="com.future.hist.crm.domain.SalesOrder">
-		<!-- SELECT
-		saleorder.id,
-		saleorder.saleNumber,
-		saleorder.createTime,
-		FROM
-		saleorder
-		INNER JOIN sysuser ON saleorder.salesman_id= sysuser.id
-		INNER JOIN customer ON saleorder.customer_id = customer.id
-		INNER JOIN contacts ON saleorder.contacts_id = contacts.id -->
-		SELECT
-		saleorder.id,
-		saleorder.saleNumber,
-		saleorder.createTime,
-		saleorder.contactPhone,
-		saleorder.deliveryAddress,
-		saleorder.remark,
-		saleorder.goods
-		FROM
-		saleorder
+	<select id="findOrdersList" resultMap="salesOrderMap">
+		SELECT * FROM saleorder
 	</select>
 
-	<select id="findOrderById" parameterType="int" resultType="com.future.hist.crm.domain.SalesOrder">
+	<select id="findOrderById" parameterType="int" resultMap="salesOrderMap">
 		SELECT * FROM saleorder s WHERE s.id=#{id}
 	</select>
-
+	
 
 	<!-- 取得记录的总数 -->
 	<select id="getOrdersCount" resultType="Integer">
@@ -70,8 +51,9 @@
 	
 	<!-- 添加新订单 -->
 	<insert id="addOrder" parameterType="com.future.hist.crm.domain.SalesOrder">
-		INSERT INTO saleorder(saleNumber,createTime,contactPhone,deliveryAddress,remark,goods)
-		VALUES(#{saleNumber},#{createTime},#{contactPhone},#{deliveryAddress},#{remark},#{goods})
+	INSERT INTO
+	saleorder(saleNumber,createTime,contactPhone,deliveryAddress,remark,goods,salesman_id,customer_id,contacts_id)
+	VALUES(#{saleNumber},#{createTime},#{contactPhone},#{deliveryAddress},#{remark},#{goods},#{salesman.id},#{customer.id},#{contacts.id})
 	</insert>
 	
 	
