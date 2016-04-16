@@ -5,9 +5,12 @@
 
 	<select id="getAllDepartmentByPage" parameterType="BaseSearch" resultType="Department">
 		<!-- select *from department d where d.id is not null -->
-		<![CDATA[ 
+		<!-- <![CDATA[  -->
 			select * from department d where d.id is not null
-		]]>
+		<!-- ]]> -->
+	</select>
+	<select id="getAllDepartment" resultType="Department">
+			select * from department d where d.id is not null
 	</select>
 	
 	<select id="getById" resultType="Department" parameterType="Long">

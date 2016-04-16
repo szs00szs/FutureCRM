@@ -185,7 +185,7 @@ public class UserUtils {
 	public static User getUser() {
 		Principal principal = getPrincipal();
 		if (principal != null) {
-			User user = get(principal.getName());
+			User user = get(principal.getLoginName());
 			if (user != null) {
 				return user;
 			}

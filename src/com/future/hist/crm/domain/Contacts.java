@@ -3,7 +3,11 @@ package com.future.hist.crm.domain;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+/**
+ * 联系人
+ * @author Administrator
+ *
+ */
 public class Contacts {
 
 	private Long id;

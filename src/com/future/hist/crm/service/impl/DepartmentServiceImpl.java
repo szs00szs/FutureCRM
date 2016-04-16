@@ -45,4 +45,8 @@ public class DepartmentServiceImpl implements DepartmentService{
 	public int getTotalCount() {
 		return departmentMapper.getTotalCount();
 	}
+
+	public List<Department> getAllDepartment() {
+		return departmentMapper.getAllDepartment();
+	}
 }
