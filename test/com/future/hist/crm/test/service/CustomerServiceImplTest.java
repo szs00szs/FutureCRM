@@ -85,8 +85,6 @@ public class CustomerServiceImplTest {
 		
 		customerService.addCustomer(customer);
 		
-		
-		
 	}
 
 	@Test
@@ -150,10 +148,26 @@ public class CustomerServiceImplTest {
 	public void testGetCustomerByCode() {
 		System.out.println(customerService.getCustomerByCode("code1"));
 	}
+	
+	@Test
+	public void testGetCustomerByCodeLike_(){
+		List<Customer> list = customerService.getCustomerByCodeLike_("1");
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
 
 	@Test
 	public void testGetCustomerByName() {
 		System.out.println(customerService.getCustomerByName("客户2"));
+	}
+	
+	@Test
+	public void testGetCustomerByNameLike_(){
+		List<Customer> list = customerService.getCustomerByNameLike_("影视");
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
 	}
 
 	@Test
@@ -181,6 +195,7 @@ public class CustomerServiceImplTest {
 			System.out.println(customer.getQuality());
 		}
 	}
+	
 	
 	/**
 	 * 不通过。userService方法不对

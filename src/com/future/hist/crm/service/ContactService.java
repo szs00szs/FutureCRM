@@ -69,6 +69,13 @@ public interface ContactService {
 	Contacts getContactByName(String name);
 
 	/**
+	 * 通过Name模糊查询得到联系人
+	 * @param name
+	 * @return
+	 */
+	List<Contacts> getContactsByNameLike_(String name);
+	
+	/**
 	 * 通过departmentDuties得到联系人
 	 * 
 	 * @param departmentDuties

@@ -77,6 +77,19 @@
     where name = #{name}
   </select>
   
+  <select id="getContactsByNameLike_" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.Contacts">
+  	select 
+    <include refid="Base_Column_List" />
+    from contacts
+    	<where> 
+		    <if test="#{_parameter} != null">
+		         name LIKE CONCAT('%', #{name}, '%')
+		    </if> 
+		</where>	
+  </select>
+  
+  
+  
   <select id="getContactByDepartmentDuties" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.Contacts">
   	select 
     <include refid="Base_Column_List" />

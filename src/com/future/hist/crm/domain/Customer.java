@@ -84,11 +84,11 @@ public class Customer {
 	public Contacts getContacts() {
 		return contacts;
 	}
-
+	
 	public void setContacts(Contacts contacts) {
 		this.contacts = contacts;
 	}
-
+	
 	public String getRegionName() {
 		return regionName;
 	}

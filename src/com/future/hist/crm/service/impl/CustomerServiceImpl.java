@@ -53,8 +53,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getCustomerByCode(code);
 	}
 
+	public List<Customer> getCustomerByCodeLike_(String code){
+		return customerMapper.getCustomerByCodeLike_(code);
+	}
+	
 	public Customer getCustomerByName(String name) {
 		return customerMapper.getCustomerByName(name);
+	}
+	
+	public List<Customer> getCustomerByNameLike_(String name){
+		return customerMapper.getCustomerByNameLike_(name);
 	}
 
 	public List<Customer> getCustomerByGrade(String grade) {
@@ -91,6 +99,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<Customer> getCustomerByUser(User user) {
 		return customerMapper.getCustomerByUser(user);
+	}
+	
+	public List<Customer> getCustomerByKind(String kind){
+		return customerMapper.getCustomerByKind(kind);
 	}
 
 }

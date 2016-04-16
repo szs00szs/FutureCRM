@@ -75,6 +75,13 @@ public interface NewsService {
 	 * @return
 	 */
 	News getNewsByTitle(String title);
+	
+	/**
+	 * 通过标题模糊查找得到新闻
+	 * @param title
+	 * @return
+	 */
+	List<News>getNewsByTitleLike_(String title);
 
 	/**
 	 * 通过发布人得到新闻
@@ -83,7 +90,7 @@ public interface NewsService {
 	 * @return
 	 */
 	List<News> getNewsByIssuer(User issuer);
-
+	
 	/**
 	 * 通过新闻类型得到新闻
 	 * 

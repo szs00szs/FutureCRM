@@ -32,7 +32,7 @@ public interface CustomerService {
 	 * @param code
 	 */
 	void deleteCustomerByCode(String code);
-
+	
 	/**
 	 * 通过Name删除客户
 	 * 
@@ -88,6 +88,13 @@ public interface CustomerService {
 	 * @return
 	 */
 	Customer getCustomerByCode(String code);
+	
+	/**
+	 * 通过code模糊查找客户
+	 * @param code
+	 * @return
+	 */
+	List<Customer> getCustomerByCodeLike_(String code);
 
 	/**
 	 * 通过Name得到客户
@@ -96,6 +103,13 @@ public interface CustomerService {
 	 * @return
 	 */
 	Customer getCustomerByName(String name);
+	
+	/**
+	 * 通过name模糊查询得到客户
+	 * @param name
+	 * @return
+	 */
+	List<Customer> getCustomerByNameLike_(String name);
 
 	/**
 	 * 通过grade得到客户
@@ -133,5 +147,12 @@ public interface CustomerService {
 	 * @return
 	 */
 	List<Customer> getCustomerByUser(User user);
+	
+	/**
+	 * 通过客户性质得到客户
+	 * @param kind
+	 * @return
+	 */
+	List<Customer> getCustomerByKind(String kind);
 
 }

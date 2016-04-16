@@ -12,34 +12,24 @@
 </head>
 <body>
 <div>
-	<form:form id="searchForm" action="${ctx }/news/#" method="post">
-		<%-- <input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo }">
-		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize }"> --%>
-		<ul>
-			<li>
-				<label>标题</label>
-				<input type="text">
-				<%-- <form:input path="title" htmlEscape="false" maxlength="200"/> --%>
-			</li>
-			<li>
-				<label>类型</label>
-				<select name="selects">
-					<option label="-- --">
-					<option  label="类型1"/>
-					<option  label="类型2">
-					
-				</select>
-				<%-- <form:select path="type" >
-					<form:option value="" label=""/>
-					<form:options items="" itemLabel="label" itemValue="value" htmlEscape="false"/>
-				</form:select> --%>
-			</li>
-			<li>
-				<input type="button" value="查询">
-			</li>
-		</ul>
-		<a href="${pageContext.request.contextPath}/news/news_saveUI.action">添加新闻</a>
-	</form:form>
+	<form action="${pageContext.request.contextPath}/news/query" method="post">
+		<table>
+			<tr>
+				<td>请输入查询内容：<input type="text" name="selectContent" /></td>
+				<td>
+					请选择查询方式：
+					<select name="selectType">
+						<option value="title">标题</option>
+						<option value="user_name">发布人</option>
+					</select>
+				</td>
+				<td><input type="submit" value="查询"  /></td>
+				<td>
+					<a href="${pageContext.request.contextPath}/news/news_saveUI.action">添加新闻</a>
+				</td>
+			</tr>
+		</table>			
+	</form>
 </div>
 <div>
 	<table border="1" cellspacing="0" style=" font-size: 12px;">

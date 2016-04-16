@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,19 +13,21 @@
 	<div align="center">
 		<table>
 			<tr>
-				<td>请输入查询内容：<input type="text" name="selectType" /></td>
+			<form action="${pageContext.request.contextPath}/customer/query" method="post">
+				<td>请输入查询内容：<input type="text" name="selectContent" /></td>
 				<td>
 					请选择查询方式：
-					<select>
-						<option value="1">客户姓名</option>
-						<option value="2">客户编号</option>
-						<option value="3">客户来源</option>
-						<option value="4">客户性质</option>
-						<option value="5">联系人</option>
-						<option value="6">所属用户</option>
+					<select name="selectType">
+						<option value="name">客户姓名</option>
+						<option value="code">客户编号</option>
+						<option value="source">客户来源</option>
+						<option value="kind">客户性质</option>
+						<option value="contacts_name">联系人</option>
+						<option value="user_name">所属用户</option>
 					</select>
 				</td>
 				<td><input type="submit" value="查询"  /></td>
+			</form>
 				<td>
 					<a href="${pageContext.request.contextPath}/customer/customer_saveUI.action">添加客户</a>
 				</td>
@@ -39,6 +42,7 @@
 			<tr class="active">
 				
 				<th>公司名</th>
+				<th>公司编号</th>
 				<th>客户等级</th>
 				<th>联系人</th>
 				<th>联系人职位</th>
@@ -58,6 +62,7 @@
 						varStatus="status">
 						<tr>
 							<td>${customer.name}</td>
+							<td>${customer.code }</td>
 							<td>${customer.grade }</td>
 							<td>${customer.contacts.getName() }</td>
 							<td>${customer.contacts.getDepartmentDuties() }</td>
@@ -88,6 +93,5 @@
 		</tbody>
 	</table>
 	</div>
-	
 </body>
 </html>

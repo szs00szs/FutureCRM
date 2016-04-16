@@ -87,6 +87,16 @@
 		where title = #{title}
 	</select>
 	
+	<select id="getNewsByTitleLike_" parameterType="java.lang.String"  resultMap="resultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		<where> 
+		    <if test="#{_parameter} != null">
+		         title like CONCAT('%', #{title}, '%')
+		    </if> 
+		</where>
+	</select>
 	
 	<select id="getNewsByIssuer" parameterType="user" resultMap="resultMap">
 		select

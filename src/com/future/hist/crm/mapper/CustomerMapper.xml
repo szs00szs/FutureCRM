@@ -55,7 +55,7 @@
 		set code = #{code},
 		name = #{name},
 		grade = #{grade},
-		contacts_id = #{contacts_id},
+		contacts_id = #{contacts.id},
 		regionName = #{regionName},
 		source = #{source},
 		trade = #{trade},
@@ -118,11 +118,31 @@
 		select * from customer
 		where code = #{code}
 	</select>
+	
+	<select id="getCustomerByCodeLike_" parameterType="java.lang.String" 
+		resultMap="resultMap">
+		select * from customer
+		  <where> 
+		    <if test="#{_parameter} != null">
+		         code like CONCAT('%', #{code}, '%')
+		    </if> 
+		  </where>
+	</select>
 
 	<select id="getCustomerByName" parameterType="java.lang.String"
 		resultMap="resultMap">
 		select * from customer
 		where name = #{name}
+	</select>
+	
+	<select id="getCustomerByNameLike_" parameterType="java.lang.String" 
+		resultMap="resultMap">
+		select * from customer
+		  <where> 
+		    <if test="#{_parameter} != null">
+		         name LIKE CONCAT('%', #{name}, '%')
+		    </if> 
+		  </where>	
 	</select>
 
 	<select id="getCustomerByGrade" parameterType="java.lang.String"
@@ -146,13 +166,19 @@
 	<select id="getCustomerByContacts" parameterType="Contacts" 
 		resultMap="resultMap">
 		select * from customer
-		where contacts_id = #{contacts.id}	
+		where contacts_id = #{id}	
 	</select>
 	
 	<select id="getCustomerByUser" parameterType="com.future.hist.crm.domain.User"
 		resultMap="resultMap">
 		select * from customer
-		where ownerUser_id = #{user.id}	
+		where ownerUser_id = #{id}	
+	</select>
+	
+	<select id="getCustomerByKind" parameterType="java.lang.String" 
+		resultMap="resultMap">
+		select * from customer
+		where kind = #{kind}	
 	</select>
 	<resultMap type="com.future.hist.crm.domain.Customer" id="resultMap">
 		<id column="id" property="id" />

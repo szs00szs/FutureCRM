@@ -78,6 +78,10 @@ public class ContactServiceImpl implements ContactService {
 	public Contacts getContactByName(String name) {
 		return contactMapper.getContactByName(name);
 	}
+	
+	public List<Contacts> getContactsByNameLike_(String name){
+		return contactMapper.getContactsByNameLike_(name);
+	}
 
 	/**
 	 * 通过departmentDuties得到联系人
