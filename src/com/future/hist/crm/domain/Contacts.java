@@ -8,6 +8,7 @@ public class Contacts {
 
 	private Long id;
 	private String name;
+	private Customer customer;
 	private String sex;
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date birthday;
@@ -33,6 +34,12 @@ public class Contacts {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Customer getCustomer(){
+		return customer;
+	}
+	public void setCustomer(Customer customer){
+		this.customer = customer;
 	}
 	public String getSex() {
 		return sex;
@@ -114,7 +121,7 @@ public class Contacts {
 	}
 	@Override
 	public String toString() {
-		return "Contacts [id=" + id + ", name=" + name + ", sex=" + sex + ", birthday=" + birthday
+		return "Contacts [id=" + id + ", name=" + name + ",customer="+customer + ", sex=" + sex + ", birthday=" + birthday
 				+ ", departmentDuties=" + departmentDuties + ", officeTelephone=" + officeTelephone + ", homePhone="
 				+ homePhone + ", mobilePhone=" + mobilePhone + ", email=" + email + ", postCode=" + postCode
 				+ ", QQNumber=" + QQNumber + ", contactAddress=" + contactAddress + ", hobby=" + hobby + ", taboo="

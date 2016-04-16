@@ -2,7 +2,9 @@ package com.future.hist.crm.dao;
 
 import java.util.List;
 
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.User;
 
 /**
  * @author 羊羊
@@ -102,6 +104,35 @@ public interface CustomerMapper {
 	 * @return
 	 */
 	List<Customer> getCustomerByGrade(String grade);
+	
+	/**
+	 * 通过来源得到客户
+	 * 
+	 * @param source
+	 * @return
+	 */
+	List<Customer> getCustomerBySource(String source);
+	
+	/**
+	 * 通过客户性质得到客户
+	 * @param quality
+	 * @return
+	 */
+	List<Customer> getCustomerByQuality(String quality);
+	
+	/**
+	 * 通过联系人得到客户
+	 * @param contacts
+	 * @return
+	 */
+	List<Customer> getCustomerByContacts(Contacts contacts);
+	
+	/**
+	 * 通过所属用户得到客户
+	 * @param user
+	 * @return
+	 */
+	List<Customer> getCustomerByUser(User user);
 
 	
 }

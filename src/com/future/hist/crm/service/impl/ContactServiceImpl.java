@@ -99,4 +99,14 @@ public class ContactServiceImpl implements ContactService {
 		return contactMapper.getContactByQQ(QQNumber);
 	}
 
+	@Override
+	public List<Contacts> getAllContactsByNameasc() {
+		return contactMapper.getAllContactsByNameasc();
+	}
+
+	@Override
+	public long getContactsCount() {
+		return contactMapper.getContactsCount();
+	}
+
 }

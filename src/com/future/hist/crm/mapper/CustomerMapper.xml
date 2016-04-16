@@ -3,7 +3,7 @@
 <mapper namespace="com.future.hist.crm.dao.CustomerMapper">
 	<insert id="addCustomer" parameterType="com.future.hist.crm.domain.Customer">
 		insert into customer (id, code, name,
-		grade, regionName, source,
+		grade, contacts_id, regionName,  source,
 		trade, scale, province,
 		city, postCode, address,
 		email, web, tel1, mobile,
@@ -16,8 +16,8 @@
 		shareFlag, shareIds)
 		values (#{id}, #{code},
 		#{name},
-		#{grade}, #{regionName}, #{source},
-		#{trade}, #{scale},
+		#{grade},#{contacts.id}, #{regionName}, #{source},
+		#{trade},  #{scale},
 		#{province},
 		#{city}, #{postCode}, #{address},
 		#{email}, #{web},
@@ -55,6 +55,7 @@
 		set code = #{code},
 		name = #{name},
 		grade = #{grade},
+		contacts_id = #{contacts_id},
 		regionName = #{regionName},
 		source = #{source},
 		trade = #{trade},
@@ -130,6 +131,29 @@
 		where grade = #{grade}
 	</select>
 	
+	<select id="getCustomerBySource" parameterType="java.lang.String" 
+		resultMap="resultMap">
+		select * from customer
+		where source = #{source}
+	</select>
+	
+	<select id="getCustomerByQuality" parameterType="java.lang.String"
+		resultMap="resultMap">
+		select * from customer
+		where quality = #{quality}	
+	</select>
+	
+	<select id="getCustomerByContacts" parameterType="Contacts" 
+		resultMap="resultMap">
+		select * from customer
+		where contacts_id = #{contacts.id}	
+	</select>
+	
+	<select id="getCustomerByUser" parameterType="com.future.hist.crm.domain.User"
+		resultMap="resultMap">
+		select * from customer
+		where ownerUser_id = #{user.id}	
+	</select>
 	<resultMap type="com.future.hist.crm.domain.Customer" id="resultMap">
 		<id column="id" property="id" />
 		<result column="code"  property="code" />
@@ -167,8 +191,13 @@
 		<result column="dispenseDate" property="dispenseDate" />
 		<result column="shareFlag" property="shareFlag" />
 		<result column="shareIds" property="shareIds" />
+		<association property="contacts" column="contacts_id" select="getContacts"/>
 		<association property="user" column="ownerUser_id" select="getUser" />
 	</resultMap>
+	
+	<select id="getContacts" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Contacts">
+		select * from contacts where id = #{id}
+	</select>
 	
 	<select id="getUser" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.User">
 		select * from sysuser where id = #{id}
