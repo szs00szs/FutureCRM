@@ -102,6 +102,9 @@
 		FROM sysuser
 	</select>
 
+	<select id="getAllUser" resultType="User">
+			select * from sysUser user where user.id is not null
+	</select>
 	<sql id="baseClass">
 		id, creator, createTime, updater, updateTime, remark, name, password,
 		address, telephone,

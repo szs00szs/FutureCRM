@@ -24,5 +24,7 @@ public interface UserMapper {
 	User getUserById(Long id);
 
 	List<User> getAllUserByPage(BaseSearch baseSearch);
+	
+	List<User> getAllUser();
 
 }

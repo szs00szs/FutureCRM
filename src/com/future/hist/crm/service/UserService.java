@@ -23,4 +23,6 @@ public interface UserService {
 	public int getTotalCount();
 
 	public List<User> getAllUserByPage(BaseSearch baseSearch);
+	
+	public List<User> getAllUser();
 }
