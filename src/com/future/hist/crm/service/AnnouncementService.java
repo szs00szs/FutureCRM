@@ -1,4 +1,4 @@
-package com.future.hist.crm.dao;
+package com.future.hist.crm.service;
 
 import java.util.List;
 
@@ -10,8 +10,7 @@ import com.future.hist.crm.domain.User;
  * @author 羊羊
  * @date 2016年4月9日
  */
-public interface AnnouncementMapper {
-	
+public interface AnnouncementService {
 	/**
 	 * 添加公告
 	 * 
@@ -46,13 +45,13 @@ public interface AnnouncementMapper {
 	 * @param announcement
 	 */
 	void updateAnnouncement(Announcement announcement);
-	
+
 	/**
 	 * 得到全部的公告
 	 * @return
 	 */
 	List<Announcement> getAllAnnouncement();
-
+	
 	/**
 	 * 通过ID得到公告
 	 * 

@@ -23,6 +23,7 @@
 	</div>
 	<div>
 		<h2>公告版块</h2>
+		<a href="announcement/announcement_list">查看全部</a>
 	</div>
 	<div>
 		<h2>客户相关版块</h2>

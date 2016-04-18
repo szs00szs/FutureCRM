@@ -49,6 +49,16 @@
 					<td><input type="text" name="title" value="${news.title}" /></td>
 					<td><input type="text" name="content" value="${news.content}" /></td>
 					<td>
+						<%-- <select name="issuer.id" >
+							<c:forEach items="userList" var="issuer">
+								<c:if test="${issuer.id == news.getIssuer.id }">
+									<option value="issuer.id" selected="selected">${issuer.name }</option>
+								</c:if>
+								<c:if test="${issuer.id !=news.getIssuer.id }">
+									<option value="issuer.id">${issuer.name }</option>
+								</c:if>
+							</c:forEach>
+						</select> --%>
 						<input type="text" name="issuer.name" value="${news.issuer.getName()}" />
 					</td>
 					<td>
