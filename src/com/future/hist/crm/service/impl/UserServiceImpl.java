@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService{
 	public List<User> getAllUserByPage(BaseSearch baseSearch) {
 		return userMapper.getAllUserByPage(baseSearch);
 	}
+
+	@Override
+	public List<User> getAllUser() {
+		return userMapper.getAllUser();
+	}
 }

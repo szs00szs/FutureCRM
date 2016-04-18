@@ -25,7 +25,11 @@ public class RoleController {
 		map.put("currentPage", 1);
 		return "role/saveUI";
 	}
-	
+	/**
+	 * 增加角色并返回到当前页
+	 * @param role
+	 * @return
+	 */
 	@RequestMapping(value = "role_save")
 	public String save(Role role){
 		System.out.println(role);
