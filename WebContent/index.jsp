@@ -21,7 +21,7 @@
 <br>
 <a href="${pageContext.request.contextPath}/sysUser/user_list/1">用户列表</a>
 <br>
-<a href="${pageContext.request.contextPath}/sysRole/role_saveUI">增加角色</a>
+<a href="${pageContext.request.contextPath}/sysRole/role_list/1">角色列表</a>
 <br>
 <%-- <jsp:forward page="/WEB-INF/views/login.jsp"></jsp:forward> --%>
 </body>

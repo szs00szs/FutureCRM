@@ -3,34 +3,28 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.RoleMapper">
 
-	<!-- <select id="getAllDepartmentByPage" parameterType="BaseSearch" resultType="Department">
-		select *from department d where d.id is not null
-		<![CDATA[ 
-			select * from department d where d.id is not null
-		]]>
-	</select>
-	<select id="getAllDepartment" resultType="Department">
-			select * from department d where d.id is not null
-	</select>
-	
-	<select id="getById" resultType="Department" parameterType="Long">
-		select *from department d where d.id = #{department_id}
-	</select>
-	
-	<insert id="insert" parameterType="Department">
-		insert into department(remark, name,principal,incumbent)
-		values(#{remark},#{name},#{principal}, #{incumbent})
+	<insert id="insert" parameterType="Role">
+		insert into sysrole(remark, name)
+		values(#{remark},#{name})
 	</insert>
-	
-	<update id="update" parameterType="Department">
-		 update department set remark = #{remark}, name = #{name}, principal = #{principal},incumbent = #{incumbent} where id = #{id}
-	</update>
-	
-	<delete id="delete" parameterType="Long">
-		delete from department where id = #{department_id}
-	</delete>
-	得到所有的记录条数
+
+	<!-- 得到所有的记录条数 -->
 	<select id="getTotalCount" resultType="Integer">
-		select count(*) from department
-	</select> -->
+		select count(*) from sysrole
+	</select>
+	
+	<select id="getAllRoleByPage" parameterType="BaseSearch" resultType="Role">
+		select *from sysrole r where r.id is not null
+	</select>
+	
+	<select id="getRoleById" resultType="Role" parameterType="Long">
+		select *from sysrole r where r.id = #{role_id}
+	</select>
+	
+	<update id="updateRole" parameterType="Department">
+		 update sysrole set remark = #{remark}, name = #{name} where id = #{id}
+	</update>
+	<delete id="deleteRoleById" parameterType="Long">
+		delete from sysrole where id = #{role_id}
+	</delete>
 </mapper>
