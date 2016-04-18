@@ -7,14 +7,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<c:if test="${user.id == null }">
 <title>人员添加</title>
+</c:if>
+<c:if test="${user.id != null }">
+<title>人员修改</title>
+</c:if>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
-			var url = "${pageContext.request.contextPath }/sysUser/user_update";
-				
+			var url = "${pageContext.request.contextPath }/sysUser/user_update/" + ${currentPage};
 			//更改form的action
 			$("#user_form").attr("action", url);
 			//触发submit事件，提交表单 
@@ -22,21 +26,24 @@
 		});
 		$("#addInfo").click(function() {
 			var url = "${pageContext.request.contextPath }/sysUser/user_save";
-			alert(url)
+		//	alert(url);
 			//更改form的action  
 			$("#user_form").attr("action", url);
+		//	alert($("#user_form").attr("action"));
+			//alert("11");
 			//触发submit事件，提交表单   
 			$("#user_form").submit();
+		//	alert("22");
 		});
 	})
 	
 </script>
 </head>
 <body>
-<form:form name="user_form" method="POST" action="#" modelAttribute="user">
+<form:form id="user_form" name="user_form" method="post" action="#" modelAttribute="user">
 	<h3>基本信息</h3>
 	<table border="1">
-		<c:if test="${user != null }">
+		<c:if test="${user.id != null }">
 			<form:hidden path="id" />
 		</c:if>
 		<tr>
@@ -91,29 +98,33 @@
 		<tr>
 			<td>起始有效日期</td>
 			<td>
-				<fmt:formatDate value="${beginDate}" pattern="yyyy-MM-dd HH:mm:ss" var="beginDate"/>
-				<input type="text" name="beginDate" value="${user.beginDate}"/>
+				<fmt:formatDate value="${user.beginDate}" pattern="yyyy-MM-dd HH:mm:ss" var="beginDate"/>
+				<input type="text" name="beginDate" value="${beginDate}"/>
 			</td>
 			<td>终止有效日期</td>
 			<td>
-				<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" var="endDate"/>
-				<input type="text" name="endDate" value="${user.endDate}"/>
+				<fmt:formatDate value="${user.endDate}" pattern="yyyy-MM-dd HH:mm:ss" var="endDate"/>
+				<input type="text" name="endDate" value="${endDate}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>所属部门</td>
 			<td>
-				<select name="department" id="department" style="border:solid #ccc 1px;">
+				<select name="department.id" id="department" style="border:solid #ccc 1px;" id = "select">
 				    <c:forEach items="${departmentList}" var="dp">
-				    	<option value="${dp.id}">${dp.name}</option>
+				    	<c:if test="${dp.id == user.department.getId() }">
+				    		<option value="${dp.id}" selected="selected">${dp.name}</option>
+				    	</c:if>
+				    	<c:if test="${dp.id != user.department.getId() }">
+				    		<option value="${dp.id}">${dp.name}</option>
+				    	</c:if>
 				    </c:forEach>
 				 </select>
-				 
 			</td>
 			<td>状态</td>
 			<td>
-				<input type="radio" name="${user.status}" value="1"/>启用
-				<input type="radio" name="${user.status}" value="0"/>停用
+				<input type="radio" name="status" value="Y" <c:if test="${user.status== 'Y'}">checked="checked"</c:if>/>启用
+				<input type="radio" name="status" value="N" <c:if test="${user.status== 'N'}">checked="checked"</c:if>/>停用
 			</td>
 		</tr>
 	</table>
@@ -122,20 +133,20 @@
 		<tr>
 			<td>性别</td>
 			<td>
-				<input type="radio" name="${user.sex}" value="男"/>男
-				<input type="radio" name="${user.sex}" value="女"/>女
+				<input type="radio" name="sex" value="男" <c:if test="${user.sex== '男'}">checked="checked"</c:if>/>男
+				<input type="radio" name="sex" value="女" <c:if test="${user.sex== '女'}">checked="checked"</c:if>/>女
 			</td>
 			<td>出生日期</td>
 			<td>
-				<fmt:formatDate value="${birthday}" pattern="yyyy-MM-dd HH:mm:ss" var="birthday"/>
-				<input type="text" name="birthday" value="${user.birthday}"/>
+				<fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd HH:mm:ss" var="birthday"/>
+				<input type="text" name="birthday" value="${birthday}"/>
 			</td>
 		</tr>
-		<tr>
+		 <tr>
 			<td>职务类别</td>
 			<td>
-				<input type="radio" name="${user.personnelType }" value="全职"/>全职
-				<input type="radio" name="${user.personnelType }" value="兼职"/>兼职
+				<input type="radio" name="personnelType" value="全职" <c:if test="${user.personnelType== '全职'}">checked="checked"</c:if>/>全职
+				<input type="radio" name="personnelType" value="兼职" <c:if test="${user.personnelType== '兼职'}">checked="checked"</c:if>/>兼职
 			</td>
 			<td>职务</td>
 			<td>

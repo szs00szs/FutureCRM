@@ -23,7 +23,7 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
 	private String remark; // 备注
-	private String name; // 用户名
+	private String name; // 中文名
 	private String loginName;  //登录名
 	private String password; // 密码
 	private String address; // 家庭地址

@@ -170,7 +170,7 @@
 		<association property="user" column="ownerUser_id" select="getUser" />
 	</resultMap>
 	
-	<select id="getUser" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.User">
+	<select id="getUser" parameterType="java.lang.Long" resultType="User">
 		select * from sysuser where id = #{id}
 	</select>
 

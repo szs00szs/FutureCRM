@@ -6,7 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<c:if test="${department.id == null }">
+<title>部门添加</title>
+</c:if>
+<c:if test="${department.id != null }">
+<title>部门修改</title>
+</c:if>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
