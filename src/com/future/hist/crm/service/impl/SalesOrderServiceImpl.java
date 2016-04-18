@@ -30,7 +30,6 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	}
 
 	public void addOrder(SalesOrder salesOrder) {
-		System.out.println("当前order：" + salesOrder);
 		salesOrderMapper.addOrder(salesOrder);
 	}
 

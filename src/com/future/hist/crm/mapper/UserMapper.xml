@@ -69,7 +69,24 @@
 	<select id="getUserByLoginName" resultType="User" parameterType="String">
 		SELECT *
 		FROM sysuser a
+		WHERE a.loginname = #{loginname}
+	</select>
+	
+	<!-- 根据用户名查询用户 -->
+	<select id="getUserByName" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.User">
+		SELECT * 
+		FROM sysuser a
 		WHERE a.name = #{name}
+	</select>
+	
+	<select id="getUserByNameLike_" parameterType="java.lang.String" resultType="com.future.hist.crm.domain.User">
+		SELECT * 
+		FROM sysuser a
+		<where> 
+		    <if test="#{_parameter} != null">
+		         name LIKE CONCAT('%', #{name}, '%')
+		    </if> 
+		</where>
 	</select>
 
 	<!-- 查询全部用户数目 -->

@@ -40,6 +40,18 @@ public interface ContactsMapper {
 	List<Contacts> getAllContacts();
 	
 	/**
+	 * 根据姓名升序
+	 * @return
+	 */
+	List<Contacts> getAllContactsByNameasc();
+	
+	/**
+	 * 得到联系人的个数
+	 * @return
+	 */
+	long getContactsCount();
+	
+	/**
 	 * 通过ID 得到联系人
 	 * @param id
 	 * @return
@@ -52,6 +64,13 @@ public interface ContactsMapper {
 	 * @return
 	 */
 	Contacts getContactByName(String name);
+	
+	/**
+	 * 通过Name模糊查询得到联系人
+	 * @param _parameter
+	 * @return
+	 */
+	List<Contacts> getContactsByNameLike_(String _parameter);
 
 	/**
 	 * 通过departmentDuties得到联系人

@@ -1,6 +1,5 @@
 package com.future.hist.crm.test.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +8,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
-import com.future.hist.crm.domain.User;
+import com.future.hist.crm.service.ContactService;
 import com.future.hist.crm.service.CustomerService;
 import com.future.hist.crm.service.UserService;
 
@@ -23,12 +23,14 @@ public class CustomerServiceImplTest {
 	ApplicationContext applicationContext;
 	CustomerService customerService;
 	UserService userService;
+	ContactService contactService;
 	
 	@Before
 	public void before() {
 		applicationContext = new ClassPathXmlApplicationContext("classpath:springbeans.xml");
 		customerService = applicationContext.getBean(CustomerService.class);
 		userService = applicationContext.getBean(UserService.class);
+		contactService = applicationContext.getBean(ContactService.class);
 	}
 	
 	@Test
@@ -76,12 +78,12 @@ public class CustomerServiceImplTest {
 		Date updateTime = new Date();
 		customer.setUpdateTime(updateTime);
 		
+		Contacts contacts = contactService.getContactById(9l);
+		customer.setContacts(contacts);
 		
 		customer.setWeb("web");
 		
 		customerService.addCustomer(customer);
-		
-		
 		
 	}
 
@@ -146,10 +148,26 @@ public class CustomerServiceImplTest {
 	public void testGetCustomerByCode() {
 		System.out.println(customerService.getCustomerByCode("code1"));
 	}
+	
+	@Test
+	public void testGetCustomerByCodeLike_(){
+		List<Customer> list = customerService.getCustomerByCodeLike_("1");
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
+	}
 
 	@Test
 	public void testGetCustomerByName() {
 		System.out.println(customerService.getCustomerByName("客户2"));
+	}
+	
+	@Test
+	public void testGetCustomerByNameLike_(){
+		List<Customer> list = customerService.getCustomerByNameLike_("影视");
+		for(Customer customer : list){
+			System.out.println(customer);
+		}
 	}
 
 	@Test
@@ -159,5 +177,35 @@ public class CustomerServiceImplTest {
 			System.out.println(customer);
 		}
 	}
+	
+	@Test
+	public void testGetCutomerBySource(){
+		List<Customer> list = customerService.getCustomerBySource("source");
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getSource());
+		}
+	}
+	
+	@Test
+	public void testGetCutomerByQuality(){
+		List<Customer> list = customerService.getCustomerByQuality("quality1");
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getQuality());
+		}
+	}
+	
+	
+	/**
+	 * 不通过。userService方法不对
+	 * @Test
+	public void testGetCutomerByUser(){
+		List<Customer> list = customerService.getCustomerByUser(userService.getUserById(user_id)));
+		for(Customer customer : list){
+			System.out.println(customer);
+			System.out.println(customer.getQuality());
+		}
+	}*/
 
 }

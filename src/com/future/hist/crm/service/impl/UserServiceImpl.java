@@ -29,6 +29,18 @@ public class UserServiceImpl implements UserService{
 	public User getUserById(Long id) {
 		return userMapper.getUserById(id);
 	}
+	
+	public User getUserByName(String name){
+		return userMapper.getUserByName(name);
+	}
+	
+	public List<User> getUserByNameLike_(String name){
+		return userMapper.getUserByNameLike_(name);
+	}
+	
+	public User getUserByLoginName(String loginName){
+		return userMapper.getUserByLoginName(loginName);
+	}
 
 	public int getTotalCount() {
 		return userMapper.getTotalCount();

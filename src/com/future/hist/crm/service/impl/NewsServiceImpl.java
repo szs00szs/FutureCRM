@@ -51,11 +51,15 @@ public class NewsServiceImpl implements NewsService {
 	public News getNewsByTitle(String title) {
 		return newsMapper.getNewsByTitle(title);
 	}
+	
+	public List<News>getNewsByTitleLike_(String title){
+		return newsMapper.getNewsByTitleLike_(title);
+	}
 
 	public List<News> getNewsByIssuer(User issuer) {
 		return newsMapper.getNewsByIssuer(issuer);
 	}
-
+	
 	public List<News> getNewsByNewsType(String newsType) {
 		return newsMapper.getNewsByNewsType(newsType);
 	}

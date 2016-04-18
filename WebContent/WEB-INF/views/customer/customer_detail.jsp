@@ -30,6 +30,10 @@
  			<td><input name="grade" value="${customer.grade }"></td>
  		</tr>
  		<tr>
+ 			<td>联系人</td>
+ 			<td><input name="contacts.name" value="${customer.contacts.getName() }" /></td>
+ 		</tr>
+ 		<tr>
  			<td>区域名称</td>
  			<td><input name="regionName" value="${customer.regionName }"></td>
  		</tr>

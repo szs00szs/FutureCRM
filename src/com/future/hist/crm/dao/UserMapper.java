@@ -10,6 +10,10 @@ public interface UserMapper {
     int deleteById(long id);
 
 	User getUserByName(String name);
+	
+	List<User> getUserByNameLike_(String name);
+	
+	User getUserByLoginName(String loginName);
 
 	void insert(User user);
 

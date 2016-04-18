@@ -1,7 +1,10 @@
 package com.future.hist.crm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.future.hist.crm.domain.Contacts;
+import com.future.hist.crm.domain.Customer;
 import com.future.hist.crm.domain.News;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.NewsService;
@@ -83,6 +88,33 @@ public class NewsController extends BaseController{
 	public String delete(@PathVariable(value = "id") Long id){
 		newsService.deleteNewsById(id);
 		return "redirect:/news/news_list";
+	}
+	
+	@RequestMapping(value = "/query")
+	public String test(HttpServletRequest request , Map<String , Object> map){
+		String selectType = request.getParameter("selectType");
+		String selectContent = request.getParameter("selectContent");
+		System.out.println("the selectType is :" + selectType);
+		System.out.println("the selectContent is : " + selectContent);
+		News news;
+		List<News> newsList = new ArrayList<News>();
+		switch (selectType) {
+		case "title":
+			newsList = newsService.getNewsByTitleLike_(selectContent);
+			break;
+
+		case "user_name":
+			List<User> issuerList = userService.getUserByNameLike_(selectContent);
+			for(User issuer : issuerList){
+				newsList.addAll(newsService.getNewsByIssuer(issuer));
+			}
+			break;
+		default:
+			newsList = newsService.getAllNews();
+			break;
+		}
+		map.put("newsList", newsList);
+		return "news/news_list";
 	}
 	
 }

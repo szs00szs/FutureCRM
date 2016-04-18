@@ -1,17 +1,22 @@
 package com.future.hist.crm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
-import com.future.hist.crm.domain.News;
 import com.future.hist.crm.domain.User;
+import com.future.hist.crm.service.ContactService;
 import com.future.hist.crm.service.CustomerService;
+import com.future.hist.crm.service.UserService;
 
 /**
  * @author 羊羊
@@ -23,6 +28,12 @@ public class CustomerController extends BaseController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private ContactService contactService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/customer_list")
 	public String CustomerList(Map<String , Object> map){
@@ -64,6 +75,8 @@ public class CustomerController extends BaseController {
 	public String update(Customer customer){
 		System.out.println("customer : " + customer);
 			System.out.println("创建时间" + customer.getCreateTime());
+			Contacts contact = contactService.getContactByName(customer.getContacts().getName());
+			customer.setContacts(contact);
 			customerService.updateCustomer(customer);
 			return "redirect:/customer/customer_list";
 	}
@@ -74,5 +87,46 @@ public class CustomerController extends BaseController {
 		return "redirect:/customer/customer_list";
 	}
 	
-	
+	@RequestMapping(value = "/query")
+	public String test(HttpServletRequest request , Map<String , Object> map){
+		String selectType = request.getParameter("selectType");
+		String selectContent = request.getParameter("selectContent");
+		System.out.println("the selectType is :" + selectType);
+		System.out.println("the selectContent is : " + selectContent);
+		Customer customer;
+		List<Customer> customerList = new ArrayList<Customer>();
+		switch (selectType) {
+		case "name":
+			customerList = customerService.getCustomerByNameLike_(selectContent);
+			break;
+
+		case "code":
+			customerList = customerService.getCustomerByCodeLike_(selectContent);
+			break;
+		case "source":
+			customerList = customerService.getCustomerBySource(selectContent);
+			break;
+		case "kind":
+			customerList = customerService.getCustomerByKind(selectContent);
+			break;
+		case "contacts_name":
+			List<Contacts> contactList = contactService.getContactsByNameLike_(selectContent);
+			for(Contacts contact : contactList){
+				List<Customer> list = customerService.getCustomerByContacts(contact);
+				customerList.addAll(list);
+			}
+			break;
+		case "user_name":
+			List<User> userList = userService.getUserByNameLike_(selectContent);
+			for(User user : userList){
+				customerList.addAll(customerService.getCustomerByUser(user));
+			}
+			break;
+		default:
+			customerList = customerService.getAllCustomer();
+			break;
+		}
+		map.put("customerList", customerList);
+		return "customer/customer_list";
+	}
 }

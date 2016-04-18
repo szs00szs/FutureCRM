@@ -81,6 +81,14 @@ public class NewsServiceImplTest {
 	public void testGetNewsByTitle() {
 		System.out.println(newsService.getNewsByTitle("新闻4"));
 	}
+	
+	@Test
+	public void testGetNewsByTitleLike_(){
+		List<News> list = newsService.getNewsByTitleLike_("新闻");
+		for(News news : list){
+			System.out.println(news);
+		}
+	}
 /*
 	@Test
 	public void testGetNewsByIssuer() {

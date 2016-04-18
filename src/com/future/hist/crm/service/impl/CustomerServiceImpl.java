@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.CustomerMapper;
+import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.CustomerService;
 
 /**
@@ -51,8 +53,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getCustomerByCode(code);
 	}
 
+	public List<Customer> getCustomerByCodeLike_(String code){
+		return customerMapper.getCustomerByCodeLike_(code);
+	}
+	
 	public Customer getCustomerByName(String name) {
 		return customerMapper.getCustomerByName(name);
+	}
+	
+	public List<Customer> getCustomerByNameLike_(String name){
+		return customerMapper.getCustomerByNameLike_(name);
 	}
 
 	public List<Customer> getCustomerByGrade(String grade) {
@@ -69,6 +79,30 @@ public class CustomerServiceImpl implements CustomerService {
 
 	public long getCustomerCount() {
 		return customerMapper.getCustomerCount();
+	}
+
+	@Override
+	public List<Customer> getCustomerBySource(String source) {
+		return customerMapper.getCustomerBySource(source);
+	}
+
+	@Override
+	public List<Customer> getCustomerByQuality(String quality) {
+		return customerMapper.getCustomerByQuality(quality);
+	}
+
+	@Override
+	public List<Customer> getCustomerByContacts(Contacts contacts) {
+		return customerMapper.getCustomerByContacts(contacts);
+	}
+
+	@Override
+	public List<Customer> getCustomerByUser(User user) {
+		return customerMapper.getCustomerByUser(user);
+	}
+	
+	public List<Customer> getCustomerByKind(String kind){
+		return customerMapper.getCustomerByKind(kind);
 	}
 
 }

@@ -13,6 +13,12 @@ public interface UserService {
 	public void deleteUserById(Long id);
 	
 	public User getUserById(Long user_id);
+	
+	public User getUserByName(String name);
+	
+	public List<User> getUserByNameLike_(String name);
+	
+	public User getUserByLoginName(String loginName);
 
 	public int getTotalCount();
 
