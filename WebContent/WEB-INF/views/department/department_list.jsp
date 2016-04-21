@@ -6,12 +6,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.4.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 	<a
 		href="${pageContext.request.contextPath}/sysDepartment/department_saveUI">增加部门</a>
-		<table border="1" style="font-size: 12px;">
+
+	<br>
+	<hr>
+	<form action="${pageContext.request.contextPath}/sysDepartment/department_query" method="post">
+		部门名称： <input type="text" name="name"/>
+		<button id="search">搜索</button>
+	</form>
+
+	<br>
+	<hr>
+	<table border="1" style="font-size: 12px;">
 		<caption>部门管理</caption>
 		<thead>
 			<tr class="active">
@@ -42,52 +55,58 @@
 							</td>
 						</tr>
 					</c:forEach>
-					
+
 				</c:when>
 				<c:otherwise>
 						目前本公司没有部门
 				</c:otherwise>
 			</c:choose>
 		</tbody>
+
 		<%-- <%@ include file="/WEB-INF/views/public/pageView.jspf" %> --%>
 		<!--分页信息-->
-<div id=PageSelectorBar>
-	<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页 &nbsp;
-		每页显示：${pageParameter.pageSize}条 &nbsp; 总记录数：${pageParameter.totalCount}条</div>
-	<div id=PageSelectorSelectorArea>
+		<div id=PageSelectorBar>
+			<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页
+				&nbsp; 每页显示：${pageParameter.pageSize}条 &nbsp;
+				总记录数：${pageParameter.totalCount}条</div>
+			<div id=PageSelectorSelectorArea>
 
-		<a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
-			<img src="${pageContext.request.contextPath}/images/pageSelector/firstPage.png"/>
-		</a>
-		
-		<c:forEach begin="${pageParameter.beginPageIndex}" end="${pageParameter.endPageIndex}" var="num">
-			<c:if test="${num == currentPage}"> <%-- 当前页 --%>
-				<span class="PageSelectorNum PageSelectorSelected" ><font color="red">${num}</font></span>
-			</c:if>
-			<c:if test="${num != currentPage}"> <%-- 非当前页 --%>
-				<span class="PageSelectorNum" style="cursor: hand;" onClick="gotoPage(${num});">${num}</span>
-			</c:if>
-		</c:forEach>
-		
-		<a href="javascript: gotoPage(${pageParameter.totalPage})" title="尾页" style="cursor: hand;">
-			<img src="${pageContext.request.contextPath}/images/pageSelector/lastPage.png"/>
-		</a>
-		
-		转到：
-		<select onchange="gotoPage(this.value)" id="_pn">
-			<c:forEach begin="1" end="${pageParameter.totalPage}" var="num">
-				<option value="${num}">${num}</option>
-			</c:forEach>
-		</select>
-		<script type="text/javascript">
+				<a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
+					<img
+					src="${pageContext.request.contextPath}/images/pageSelector/firstPage.png" />
+				</a>
+
+				<c:forEach begin="${pageParameter.beginPageIndex}"
+					end="${pageParameter.endPageIndex}" var="num">
+					<c:if test="${num == currentPage}">
+						<%-- 当前页 --%>
+						<span class="PageSelectorNum PageSelectorSelected"><font
+							color="red">${num}</font></span>
+					</c:if>
+					<c:if test="${num != currentPage}">
+						<%-- 非当前页 --%>
+						<span class="PageSelectorNum" style="cursor: hand;"
+							onClick="gotoPage(${num});">${num}</span>
+					</c:if>
+				</c:forEach>
+
+				<a href="javascript: gotoPage(${pageParameter.totalPage})"
+					title="尾页" style="cursor: hand;"> <img
+					src="${pageContext.request.contextPath}/images/pageSelector/lastPage.png" />
+				</a> 转到： <select onchange="gotoPage(this.value)" id="_pn">
+					<c:forEach begin="1" end="${pageParameter.totalPage}" var="num">
+						<option value="${num}">${num}</option>
+					</c:forEach>
+				</select>
+				<script type="text/javascript">
 			$("#_pn").val("${pageParameter.currentPage}");
 		</script>
-		
-	</div>
-</div>
+
+			</div>
+		</div>
 
 
-<script type="text/javascript">
+		<script type="text/javascript">
 	function gotoPage( pageNum ){
 		window.location.href = "${pageContext.request.contextPath}/sysDepartment/department_list/" + pageNum;
 		/* $(document.forms[0]).append("<input type='hidden' name='currentPage' value='" + pageNum +"'>");
@@ -96,5 +115,6 @@
 	}
 </script>
 	</table>
+
 </body>
 </html>

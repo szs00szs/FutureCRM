@@ -21,4 +21,6 @@ public interface DepartmentService {
 	public int getTotalCount();
 
 	public List<Department> getAllDepartment();
+
+	public List<Department> getDepartmentByNameLike(String name);
 }
