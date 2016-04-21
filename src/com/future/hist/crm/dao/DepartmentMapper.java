@@ -21,4 +21,6 @@ public interface DepartmentMapper {
 
 	List<Department> getAllDepartment();
 
+	List<Department> getDepartmentByNameLike(String name);
+
 }

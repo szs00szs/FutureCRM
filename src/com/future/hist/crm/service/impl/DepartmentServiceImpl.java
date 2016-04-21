@@ -48,4 +48,9 @@ public class DepartmentServiceImpl implements DepartmentService{
 	public List<Department> getAllDepartment() {
 		return departmentMapper.getAllDepartment();
 	}
+
+	@Override
+	public List<Department> getDepartmentByNameLike(String name) {
+		return departmentMapper.getDepartmentByNameLike(name);
+	}
 }

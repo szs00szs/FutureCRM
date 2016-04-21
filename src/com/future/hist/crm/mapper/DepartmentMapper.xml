@@ -33,4 +33,15 @@
 	<select id="getTotalCount" resultType="Integer">
 		select count(*) from department
 	</select>
+	
+	<!-- 根据名称查询 -->
+	<select id="getDepartmentByNameLike" resultType="Department" parameterType="String">
+		select *from department
+		 <where> 
+		    <if test="#{_parameter} != null">
+		         name like CONCAT('%', #{name}, '%')
+		    </if> 
+		  </where>
+	</select>
+	
 </mapper>

@@ -3,6 +3,8 @@ package com.future.hist.crm.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +70,15 @@ public class DepartmentController {
 	public String delete(@PathVariable(value = "department_id") Long department_id){
 		departmentService.deleteDepartmentById(department_id);
 		return "redirect:/sysDepartment/department_list/1";
+	}
+	
+	@RequestMapping(value = "department_query")
+	public String queryByName(HttpServletRequest request,Map<String, Object> map){
+		String name = request.getParameter("name");
+		List<Department> departmentList = departmentService.getDepartmentByNameLike(name);
+		map.put("departmentList", departmentList);
+		System.out.println("departmentList : " + departmentList);
+		return "department/department_list";
 	}
 	
 }
