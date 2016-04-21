@@ -36,10 +36,8 @@
 		<h2>收款单审核版块</h2>
 	</div>
 	<div>
-		<h2>个人计划任务版块</h2>
-	</div>
-	<div>
 		<h2>联系人版块</h2>
+		<a href="${pageContext.request.contextPath }/contacts/contacts_list">联系人列表</a>
 	</div>
 	<div>
 		<h2>联系记录版块</h2>

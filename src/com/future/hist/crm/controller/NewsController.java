@@ -33,32 +33,29 @@ public class NewsController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/news_detail/{title}")
-	public String newsDetail(@PathVariable("title") String title , Model model){
-		News news = newsService.getNewsByTitle(title);
+	@RequestMapping("/news_detail/{id}")
+	public String newsDetail(@PathVariable("id") long id , Model model){
+		News news = newsService.getNewsById(id);
 		model.addAttribute(news);
 		return "news/news_detail";
 	}
 	
 	@RequestMapping("/news_list")
 	public String newsList(Map<String , Object> map){
-		List<News> newsList = newsService.getAllNewsByTimedesc();
+		List<News> newsList = newsService.getAllNewsByTimedesc();//按时间排序，显示最新新闻
 		map.put("newsList", newsList);
 		return "news/news_list";
 	}
 
 	@RequestMapping(value = "/news_saveUI")
-	public String saveUI(){
+	public String saveUI(Map<String, Object> map){
+		List<User> userList = userService.getAllUser();
+		map.put("userList", userList);
 		return "news/saveUI";
 	}
 	@RequestMapping(value = "/news_save" )
 	public String save(News news){
 		System.out.println(news);
-		System.out.println("the issuer.name is ： " + news.getIssuer().getName());
-		User issuer = new User();
-		issuer.setId(1l);
-		issuer.setName("张三");
-		news.setIssuer(issuer);
 		newsService.addNews(news);
 		return "redirect:/news/news_list";
 	}
@@ -66,6 +63,8 @@ public class NewsController extends BaseController{
 	@RequestMapping(value = "/news_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		News news = newsService.getNewsById(id);
+		List<User> userList = userService.getAllUser();
+		map.put("userList", userList);
 		map.put("news" , news);
 		return "news/saveUI";
 	}
@@ -73,15 +72,8 @@ public class NewsController extends BaseController{
 	@RequestMapping(value = "/news_update" )
 	public String update(News news){
 		System.out.println("news : " + news);
-			System.out.println("the issuer.id is : " + news.getIssuer().getId()); 
-//			System.out.println("the user can get from database is : " + userService.getUserById(news.getIssuer().getId().toString()));
-			System.out.println(news.getIssur_date());
-			User issuer = new User();
-			issuer.setId(1l);
-			issuer.setName("张三");
-			news.setIssuer(issuer);
-			newsService.updateNews(news);
-			return "redirect:/news/news_list";
+		newsService.updateNews(news);
+		return "redirect:/news/news_list";
 	}
 				
 	@RequestMapping(value = "/news_delete/{id}")
@@ -91,12 +83,11 @@ public class NewsController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/query")
-	public String test(HttpServletRequest request , Map<String , Object> map){
+	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");
 		String selectContent = request.getParameter("selectContent");
 		System.out.println("the selectType is :" + selectType);
 		System.out.println("the selectContent is : " + selectContent);
-		News news;
 		List<News> newsList = new ArrayList<News>();
 		switch (selectType) {
 		case "title":

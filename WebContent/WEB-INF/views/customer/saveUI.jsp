@@ -53,7 +53,20 @@
  		</tr>
  		<tr>
  			<td>联系人</td>
- 			<td><input name="contacts.name" value="${customer.contacts.getName() }" /></td>
+ 			<td>
+ 				<select name="contacts.id" style="border:solid #ccc 1px;" id = "select">
+				    <c:forEach items="${contactsList}" var="contacts">
+				    	<c:if test="${contacts.id == customer.contacts.getId() }">
+				    		<option value="${contacts.id}" selected="selected">${contacts.name}</option>
+				    	</c:if>
+				    	<c:if test="${contacts.id != customer.contacts.getId() }">
+				    		<option value="${contacts.id}">${contacts.name}</option>
+				    	</c:if>
+				    	<option>1</option>
+				    </c:forEach>
+				 </select>
+ 				<%-- <input name="contacts.name" value="${customer.contacts.getName() }" /> --%>
+ 			</td>
  		</tr>
  		<tr>
  			<td>区域名称</td>
@@ -175,7 +188,18 @@
  		<tr>
  			<td>对应用户</td>
  			<td>
- 				<input name="user.id" value="${customer.user.getId()}">
+ 				<select name="user.id" style="border:solid #ccc 1px;" id = "select">
+				    <c:forEach items="${userList}" var="issuer">
+				    	<c:if test="${issuer.id == customer.user.getId() }">
+				    		<option value="${issuer.id}" selected="selected">${issuer.name}</option>
+				    	</c:if>
+				    	<c:if test="${issuer.id != customer.user.getId() }">
+				    		<option value="${issuer.id}">${issuer.name}</option>
+				    	</c:if>
+				    	<option>1</option>
+				    </c:forEach>
+				 </select>
+ 				<%-- <input name="user.id" value="${customer.user.getId()}"> --%>
  			</td>
  		</tr>
  		<tr>

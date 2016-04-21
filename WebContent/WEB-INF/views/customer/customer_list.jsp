@@ -86,7 +86,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-						没有新闻
+						没有客户
 				</c:otherwise>
 			</c:choose>
 

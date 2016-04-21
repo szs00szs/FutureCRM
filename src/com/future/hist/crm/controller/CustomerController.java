@@ -51,14 +51,21 @@ public class CustomerController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/customer_saveUI")
-	public String saveUI(){
+	public String saveUI(Map<String, Object> map){
+		List<Contacts> contactsList = contactService.getAllContacts();
+		map.put("contactsList", contactsList);
+		List<User> userList = userService.getAllUser();
+		map.put("userList", userList);
 		return "customer/saveUI";
 	}
 	
 	@RequestMapping(value = "/customer_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		Customer customer = customerService.getCustomerById(id);
-		System.out.println(customer.getId());
+		List<Contacts> contactsList = contactService.getAllContacts();
+		map.put("contactsList", contactsList);
+		List<User> userList = userService.getAllUser();
+		map.put("userList", userList);
 		map.put("customer" , customer);
 		return "customer/saveUI";
 	}
@@ -66,7 +73,6 @@ public class CustomerController extends BaseController {
 	@RequestMapping(value = "/customer_save" )
 	public String save(Customer customer){
 		System.out.println(customer);
-		System.out.println("the customer.name is ： " + customer.getName());
 		customerService.addCustomer(customer);
 		return "redirect:/customer/customer_list";
 	}
@@ -74,11 +80,8 @@ public class CustomerController extends BaseController {
 	@RequestMapping(value = "/customer_update" )
 	public String update(Customer customer){
 		System.out.println("customer : " + customer);
-			System.out.println("创建时间" + customer.getCreateTime());
-			Contacts contact = contactService.getContactByName(customer.getContacts().getName());
-			customer.setContacts(contact);
-			customerService.updateCustomer(customer);
-			return "redirect:/customer/customer_list";
+		customerService.updateCustomer(customer);
+		return "redirect:/customer/customer_list";
 	}
 				
 	@RequestMapping(value = "/customer_delete/{id}")
@@ -88,12 +91,11 @@ public class CustomerController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/query")
-	public String test(HttpServletRequest request , Map<String , Object> map){
+	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");
 		String selectContent = request.getParameter("selectContent");
 		System.out.println("the selectType is :" + selectType);
 		System.out.println("the selectContent is : " + selectContent);
-		Customer customer;
 		List<Customer> customerList = new ArrayList<Customer>();
 		switch (selectType) {
 		case "name":

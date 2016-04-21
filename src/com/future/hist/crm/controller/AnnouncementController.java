@@ -51,18 +51,16 @@ public class AnnouncementController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/announcement_saveUI")
-	public String saveUI(){
+	public String saveUI(Map<String, Object> map){
+		List<User> userList	 = userService.getAllUser();
+		map.put("userList", userList);
+		List<Department> departmentList	 = departmentService.getAllDepartment();
+		map.put("departmentList", departmentList);
 		return "announcement/saveUI";
 	}
 	@RequestMapping(value = "/announcement_save" )
 	public String save(Announcement announcement){
 		System.out.println(announcement);
-		System.out.println("the issuer.name is ： " + announcement.getIssuer().getName());
-		User issuer = userService.getUserByName(announcement.getIssuer().getName());
-		announcement.setIssuer(issuer);
-		Department department = departmentService.getDepartmentById(1l);
-//		departmentService.getDepartmentByName(announcement.getDepartment().getName());
-		announcement.setDepartment(department);
 		announcementService.addAnnouncement(announcement);;
 		return "redirect:/announcement/announcement_list";
 	}
@@ -70,6 +68,10 @@ public class AnnouncementController extends BaseController {
 	@RequestMapping(value = "/announcement_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		Announcement announcement = announcementService.getAnnouncementById(id);
+		List<User> userList	 = userService.getAllUser();
+		map.put("userList", userList);
+		List<Department> departmentList	 = departmentService.getAllDepartment();
+		map.put("departmentList", departmentList);
 		map.put("announcement" , announcement);
 		return "announcement/saveUI";
 	}
@@ -77,14 +79,8 @@ public class AnnouncementController extends BaseController {
 	@RequestMapping(value = "/announcement_update" )
 	public String update(Announcement announcement){
 		System.out.println("announcement : " + announcement);
-			System.out.println("the issuer.name is : " + announcement.getIssuer().getName()); 
-			User issuer = userService.getUserByName(announcement.getIssuer().getName());
-			announcement.setIssuer(issuer);
-			Department department = departmentService.getDepartmentById(1l);
-//			Department department = departmentService.getDepartmentByName(announcement.getDepartment().getName());
-			announcement.setDepartment(department);
-			announcementService.updateAnnouncement(announcement);;
-			return "redirect:/announcement/announcement_list";
+		announcementService.updateAnnouncement(announcement);;
+		return "redirect:/announcement/announcement_list";
 	}
 				
 	@RequestMapping(value = "/announcement_delete/{id}")
