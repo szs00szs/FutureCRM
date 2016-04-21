@@ -56,13 +56,17 @@
 							<td><fmt:formatDate value="${news.issur_date }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							<%-- <td>${news.issur_date }</td> --%>
 							<td>${news.newsType }</td>
-							<td><a
-								href="${pageContext.request.contextPath }/news/news_updateUI/${news.id }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
-								<a
-								href="${pageContext.request.contextPath }/news/news_delete/${news.id }"><img
-									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+							<td>
+								<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
+								<a href="${pageContext.request.contextPath }/news/news_updateUI/${news.id }"
+									style="margin-right: 10%;">
+									<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
+									编辑
+								</a>
+								<a href="${pageContext.request.contextPath }/news/news_delete/${news.id }">
+									<img src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;
+									删除
+								</a>
 							</td>
 						</tr>
 					</c:forEach>

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,11 +12,24 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加订单页面</title>
 <script type="text/javascript">
+	
+    function test(data){
+    	 var selecttwo=$("select[id='contacts'] option");
+    		for(i=0;i<selecttwo.length;i++){
+    		 if($(selecttwo.get(i)).attr("value")==data){
+    			 $(selecttwo.get(i)).show();
+    			$(selecttwo.get(i)).attr("selected",true);
+    		} else{
+    			$(selecttwo.get(i)).hide();
+    		}
+    	} 
+    }
+   
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
-
 		});
-	});
+		
+	}); 
 </script>
 </head>
 <body>
@@ -31,17 +44,25 @@
 				      </td>
 				       <td bgcolor="#eeeeee"> 业务员：</td>
 				      <td>
-				      <input type="text" name="salesman.name"  value=""><font color="red">${requestScope.error }</font> 
+				      	<select name="salesman.id" id="salesman" style="border: solid #ccc 1px;" id="select">
+								<c:forEach items="${salesmanList}" var="salesman">
+									<option value="${salesman.id}" selected="selected" >${salesman.name}</option>
+								</c:forEach>
+						</select> 
 				      </td>
 			 
 				     </tr>
 
-						<tr style="padding:5px;">
-					          <td bgcolor="#eeeeee"> 客户姓名：</td>
-				    	  <td>
-				     		 <input type="text" name="customer.name"  value=""><font color="red">${requestScope.error }</font> 
-					      </td>
-					      <td bgcolor="#eeeeee"> 客户地址：</td>
+					<tr style="padding:5px;">
+			          		<td bgcolor="#eeeeee"> 客户姓名：</td>
+							<td>
+							<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select" >
+								<c:forEach items="${customerList}" var="customer">
+									<option value="${customer.id}" onclick="test(${customer.contacts.id});" >${customer.name}</option>
+								</c:forEach>
+							</select>
+						</td>
+						<td bgcolor="#eeeeee"> 客户地址：</td>
 					      <td>
 					    	  <input type="text" name="deliveryAddress"  value="">
 					      </td>
@@ -50,9 +71,13 @@
 
 					<tr style="padding:5px;">
 					     <td bgcolor="#eeeeee"> 联系人：</td>
-					      <td>
-					   		   <input type="text" name="contacts.name"  value="">
-					      </td>
+					 	<td>    
+					 		<select name="contacts.id" id="contacts" style="border: solid #ccc 1px;" id="select">
+								<c:forEach items="${contactsList}" var="contacts">
+									<option value="${contacts.id}">${contacts.name} </option>
+								</c:forEach>
+							</select>
+						</td>
 					      <td bgcolor="#eeeeee"> 联系人电话：</td>
 					      <td>
 					      <input type="text" name="contactPhone"  value="">
