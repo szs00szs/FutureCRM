@@ -2,6 +2,7 @@ package com.future.hist.crm.controller;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.future.hist.crm.domain.Contacts;
+import com.future.hist.crm.domain.Customer;
 import com.future.hist.crm.domain.SalesOrder;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.ContactService;
@@ -24,30 +27,35 @@ public class SalesOrderController {
 	// 注入 SalesOrderService
 	@Autowired
 	private SalesOrderService salesOrderService;
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private ContactService contactService;
-	
+
 	@Autowired
 	private UserService userService;
 
 	// 添加订单页面
 	@RequestMapping("/addOrderUI")
-	public String addOrderUI() {
-		customerService.getAllCustomer();
-		
-		
+	public String addOrderUI(Map<String, Object> map) {
+		List<Customer> customerList = customerService.getAllCustomer();
+		List<Contacts> contactsList = contactService.getAllContacts();
+		List<User> salesmanList = userService.getAllUser();
+		map.put("customerList", customerList);
+		map.put("contactsList", contactsList);
+		map.put("salesmanList", salesmanList);
+		System.out.println(customerList);
+
 		return "salesOrder/addOrderUI";
 	}
 
 	// 添加订单
 	@RequestMapping("/addOrder")
 	public String addOrder(SalesOrder salesOrder) throws ParseException {
-		
-		System.out.println("待添加的："+salesOrder);
+
+		System.out.println("待添加的：" + salesOrder);
 		salesOrderService.addOrder(salesOrder);
 		System.out.println("执行添加....");
 		return "forward:queryOrders.action";
@@ -81,7 +89,7 @@ public class SalesOrderController {
 	public String editOrderById(int id, HttpServletRequest request) {
 		System.out.println("修改:" + id);
 		SalesOrder salesOrder = salesOrderService.findOrderById(id);
-		System.out.println("待修改的："+salesOrder);
+		System.out.println("待修改的：" + salesOrder);
 		request.setAttribute("salesOrder", salesOrder);
 		return "salesOrder/editOrder";
 	}
@@ -89,8 +97,8 @@ public class SalesOrderController {
 	// 修改订单
 	@RequestMapping("editOrder")
 	public String editOrder(SalesOrder salesOrder) {
-		System.out.println("修改后："+salesOrder);
-		System.out.println("修改的id="+salesOrder.getId());
+		System.out.println("修改后：" + salesOrder);
+		System.out.println("修改的id=" + salesOrder.getId());
 		System.out.println("执行修改");
 		return "forward:queryOrders.action";
 	}
