@@ -25,4 +25,6 @@ public interface UserService {
 	public List<User> getAllUserByPage(BaseSearch baseSearch);
 	
 	public List<User> getAllUser();
+
+	public List<User> getUserByLike(User user);
 }

@@ -82,6 +82,20 @@ public class UserController {
 		return "redirect:/sysUser/user_list/" + currentPage;
 	}
 	
+	@RequestMapping(value = "/user_viewInfo")
+	public String info(){
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "/user_query")
+	public String view_query(Map<String, Object> map , User user){
+		List<User> userList = userService.getUserByLike(user);
+		System.out.println("user_list : " + userList);
+		map.put("userList", userList);
+		return "user/user_list";
+	}
+	
 	
 	@RequestMapping(value = "/user_delete/{user_id}")
 	public String delete(@PathVariable(value = "user_id") Long user_id){
