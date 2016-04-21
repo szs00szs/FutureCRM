@@ -23,6 +23,9 @@ public class Customer {
 	private String tel1; // 电话1
 	private String mobile; // 手机
 	private String tel2; // 电话2
+	private int touchTimes;//联系次数
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date touchDate;//联系时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date nextTouchDate; // 下次联系时间
 	private String quality; // 客户性质
@@ -44,7 +47,7 @@ public class Customer {
 	// 多个客户对应一个用户
 	private User user;
 
-	private String dispensePerson; // 所属人的分配日期
+	private String dispensePerson; // 所属人
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dispenseDate; // #分配日期(经手人变更的日期)-----
 	private Character shareFlag; // #共享标志 Y(共享)和N(不共享)
@@ -196,7 +199,23 @@ public class Customer {
 	public Date getNextTouchDate() {
 		return nextTouchDate;
 	}
-
+	
+	public int getTouchTimes() {
+		return touchTimes;
+	}
+	
+	public void setTouchTimes(int touchTimes) {
+		this.touchTimes = touchTimes;
+	}
+	
+	public Date getTouchDate() {
+		return touchDate;
+	}
+	
+	public void setTouchDate(Date touchDate) {
+		this.touchDate = touchDate;
+	}
+	
 	public void setNextTouchDate(Date nextTouchDate) {
 		this.nextTouchDate = nextTouchDate;
 	}
@@ -344,13 +363,14 @@ public class Customer {
 	public void setShareIds(String shareIds) {
 		this.shareIds = shareIds;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", code=" + code + ", name=" + name + ", grade=" + grade + ",contacts="+contacts+", regionName="
-				+ regionName + ", source=" + source + ", trade=" + trade + ", scale=" + scale + ", province=" + province
-				+ ", city=" + city + ", postCode=" + postCode + ", address=" + address + ", email=" + email + ", web="
-				+ web + ", tel1=" + tel1 + ", mobile=" + mobile + ", tel2=" + tel2 + ", nextTouchDate=" + nextTouchDate
+		return "Customer [id=" + id + ", code=" + code + ", name=" + name + ", grade=" + grade + ", contacts="
+				+ contacts + ", regionName=" + regionName + ", source=" + source + ", trade=" + trade + ", scale="
+				+ scale + ", province=" + province + ", city=" + city + ", postCode=" + postCode + ", address="
+				+ address + ", email=" + email + ", web=" + web + ", tel1=" + tel1 + ", mobile=" + mobile + ", tel2="
+				+ tel2 + ", touchTimes=" + touchTimes + ", touchDate=" + touchDate + ", nextTouchDate=" + nextTouchDate
 				+ ", quality=" + quality + ", remark=" + remark + ", dealin=" + dealin + ", kind=" + kind
 				+ ", artificialPerson=" + artificialPerson + ", registeMoney=" + registeMoney + ", bank=" + bank
 				+ ", account=" + account + ", taxCode=" + taxCode + ", creator=" + creator + ", createTime="
