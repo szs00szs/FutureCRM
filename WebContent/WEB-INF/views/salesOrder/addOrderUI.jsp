@@ -61,7 +61,9 @@
 					 	<td>    
 					 		<select name="contacts.id" id="contacts" style="border: solid #ccc 1px;" id="select">
 								<c:forEach items="${contactsList}" var="contacts">
+									<c:if test="${customer.contacts.id}==${contacts.id}">
 									<option value="${contacts.id}" selected="selected">${contacts.name}</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</td>
@@ -97,6 +99,20 @@
 					<input type="text" name="remark" value="">
 				</td>
 			</tr>
+			
+			<!-- 测试 -->
+			<tr>
+				<td>
+					<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select">
+								<c:forEach items="${customerList}" var="customer">
+									<option value="${customer.contacts.id}" selected="selected">${customer.contacts.name}</option>
+								</c:forEach>
+							</select>
+				</td>
+			
+			</tr>
+			
+			
 		</table>
 			      <p align="center">
 			      <input type="submit" value="提交">
