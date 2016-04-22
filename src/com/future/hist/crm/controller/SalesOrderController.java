@@ -53,9 +53,8 @@ public class SalesOrderController {
 
 	// 添加订单
 	@RequestMapping("/addOrder")
-	public String addOrder(SalesOrder salesOrder) throws ParseException {
-
-		System.out.println("待添加的：" + salesOrder);
+	public String addOrder(SalesOrder salesOrder ) throws ParseException {
+		System.out.println("待添加的：" + salesOrder.getContacts().getId());
 		salesOrderService.addOrder(salesOrder);
 		System.out.println("执行添加....");
 		return "forward:queryOrders.action";

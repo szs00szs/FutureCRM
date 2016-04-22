@@ -85,7 +85,7 @@
 		<where> 
 		    <if test="#{_parameter} != null">
 		         name LIKE CONCAT('%', #{name}, '%')
-		    </if> 
+		    </if>
 		</where>
 	</select>
 
@@ -97,7 +97,7 @@
 	</select>
 	<!-- 查询全部用户 -->
 	<select id="getAllUserByPage" parameterType="BaseSearch"
-		resultType="User">
+		resultMap="getUser">
 		SELECT *
 		FROM sysuser
 	</select>
@@ -445,6 +445,9 @@
 			<if test="name != null">
 				name = #{name},
 			</if>
+			<if test="loginName != null">
+				loginName = #{loginName},
+			</if>
 			<if test="password != null">
 				password = #{password},
 			</if>
@@ -567,4 +570,146 @@
 		</where>
 	</update>
 
+	<select id="getUserByLike" parameterType="User" resultMap="getUser">
+		select * from sysuser
+		<where>
+			<if test="name != null">
+				name LIKE CONCAT('%', #{name}, '%')
+			</if>
+			<if test="loginName != null">
+				and loginName LIKE CONCAT('%', #{loginName}, '%')
+			</if>
+			<if test="creator != null">
+				and creator like CONCAT('%', #{creator}, '%')
+			</if>
+			<if test="createTime != null">
+				 and createTime LIKE CONCAT('%', #{createTime}, '%')
+			</if>
+			<if test="updater != null">
+				and updater LIKE CONCAT('%', #{updater}, '%')
+			</if>
+			<if test="updateTime != null">
+				and updateTime LIKE CONCAT('%', #{updateTime}, '%')
+			</if>
+			<if test="remark != null">
+				and remark LIKE CONCAT('%', #{remark}, '%')
+			</if>
+			
+			<if test="password != null">
+				and password LIKE CONCAT('%', #{password}, '%')
+			</if>
+			<if test="address != null">
+				and address LIKE CONCAT('%', #{address}, '%')
+			</if>
+			<if test="telephone != null">
+				and telephone LIKE CONCAT('%', #{telephone}, '%')
+			</if>
+			<if test="email != null">
+				and email LIKE CONCAT('%', #{email}, '%')
+			</if>
+			<if test="beginDate != null">
+				and beginDate LIKE CONCAT('%', #{beginDate}, '%')
+			</if>
+			<if test="endDate != null">
+				and endDate LIKE CONCAT('%', #{endDate}, '%')
+			</if>
+			<if test="department != null">
+				and department_id LIKE CONCAT('%', #{department.id}, '%')
+			</if>
+			<if test="accessFileLevel != null">
+				and accessFileLevel LIKE CONCAT('%', #{accessFileLevel}, '%')
+			</if>
+			<if test="status != null">
+				and status LIKE CONCAT('%', #{status}, '%')
+			</if>
+			<if test="commendMan != null">
+				and commendMan LIKE CONCAT('%', #{commendMan}, '%')
+			</if>
+			<if test="moveTelephone != null">
+				and moveTelephone LIKE CONCAT('%', #{moveTelephone}, '%')
+			</if>
+			<if test="nowAddress != null">
+				and nowAddress LIKE CONCAT('%', #{nowAddress}, '%')
+			</if>
+			<if test="identityCode != null">
+				and identityCode LIKE CONCAT('%', #{identityCode}, '%')
+			</if>
+			<if test="insuranceCode != null">
+				and insuranceCode LIKE CONCAT('%', #{insuranceCode}, '%')
+			</if>
+			<if test="instancyLinkman != null">
+				and instancyLinkman LIKE CONCAT('%', #{instancyLinkman}, '%')
+			</if>
+			<if test="instancyTelephone != null">
+				and instancyTelephone LIKE CONCAT('%', #{instancyTelephone}, '%')
+			</if>
+			<if test="sex != null">
+				and sex LIKE CONCAT('%', #{sex}, '%')
+			</if>
+			<if test="birthday != null">
+				and birthday LIKE CONCAT('%', #{birthday}, '%')
+			</if>
+			<if test="personnelType != null">
+				and personnelType LIKE CONCAT('%', #{personnelType}, '%')
+			</if>
+			<if test="duty != null">
+				and duty LIKE CONCAT('%', #{duty}, '%')
+			</if>
+			<if test="workDate != null">
+				and workDate LIKE CONCAT('%', #{workDate}, '%')
+			</if>
+			<if test="highSchool != null">
+				and highSchool LIKE CONCAT('%', #{highSchool}, '%')
+			</if>
+			<if test="finishSchool != null">
+				and finishSchool LIKE CONCAT('%', #{finishSchool}, '%')
+			</if>
+			<if test="finishSchoolDate != null">
+				and finishSchoolDate LIKE CONCAT('%', #{finishSchoolDate}, '%')
+			</if>
+			<if test="consortName != null">
+				and finishSchool LIKE CONCAT('%', #{finishSchool}, '%')
+			</if>
+			<if test="youngoneName != null">
+				and youngoneName LIKE CONCAT('%', #{youngoneName}, '%')
+			</if>
+			<if test="officeTelephone != null">
+				and officeTelephone LIKE CONCAT('%', #{officeTelephone}, '%')
+			</if>
+			<if test="consortTelephone != null">
+				and consortTelephone LIKE CONCAT('%', #{consortTelephone}, '%')
+			</if>
+			<if test="avocation != null">
+				and avocation LIKE CONCAT('%', #{avocation}, '%')
+			</if>
+			<if test="consortCompany != null">
+				and consortCompany LIKE CONCAT('%', #{consortCompany}, '%')
+			</if>
+			<if test="strongSuit != null">
+				and strongSuit LIKE CONCAT('%', #{strongSuit}, '%')
+			</if>
+			<if test="communicate != null">
+				and communicate LIKE CONCAT('%', #{communicate}, '%')
+			</if>
+			<if test="bringup != null">
+				and bringup LIKE CONCAT('%', #{bringup}, '%')
+			</if>
+			<if test="organise != null">
+				and organise LIKE CONCAT('%', #{organise}, '%')
+			</if>
+			<if test="analyse != null">
+				and analyse LIKE CONCAT('%', #{analyse}, '%')
+			</if>
+			<if test="planing != null">
+				and planing LIKE CONCAT('%', #{planing}, '%')
+			</if>
+			<if test="empolder != null">
+				and empolder LIKE CONCAT('%', #{empolder}, '%')
+			</if>
+			<if test="relation != null">
+				and relation LIKE CONCAT('%', #{relation}, '%')
+			</if>
+		</where>
+	</select>
+	
 </mapper>

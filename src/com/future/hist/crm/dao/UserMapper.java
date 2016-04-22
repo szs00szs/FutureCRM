@@ -27,4 +27,6 @@ public interface UserMapper {
 	
 	List<User> getAllUser();
 
+	List<User> getUserByLike(User user);
+
 }

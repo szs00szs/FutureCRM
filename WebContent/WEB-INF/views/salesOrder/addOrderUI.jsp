@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,10 +12,24 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加订单页面</title>
 <script type="text/javascript">
+	
+    function test(data){
+    	 var selecttwo=$("select[id='contacts'] option");
+    		for(i=0;i<selecttwo.length;i++){
+    		 if($(selecttwo.get(i)).attr("value")==data){
+    			 $(selecttwo.get(i)).show();
+    			$(selecttwo.get(i)).attr("selected",true);
+    		} else{
+    			$(selecttwo.get(i)).hide();
+    		}
+    	} 
+    }
+   
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
 		});
-	});
+		
+	}); 
 </script>
 </head>
 <body>
@@ -33,7 +46,7 @@
 				      <td>
 				      	<select name="salesman.id" id="salesman" style="border: solid #ccc 1px;" id="select">
 								<c:forEach items="${salesmanList}" var="salesman">
-									<option value="${salesman.id}" selected="selected">${salesman.name}</option>
+									<option value="${salesman.id}" selected="selected" >${salesman.name}</option>
 								</c:forEach>
 						</select> 
 				      </td>
@@ -43,9 +56,9 @@
 					<tr style="padding:5px;">
 			          		<td bgcolor="#eeeeee"> 客户姓名：</td>
 							<td>
-							<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select">
+							<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select" >
 								<c:forEach items="${customerList}" var="customer">
-									<option value="${customer.id}" selected="selected">${customer.name}</option>
+									<option value="${customer.id}" onclick="test(${customer.contacts.id});" >${customer.name}</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -61,9 +74,7 @@
 					 	<td>    
 					 		<select name="contacts.id" id="contacts" style="border: solid #ccc 1px;" id="select">
 								<c:forEach items="${contactsList}" var="contacts">
-									<c:if test="${customer.contacts.id}==${contacts.id}">
-									<option value="${contacts.id}" selected="selected">${contacts.name}</option>
-									</c:if>
+									<option value="${contacts.id}">${contacts.name} </option>
 								</c:forEach>
 							</select>
 						</td>
