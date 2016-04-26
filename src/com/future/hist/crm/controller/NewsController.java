@@ -20,6 +20,7 @@ import com.future.hist.crm.service.NewsService;
 import com.future.hist.crm.service.UserService;
 
 /**
+ * 新闻controller层
  * @author 羊羊
  * @date 2016年4月11日
  */
@@ -27,84 +28,152 @@ import com.future.hist.crm.service.UserService;
 @RequestMapping("/news")
 public class NewsController extends BaseController{
 	
+	/**
+	 * newService层
+	 */
 	@Autowired
 	private NewsService newsService;
 	
+	/**
+	 * userService层
+	 */
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/news_detail/{id}")
-	public String newsDetail(@PathVariable("id") long id , Model model){
-		News news = newsService.getNewsById(id);
-		model.addAttribute(news);
-		return "news/news_detail";
-	}
-	
+	/**
+	 * 新闻列表
+	 * @param map
+	 * @return 返回到新闻列表页面
+	 */
 	@RequestMapping("/news_list")
 	public String newsList(Map<String , Object> map){
+		//准备数据，得到所有的新闻
 		List<News> newsList = newsService.getAllNewsByTimedesc();//按时间排序，显示最新新闻
 		map.put("newsList", newsList);
+		
 		return "news/news_list";
 	}
 
+	/**
+	 * 新闻详情
+	 * @param id ： 待查看的新闻id
+	 * @param model
+	 * @return 返回到新闻详情页
+	 */
+	@RequestMapping("/news_detail/{id}")
+	public String newsDetail(@PathVariable("id") long id , Model model){
+		//准备数据，通过id得到新闻详情
+		News news = newsService.getNewsById(id);
+		model.addAttribute(news);
+		
+		return "news/news_detail";
+	}
+	
+	/**
+	 * 添加新闻请求
+	 * @param map
+	 * @return 返回到添加新闻页面
+	 */
 	@RequestMapping(value = "/news_saveUI")
 	public String saveUI(Map<String, Object> map){
+		//准备数据，userList
 		List<User> userList = userService.getAllUser();
 		map.put("userList", userList);
+		
 		return "news/saveUI";
 	}
+	/**
+	 * 添加新闻
+	 * @param news
+	 * @return 返回到新闻列表页面
+	 */
 	@RequestMapping(value = "/news_save" )
 	public String save(News news){
-		System.out.println(news);
+		
 		newsService.addNews(news);
+		
 		return "redirect:/news/news_list";
 	}
 	
+	/**
+	 * 更新新闻请求
+	 * @param id ：待更新的新闻id
+	 * @param map
+	 * @return 返回到更新新闻页面
+	 */
 	@RequestMapping(value = "/news_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
+		//数据准备，通过id得到待更新的新闻详情
 		News news = newsService.getNewsById(id);
+		map.put("news" , news);
+		//userList
 		List<User> userList = userService.getAllUser();
 		map.put("userList", userList);
-		map.put("news" , news);
+		
 		return "news/saveUI";
 	}
 	
+	/**
+	 * 更新新闻
+	 * @param news
+	 * @return 返回到新闻列表页面
+	 */
 	@RequestMapping(value = "/news_update" )
 	public String update(News news){
-		System.out.println("news : " + news);
+		
 		newsService.updateNews(news);
+		
 		return "redirect:/news/news_list";
 	}
 				
+	/**
+	 * 删除新闻
+	 * @param id ： 待删除的新闻id
+	 * @return 返回到新闻列表
+	 */
 	@RequestMapping(value = "/news_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
+		
 		newsService.deleteNewsById(id);
+		
 		return "redirect:/news/news_list";
 	}
 	
+	/**
+	 * 查询新闻
+	 * <p>
+	 * 	有两种查询方法：title（新闻标题）、user_name(发布人）
+	 * </p>
+	 * @param request
+	 * @param map
+	 * @return 返回到新闻列表
+	 */
+	
+	// TODO 暂定为两种查询方法
 	@RequestMapping(value = "/query")
 	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");
 		String selectContent = request.getParameter("selectContent");
-		System.out.println("the selectType is :" + selectType);
-		System.out.println("the selectContent is : " + selectContent);
+		
 		List<News> newsList = new ArrayList<News>();
+		
 		switch (selectType) {
-		case "title":
+		case "title"://通过title查询新闻
 			newsList = newsService.getNewsByTitleLike_(selectContent);
 			break;
 
-		case "user_name":
+		case "user_name"://通过发布人得到新闻
 			List<User> issuerList = userService.getUserByNameLike_(selectContent);
 			for(User issuer : issuerList){
 				newsList.addAll(newsService.getNewsByIssuer(issuer));
 			}
 			break;
-		default:
+		default://默认得到所有新闻
 			newsList = newsService.getAllNews();
 			break;
 		}
 		map.put("newsList", newsList);
+		
 		return "news/news_list";
 	}
 	

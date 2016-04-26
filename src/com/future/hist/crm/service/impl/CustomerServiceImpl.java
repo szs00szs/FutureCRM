@@ -1,5 +1,6 @@
 package com.future.hist.crm.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,14 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	public List<Customer> getCustomerByKind(String kind){
 		return customerMapper.getCustomerByKind(kind);
+	}
+	
+	public List<Customer> getCustomerByTouchDate(Date touchDate){
+		return customerMapper.getCustomerByTouchDate(touchDate);
+	}
+	
+	public List<Customer> getCustomerByIsTouched(int isTouched){
+		return customerMapper.getCustomerByIsTouched(isTouched);
 	}
 
 }

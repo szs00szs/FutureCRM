@@ -64,8 +64,14 @@
 					</td>
 					<td>
 						<input type="hidden"  name="issuer.id" value="${news.issuer.getId()}" />
-						<fmt:formatDate value="${news.issur_date}" pattern="yyyy-MM-dd HH:mm:ss" var="issur_date"/>
-						<input type="text" name="issur_date" value="${issur_date}"/> 
+						<c:if test="${news != null }">
+							<fmt:formatDate value="${news.issur_date}" pattern="yyyy-MM-dd HH:mm:ss" var="issur_date"/>
+							<input type="text" name="issur_date" value="${issur_date}"/> 
+						</c:if>
+						<c:if test="${news == null }"><!-- 如果news为空，默认 -->
+							<fmt:formatDate value="${news.issur_date}" pattern="yyyy-MM-dd HH:mm:ss" var="issur_date"/>
+							<input type="text" name="issur_date" value="${issur_date}"/> 
+						</c:if>
 					</td>
 					<td><input type="text" name="newsType" value="${news.newsType }" /></td>
 				</tr>
