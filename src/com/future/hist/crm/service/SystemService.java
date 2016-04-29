@@ -9,7 +9,7 @@ public interface SystemService  {
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
-	public User getUserByLoginName(String account);
+	public User getUserByLoginName(String loginName);
 	
 	public void updatePasswordById(String id, String loginName, String newPassword);
 

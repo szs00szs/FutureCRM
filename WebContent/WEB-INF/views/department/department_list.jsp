@@ -12,8 +12,8 @@
 </script>
 </head>
 <body>
-	<a
-		href="${pageContext.request.contextPath}/sysDepartment/department_saveUI">增加部门</a>
+		<a
+		href="${pageContext.request.contextPath}/sysDepartment/department_save">增加部门</a>
 
 	<br>
 	<hr>
@@ -46,7 +46,7 @@
 							<td>${department.incumbent }</td>
 							<td>${department.remark }</td>
 							<td><a
-								href="${pageContext.request.contextPath }/sysDepartment/department_updateUI/${department.id }/${currentPage }"
+								href="${pageContext.request.contextPath }/sysDepartment/department_update/${department.id }/${currentPage }"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
 								<a

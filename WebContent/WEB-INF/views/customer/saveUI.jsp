@@ -6,8 +6,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link
+	href="${pageContext.request.contextPath }/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
 <title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#datetimepicker').datetimepicker({
+			  format: 'yyyy-MM-dd hh:MM:ss'
+		});
+	});
+</script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
@@ -124,7 +141,12 @@
  			<td>下次联系时间</td>
  			<td>
  				<fmt:formatDate value="${customer.nextTouchDate }" pattern="yyyy-MM-dd HH:mm:ss" var="nextTouchDate"/>
- 				<input name="nextTouchDate" value="${nextTouchDate }">
+ 				<div id="datetimepicker" class="input-append date">
+	 				<input name="nextTouchDate" id="datetimepicker" type="text" value="${nextTouchDate }">
+					<span class="add-on"> 
+						<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+					</span>
+				</div>
  			</td>
  		</tr>
  		<tr>
@@ -169,9 +191,15 @@
  		</tr>
  		<tr>
  			<td>创建时间</td>
- 			<td>
+ 			<td><!-- 如果customer为空，设置为当前时间 -->
+ 			<c:if test="${customer == null }">
  				<fmt:formatDate value="${customer.createTime }" pattern="yyyy-MM-dd HH:mm:ss" var="createTime"/>
- 				<input name="createTime" value="${createTime }">
+	 			<input name="createTime" value="${createTime }">
+	 		</c:if>
+	 		<c:if test="${customer != null }">
+	 			<fmt:formatDate value="${customer.createTime }" pattern="yyyy-MM-dd HH:mm:ss" var="createTime"/>
+	 			<input name="createTime" value="${createTime }">
+	 		</c:if>
  			</td>
  		</tr>
  		<tr>
@@ -180,9 +208,15 @@
  		</tr>
  		<tr>
  			<td>修改时间</td>
- 			<td>
+ 			<td><!-- 如果customer为空则不让填写-->
+ 			<c:if test="${customer == null }">
  				<fmt:formatDate value="${customer.updateTime }" pattern="yyyy-MM-dd HH:mm:ss" var="updateTime"/>
  				<input name="updateTime" value="${updateTime }">
+ 			</c:if>
+ 			<c:if test="${customer != null }">
+ 				<fmt:formatDate value="${customer.updateTime }" pattern="yyyy-MM-dd HH:mm:ss" var="updateTime"/>
+ 				<input name="updateTime" value="${updateTime }">
+ 			</c:if>
  			</td>
  		</tr>
  		<tr>
@@ -210,9 +244,15 @@
  		</tr>
  		<tr>
  			<td>分配日期</td>
- 			<td>
+ 			<td><!-- 如果customer为空则不让填写-->
+ 			<c:if test="${customer == null }">
  				<fmt:formatDate value="${customer.dispenseDate }" pattern="yyyy-MM-dd HH:mm:ss" var="dispenseDate"/>
- 				<input name="dispenseDate" value="${dispenseDate }">
+	 			<input name="dispenseDate" value="${dispenseDate }">
+	 		</c:if>
+	 		<c:if test="${customer != null }">
+ 				<fmt:formatDate value="${customer.dispenseDate }" pattern="yyyy-MM-dd HH:mm:ss" var="dispenseDate"/>
+	 			<input name="dispenseDate" value="${dispenseDate }">
+	 		</c:if>
  			</td>
  		</tr>
  		<tr>

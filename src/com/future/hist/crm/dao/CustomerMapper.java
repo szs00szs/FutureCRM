@@ -1,5 +1,6 @@
 package com.future.hist.crm.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.future.hist.crm.domain.Contacts;
@@ -156,5 +157,19 @@ public interface CustomerMapper {
 	 */
 	List<Customer> getCustomerByKind(String kind);
 
+	//客户回访相关
 	
+	/**
+	 * 通过联系时间返回需要回访的客户列表
+	 * @param touchDate
+	 * @return
+	 */
+	List<Customer> getCustomerByTouchDate(Date touchDate);
+	
+	/**
+	 * 通过是否联系来得到需要回访的客户列表
+	 * @param isTouched
+	 * @return
+	 */
+	List<Customer> getCustomerByIsTouched(int isTouched);
 }

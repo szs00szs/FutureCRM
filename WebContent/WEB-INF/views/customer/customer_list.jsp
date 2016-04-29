@@ -18,6 +18,7 @@
 				<td>
 					请选择查询方式：
 					<select name="selectType">
+						<option >-- --</option>
 						<option value="name">客户姓名</option>
 						<option value="code">客户编号</option>
 						<option value="source">客户来源</option>

@@ -166,6 +166,9 @@
 			<if test="loginName != null">
 				loginName,
 			</if>
+			<if test="salt != null">
+				salt,
+			</if>
 			<if test="password != null">
 				password,
 			</if>
@@ -305,6 +308,9 @@
 			</if>
 			<if test="loginName != null">
 				#{loginName},
+			</if>
+			<if test="salt != null">
+				#{salt},
 			</if>
 			<if test="password != null">
 				#{password},

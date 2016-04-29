@@ -3,14 +3,12 @@ package com.future.hist.crm.security;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.utils.StringUtils;
@@ -31,9 +29,6 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 
 
 	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-		
-		
-		
 		String username = getUsername(request);   //得到用户名
 		String password = getPassword(request);   //得到密码
 		if (password==null){
@@ -48,8 +43,6 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	public String getCaptchaParam() {
 		return captchaParam;
 	}
-	
-
 
 	protected String getCaptcha(ServletRequest request) {
 		return WebUtils.getCleanParam(request, getCaptchaParam());
@@ -66,9 +59,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 	protected void issueSuccessRedirect(ServletRequest request,
 			ServletResponse response) throws Exception {
 			 WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
-
 	}
-
 	
 	/**
 	 * 登录失败调用事件
@@ -89,7 +80,6 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 			e.printStackTrace(); 
 		}
         request.setAttribute(getFailureKeyAttribute(), className);
-        
         return true;
 	}
 	

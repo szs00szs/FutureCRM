@@ -8,6 +8,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link
+	href="${pageContext.request.contextPath }/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#datetimepicker').datetimepicker({
+			  format: 'yyyy-MM-dd hh:MM:ss'
+		});
+	});
+</script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
@@ -52,7 +69,13 @@
  			<td>生日</td>
  			<td>
  				<fmt:formatDate value="${contacts.birthday}" pattern="yyyy-MM-dd HH:mm:ss" var="birthday"/>
- 				<input name="birthday" value="${birthday }" />
+ 				<div id="datetimepicker" class="input-append date">
+ 					<input name="birthday" value="${birthday }" />
+					<%-- <input name="issue_date" id="datetimepicker" type="text" value="${issue_date }"/> --%>
+					<span class="add-on"> 
+						<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
+					</span>
+				</div>
  			</td>
  		</tr>
  		<tr>

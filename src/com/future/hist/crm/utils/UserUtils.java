@@ -15,7 +15,6 @@ import com.future.hist.crm.dao.PrivilegeMapper;
 import com.future.hist.crm.dao.UserMapper;
 import com.future.hist.crm.domain.Privilege;
 import com.future.hist.crm.domain.User;
-import com.future.hist.crm.security.SystemAuthorizingRealm.Principal;
 
 /**
  * 
@@ -25,14 +24,14 @@ import com.future.hist.crm.security.SystemAuthorizingRealm.Principal;
 @Service
 public class UserUtils {
 
-	public static final String CACHE_MENU_LIST = "menuList";
+	public static final String CACHE_PRI_LIST = "priList";
 
 	public static final String CACHE_ROLE_LIST = "roleList";
 	// private static RoleDao roleDao =
 	// SpringContextHolder.getBean(RoleDao.class);
 	private static PrivilegeMapper privilegeMapper = SpringContextHolder.getBean(PrivilegeMapper.class);
 	public static final String USER_CACHE = "userCache";
-	public static final String USER_CACHE_ACCOUNT_ = "account";
+	public static final String USER_CACHE_LOGINNAME_ = "loginName";
 
 	private static UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
 
@@ -40,7 +39,7 @@ public class UserUtils {
 	 * 清除当前用户缓存
 	 */
 	public static void clearCache() {
-		removeCache(CACHE_MENU_LIST);
+		removeCache(CACHE_PRI_LIST);
 		UserUtils.clearCache(getUser());
 	}
 
@@ -51,8 +50,8 @@ public class UserUtils {
 	 */
 	public static void clearCache(User user) {
 
-		CacheUtils.remove(USER_CACHE, USER_CACHE_ACCOUNT_ + user.getName());
-		CacheUtils.remove(USER_CACHE, USER_CACHE_ACCOUNT_ + user);
+		CacheUtils.remove(USER_CACHE, USER_CACHE_LOGINNAME_ + user.getLoginName());
+		CacheUtils.remove(USER_CACHE, USER_CACHE_LOGINNAME_ + user);
 	}
 
 	/**
@@ -63,36 +62,35 @@ public class UserUtils {
 	 */
 	public static User get(String name) {
 
-		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_ACCOUNT_ + name);
+		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_LOGINNAME_ + name);
 		if (user == null) {
 			user = userMapper.getUserByName(name);
 			if (user == null) {
 				return null;
 			}
-			CacheUtils.put(USER_CACHE, USER_CACHE_ACCOUNT_ + user, user);
+			CacheUtils.put(USER_CACHE, USER_CACHE_LOGINNAME_ + user, user);
 		}
 		return user;
 	}
 
 	/**
-	 * 根据account获取user对象
+	 * 根据loginName获取user对象
 	 * 
-	 * @param name
+	 * @param loginName
 	 * @return 取不到返回null
 	 */
 	public static User getByLoginName(String loginName) {
-
-		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_ACCOUNT_ + loginName);
+		System.out.println("loginName : "  + loginName);
+		User user = (User) CacheUtils.get(USER_CACHE, USER_CACHE_LOGINNAME_ + loginName);
 
 		if (user == null) {
 			System.out.println("utils的getByLoginName函数开始执行。。。。。。。。。。。。。。。。。");
-			user = userMapper.getUserByName(loginName);
-
+			user = userMapper.getUserByLoginName(loginName);
 			if (user == null) {
 				return null;
 			}
 
-			CacheUtils.put(USER_CACHE, USER_CACHE_ACCOUNT_ + user.getLoginName(), user);
+			CacheUtils.put(USER_CACHE, USER_CACHE_LOGINNAME_ + user.getLoginName(), user);
 		}
 		return user;
 	}
@@ -114,7 +112,7 @@ public class UserUtils {
 	 */
 	public static List<Privilege> getPrivilegeList() {
 		@SuppressWarnings("unchecked")
-		List<Privilege> priList = (List<Privilege>) getCache(CACHE_MENU_LIST);
+		List<Privilege> priList = (List<Privilege>) getCache(CACHE_PRI_LIST);
 		if (priList == null) {
 			User user = getUser();
 			// String[] roleids = user.getRoleids();
@@ -126,7 +124,7 @@ public class UserUtils {
 			// pri.setRoleid(roleids[0]);
 			// menuList = menuDao.findByRoleId(m);
 			// }
-			putCache(CACHE_MENU_LIST, priList);
+			putCache(CACHE_PRI_LIST, priList);
 		}
 		return priList;
 	}
@@ -139,7 +137,9 @@ public class UserUtils {
 	public static Principal getPrincipal() {
 		try {
 			Subject subject = SecurityUtils.getSubject();
+			System.out.println("subject.getPrincipal() : " + (String) subject.getPrincipal());
 			Principal principal = (Principal) subject.getPrincipal();
+			String loginName = (String) subject.getPrincipal();
 			if (principal != null) {
 				return principal;
 			}

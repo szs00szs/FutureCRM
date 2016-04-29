@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,7 @@ public class SalesOrderController {
 	private CommodityService commodityService;
 
 	// 添加订单页面
+	@RequiresPermissions("sales:save")
 	@RequestMapping("/addOrderUI")
 	public String addOrderUI(Map<String, Object> map) {
 		List<Customer> customerList = customerService.getAllCustomer();
@@ -60,15 +62,17 @@ public class SalesOrderController {
 	}
 
 	// 添加订单
+	@RequiresPermissions("sales:save")
 	@RequestMapping("/addOrder")
 	public String addOrder(SalesOrder salesOrder) throws ParseException {
-	
+
 		salesOrderService.addOrder(salesOrder);
 
 		return "forward:queryOrders.action";
 	}
 
 	// 查询所有的销售订单
+	@RequiresPermissions("sales:query")
 	@RequestMapping("/queryOrders")
 	public ModelAndView queryOrders() {
 
@@ -83,6 +87,7 @@ public class SalesOrderController {
 	}
 
 	// 根据id删除订单
+	@RequiresPermissions("sales:delete")
 	@RequestMapping("deleteOrderById")
 	public String deleteOrderById(int id) {
 		System.out.println("前台传入id：" + id);
@@ -90,27 +95,9 @@ public class SalesOrderController {
 		return "forward:queryOrders.action";
 	}
 
-	// // 修改订单页面
-	// @RequestMapping("editOrderById")
-	// public String editOrderById(int id, Map<String, Object> map) {
-	// System.out.println("修改:" + id);
-	// SalesOrder salesOrder = salesOrderService.findOrderById(id);
-	// System.out.println("待修改的：" + salesOrder);
-	// map.put("salesOrder", salesOrder);
-	// return "salesOrder/editOrder";
-	// }
-
-	// // 修改订单
-	// @RequestMapping("editOrder")
-	// public String editOrder(SalesOrder salesOrder) {
-	// System.out.println("修改后：" + salesOrder);
-	// System.out.println("修改的id=" + salesOrder.getId());
-	// System.out.println("执行修改");
-	// return "forward:queryOrders.action";
-	// }
-
 	// 订单详情
 	@RequestMapping("orderDetails")
+
 	public String orderDetails(int id, Map<String, Object> map) {
 		SalesOrder salesOrder = salesOrderService.findOrderById(id);
 		map.put("salesOrder", salesOrder);

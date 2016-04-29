@@ -8,9 +8,6 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-
-
-
 public class CacheUtils {
 	
 	private static CacheManager cacheManager = ((CacheManager)SpringContextHolder.getBean("cacheManager"));
@@ -51,10 +48,7 @@ public class CacheUtils {
 	 * @return
 	 */
 	public static Object get(String cacheName, String key) {
-		
-		
-		
-		System.out.println("11111111111111111111111111111111111111111");
+		System.out.println("获取缓存中的信息");
 		Element element = getCache(cacheName).get(key);
 		return element==null?null:element.getObjectValue();
 	}

@@ -1,6 +1,7 @@
 package com.future.hist.crm.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Role {
@@ -9,7 +10,7 @@ public class Role {
 	private String remark;     //备注
 	private String name;       //名称
 	private Set<User> users = new HashSet<User>();
-	private Set<Privilege> privileges = new HashSet<Privilege>();
+	private List<Long> priIds; //拥有的资源
 	public Long getId() {
 		return id;
 	}
@@ -34,16 +35,16 @@ public class Role {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	public Set<Privilege> getPrivileges() {
-		return privileges;
+	public List<Long> getPriIds() {
+		return priIds;
 	}
-	public void setPrivileges(Set<Privilege> privileges) {
-		this.privileges = privileges;
+	public void setPriIds(List<Long> priIds) {
+		this.priIds = priIds;
 	}
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", remark=" + remark + ", name=" + name + ", users=" + users + ", privileges="
-				+ privileges + "]";
+		return "Role [id=" + id + ", remark=" + remark + ", name=" + name + ", users=" + users + ", priIds=" + priIds
+				+ "]";
 	}
 	
 }

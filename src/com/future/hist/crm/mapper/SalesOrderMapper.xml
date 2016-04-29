@@ -85,9 +85,4 @@
 		DELETE FROM saleorder WHERE id = #{id}
 	</delete>
 	
-	<!-- 修改订单 -->
-	<update id="editOrder" parameterType="com.future.hist.crm.domain.SalesOrder">
-		
-	</update>
-	
 </mapper>

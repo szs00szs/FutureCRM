@@ -6,15 +6,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link href="${pageContext.request.contextPath }/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script> 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link
+	href="${pageContext.request.contextPath }/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#datetimepicker').datetimepicker({
+			  format: 'yyyy-MM-dd hh:MM:ss'
+		});
+	});
+</script>
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
@@ -34,16 +42,9 @@
 	})
 	
 </script>
-<script type="text/javascript">
-	$(function() {
-		$(".datetimepicker1").datetimepicker({
-
-		});
-	});
-</script>
 </head>
 <body>
-<div align="center">
+<div class="container" align="center">
 	<form:form action="#" id="form" method="POST"
 		modelAttribute="announcement">
 		<table>
@@ -78,14 +79,14 @@
  		<tr>
  			<td>发布日期</td>
  			<td>
-				<%-- <fmt:formatDate value="${announcement.issue_date }" pattern="yyyy-MM-dd HH:mm:ss" var="issue_date"/>
-				<input name="issue_date" value="${issue_date }"/> --%>
-				<div id="datetimepicker1" class="input-append date">
-					<input name="issue_date" id="datetimepicker1" data-format="yyyy-MM-dd hh:mm:ss" type="text" value="<fmt:formatDate value="${issue_date}" pattern="yyyy-MM-dd hh:mm:ss"/>"/>
-					<span class="add-on"> 
-						<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
-					</span>
-				</div>
+ 			<c:if test="${announcement != null }"><!-- 如果announcement不为空显示发布日志，不可更改 -->
+				<fmt:formatDate value="${announcement.issue_date }" pattern="yyyy-MM-dd HH:mm:ss" var="issue_date"/>
+				<input name="issue_date" type="text" value="${issue_date }"/>
+			</c:if>
+			<c:if test="${announcement == null }"><!-- 为空设置为当前时间 -->
+				<fmt:formatDate value="${announcement.issue_date }" pattern="yyyy-MM-dd HH:mm:ss" var="issue_date"/>
+				<input name="issue_date" type="text" value="${issue_date }"/>
+			</c:if>
 			</td>
  		</tr>
  		<tr>

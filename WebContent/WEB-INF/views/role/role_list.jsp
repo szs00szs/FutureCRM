@@ -8,7 +8,7 @@
 <title>权限列表</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/sysRole/role_saveUI">增加角色</a>
+<a href="${pageContext.request.contextPath}/sysRole/role_save">增加角色</a>
 <br>
 <table border="1" style="font-size: 12px;">
 		<caption>角色管理</caption>
@@ -28,9 +28,13 @@
 							<td>${role.name }</td>
 							<td>${role.remark }</td>
 							<td><a
-								href="${pageContext.request.contextPath }/sysRole/role_updateUI/${role.id }/${currentPage }"
+								href="${pageContext.request.contextPath }/sysRole/role_update/${role.id }/${currentPage }"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
+									<a
+								href="${pageContext.request.contextPath }/sysRole/update_privilege/${role.id }"
+								style="margin-right: 10%;"><img
+									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;修改权限</a>
 								<a
 								href="${pageContext.request.contextPath }/sysRole/role_delete/${role.id }"><img
 									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
