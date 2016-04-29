@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class ContactsController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
+	@RequiresPermissions("contacts:list")
 	@RequestMapping("/contacts_list")
 	public String contactsList(Map<String , Object> map){
 		List<Contacts> contactsList =contactService.getAllContacts();
@@ -37,6 +39,7 @@ public class ContactsController extends BaseController {
 		return "contacts/contacts_list";
 	}
 	
+	@RequiresPermissions("contacts:detail")
 	@RequestMapping("/contacts_detail/{id}")
 	public String contactsDetail(Map<String , Object> map ,@PathVariable("id") Long id){
 		Contacts contacts = contactService.getContactById(id);
@@ -45,6 +48,7 @@ public class ContactsController extends BaseController {
 		return "contacts/contacts_detail";
 	}
 	
+	@RequiresPermissions("contacts:save")
 	@RequestMapping(value = "/contacts_saveUI")
 	public String saveUI(Map<String, Object> map){
 		List<Contacts> contactsList = contactService.getAllContacts();
@@ -54,6 +58,7 @@ public class ContactsController extends BaseController {
 		return "contacts/saveUI";
 	}
 	
+	@RequiresPermissions("contacts:update")
 	@RequestMapping(value = "/contacts_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		Contacts contacts = contactService.getContactById(id);
@@ -65,6 +70,7 @@ public class ContactsController extends BaseController {
 		return "contacts/saveUI";
 	}
 	
+	@RequiresPermissions("contacts:save")
 	@RequestMapping(value = "/contacts_save" )
 	public String save(Contacts contacts){
 		System.out.println(contacts);
@@ -72,6 +78,7 @@ public class ContactsController extends BaseController {
 		return "redirect:/contacts/contacts_list";
 	}
 	
+	@RequiresPermissions("contacts:update")
 	@RequestMapping(value = "/contacts_update" )
 	public String update(Contacts contacts){
 		System.out.println("contacts : " + contacts);
@@ -79,12 +86,14 @@ public class ContactsController extends BaseController {
 		return "redirect:/contacts/contacts_list";
 	}
 				
+	@RequiresPermissions("contacts:delete")
 	@RequestMapping(value = "/contacts_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
 		contactService.deleteContactById(id);
 		return "redirect:/contacts/contacts_list";
 	}
 	
+	@RequiresPermissions("contacts:query")
 	@RequestMapping(value = "/query")
 	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");

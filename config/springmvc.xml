@@ -32,4 +32,5 @@
 	</bean>
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven ></mvc:annotation-driven>
+	<import resource="classpath:springmvc-context-shiro.xml"/>
 </beans>

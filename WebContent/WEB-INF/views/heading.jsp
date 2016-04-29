@@ -18,7 +18,7 @@
             <img src="images/logo.jpg" width="50px" height="50px" top:"1%">&nbsp;&nbsp;河南科技学院
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-size:23px; color:#1A8252;text-shadow: 2px 3px 10px rgba(204, 204, 204, 0.5);margin-top:-1%;margin-left:-5%;padding:0px;" >
-		    阳光长跑管理系统
+		    CRM客户关系管理系统
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 " style="padding-left: 2%;;margin-left:0%;margin-top:-0.9%;">
             <img src="images/2.png">&nbsp;&nbsp;<a href="#" style="text-decoration:none;color:#666;font-family:微软雅黑">换肤</a>&nbsp;

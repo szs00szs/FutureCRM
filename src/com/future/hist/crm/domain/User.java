@@ -1,7 +1,9 @@
 package com.future.hist.crm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.validator.constraints.Email;
@@ -13,8 +15,12 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Administrator
  *
  */
-public class User {
+public class User implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String creator; // #创建人
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -24,8 +30,12 @@ public class User {
 	private Date updateTime; // 修建时间 yyyy-mm-dd HH24:mm:ss
 	private String remark; // 备注
 	private String name; // 中文名
+	
 	private String loginName;  //登录名
 	private String password; // 密码
+	private String salt; //加密密码的盐
+	
+	
 	private String address; // 家庭地址
 	private String telephone; // 家庭电话
 	@Email
@@ -71,7 +81,7 @@ public class User {
 	private String planing; // 计划能力
 	private String empolder; // 人员开发
 	private String relation; // 人际关系
-	private Set<Role> roles = new HashSet<Role>();
+	private List<Long> roleIds; //拥有的角色列表
 
 	public Long getId() {
 		return id;
@@ -193,6 +203,16 @@ public class User {
 		this.password = password;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	public String getCredentialsSalt() {
+        return loginName + salt;
+    }
 	public String getAddress() {
 		return address;
 	}
@@ -497,31 +517,32 @@ public class User {
 		this.relation = relation;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public List<Long> getRoleIds() {
+		return roleIds;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRoleIds(List<Long> roleIds) {
+		this.roleIds = roleIds;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", creator=" + creator + ", createTime=" + createTime + ", updater=" + updater
-				+ ", updateTime=" + updateTime + ", remark=" + remark + ", name=" + name + ", password=" + password
-				+ ", address=" + address + ", telephone=" + telephone + ", email=" + email + ", beginDate=" + beginDate
-				+ ", endDate=" + endDate + ", department=" + department + ", accessFileLevel=" + accessFileLevel
-				+ ", status=" + status + ", commendMan=" + commendMan + ", moveTelephone=" + moveTelephone
-				+ ", nowAddress=" + nowAddress + ", nowTelephone=" + nowTelephone + ", identityCode=" + identityCode
-				+ ", insuranceCode=" + insuranceCode + ", instancyLinkman=" + instancyLinkman + ", instancyTelephone="
-				+ instancyTelephone + ", sex=" + sex + ", birthday=" + birthday + ", personnelType=" + personnelType
-				+ ", duty=" + duty + ", workDate=" + workDate + ", highSchool=" + highSchool + ", finishSchool="
-				+ finishSchool + ", finishSchoolDate=" + finishSchoolDate + ", consortName=" + consortName
-				+ ", youngoneName=" + youngoneName + ", officeTelephone=" + officeTelephone + ", consortTelephone="
-				+ consortTelephone + ", avocation=" + avocation + ", consortCompany=" + consortCompany + ", strongSuit="
-				+ strongSuit + ", communicate=" + communicate + ", bringup=" + bringup + ", organise=" + organise
-				+ ", analyse=" + analyse + ", planing=" + planing + ", empolder=" + empolder + ", relation=" + relation
-				+ ", roles=" + roles + "]";
+				+ ", updateTime=" + updateTime + ", remark=" + remark + ", name=" + name + ", loginName=" + loginName
+				+ ", password=" + password + ", salt=" + salt + ", address=" + address + ", telephone=" + telephone
+				+ ", email=" + email + ", beginDate=" + beginDate + ", endDate=" + endDate + ", department="
+				+ department + ", accessFileLevel=" + accessFileLevel + ", status=" + status + ", commendMan="
+				+ commendMan + ", moveTelephone=" + moveTelephone + ", nowAddress=" + nowAddress + ", nowTelephone="
+				+ nowTelephone + ", identityCode=" + identityCode + ", insuranceCode=" + insuranceCode
+				+ ", instancyLinkman=" + instancyLinkman + ", instancyTelephone=" + instancyTelephone + ", sex=" + sex
+				+ ", birthday=" + birthday + ", personnelType=" + personnelType + ", duty=" + duty + ", workDate="
+				+ workDate + ", highSchool=" + highSchool + ", finishSchool=" + finishSchool + ", finishSchoolDate="
+				+ finishSchoolDate + ", consortName=" + consortName + ", youngoneName=" + youngoneName
+				+ ", officeTelephone=" + officeTelephone + ", consortTelephone=" + consortTelephone + ", avocation="
+				+ avocation + ", consortCompany=" + consortCompany + ", strongSuit=" + strongSuit + ", communicate="
+				+ communicate + ", bringup=" + bringup + ", organise=" + organise + ", analyse=" + analyse
+				+ ", planing=" + planing + ", empolder=" + empolder + ", relation=" + relation + ", roleIds=" + roleIds
+				+ "]";
 	}
 
 }

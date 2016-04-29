@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,7 @@ public class AnnouncementController extends BaseController {
 	@Autowired
 	private DepartmentService departmentService;
 	
+	@RequiresPermissions("announcement:list")
 	@RequestMapping("/announcement_list")
 	public String announcementList(Model model){
 		List<Announcement> announcementList = announcementService.getAllAnnouncement();
@@ -43,6 +45,7 @@ public class AnnouncementController extends BaseController {
 		return "announcement/announcement_list";
 	}
 	
+	@RequiresPermissions("announcement:detail")
 	@RequestMapping("/announcement_detail/{id}")
 	public String announcementDetail(@PathVariable("id") long id , Model model){
 		Announcement annoucement = announcementService.getAnnouncementById(id);
@@ -50,6 +53,7 @@ public class AnnouncementController extends BaseController {
 		return "announcement/announcement_detail";
 	}
 	
+	@RequiresPermissions("announcement:save")
 	@RequestMapping(value = "/announcement_saveUI")
 	public String saveUI(Map<String, Object> map){
 		List<User> userList	 = userService.getAllUser();
@@ -58,6 +62,8 @@ public class AnnouncementController extends BaseController {
 		map.put("departmentList", departmentList);
 		return "announcement/saveUI";
 	}
+	
+	@RequiresPermissions("announcement:save")
 	@RequestMapping(value = "/announcement_save" )
 	public String save(Announcement announcement){
 		System.out.println(announcement);
@@ -65,6 +71,7 @@ public class AnnouncementController extends BaseController {
 		return "redirect:/announcement/announcement_list";
 	}
 	
+	@RequiresPermissions("announcement:update")
 	@RequestMapping(value = "/announcement_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		Announcement announcement = announcementService.getAnnouncementById(id);
@@ -76,6 +83,7 @@ public class AnnouncementController extends BaseController {
 		return "announcement/saveUI";
 	}
 	
+	@RequiresPermissions("announcement:update")
 	@RequestMapping(value = "/announcement_update" )
 	public String update(Announcement announcement){
 		System.out.println("announcement : " + announcement);
@@ -83,12 +91,14 @@ public class AnnouncementController extends BaseController {
 		return "redirect:/announcement/announcement_list";
 	}
 				
+	@RequiresPermissions("announcement:delete")
 	@RequestMapping(value = "/announcement_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
 		announcementService.deleteAnnouncementById(id);
 		return "redirect:/announcement/announcement_list";
 	}
 	
+	@RequiresPermissions("announcement:query")
 	@RequestMapping(value = "/query")
 	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");

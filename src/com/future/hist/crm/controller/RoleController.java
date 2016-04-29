@@ -3,14 +3,19 @@ package com.future.hist.crm.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.PageParameter;
+import com.future.hist.crm.domain.Privilege;
 import com.future.hist.crm.domain.Role;
+import com.future.hist.crm.service.PrivilegeService;
+import com.future.hist.crm.service.Privilege_RoleService;
 import com.future.hist.crm.service.RoleService;
 
 @Controller
@@ -20,8 +25,15 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 	
-	@RequestMapping(value = "role_saveUI")
-	public String saveUI(Map<String, Object> map){
+	@Autowired
+	private PrivilegeService privilegeService;
+	
+	@Autowired
+	private Privilege_RoleService privilege_roleService;
+	
+	@RequiresPermissions("role:save")
+	@RequestMapping(value = "role_save",method = RequestMethod.GET)
+	public String save(Map<String, Object> map){
 		map.put("currentPage", 1);
 		return "role/saveUI";
 	}
@@ -30,7 +42,8 @@ public class RoleController {
 	 * @param role
 	 * @return
 	 */
-	@RequestMapping(value = "role_save")
+	@RequiresPermissions("role:save")
+	@RequestMapping(value = "role_save",method = RequestMethod.GET)
 	public String save(Role role){
 		System.out.println(role);
 		roleService.insertRole(role);
@@ -40,6 +53,7 @@ public class RoleController {
 		return "redirect:/sysRole/role_list/" + totalPage;
 	}
 	
+	@RequiresPermissions("role:view")
 	@RequestMapping("role_list/{currentPage}")
 	public String list(@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
 		BaseSearch baseSearch = new BaseSearch();
@@ -55,7 +69,8 @@ public class RoleController {
 		return "role/role_list";
 	}
 	
-	@RequestMapping(value = "/role_updateUI/{role_id}/{currentPage}")
+	@RequiresPermissions("role:update")
+	@RequestMapping(value = "/role_update/{role_id}/{currentPage}",method = RequestMethod.GET)
 	public String updateUI(@PathVariable(value = "role_id") Long role_id,@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
 		Role role = roleService.getRoleById(role_id);
 		map.put("role", role);
@@ -63,16 +78,28 @@ public class RoleController {
 		return "role/saveUI";
 	}
 	
-	@RequestMapping(value = "/role_update/{currentPage}")
+	@RequiresPermissions("role:update")
+	@RequestMapping(value = "/role_update/{currentPage}",method = RequestMethod.POST)
 	public String update(@PathVariable(value = "currentPage") Integer currentPage,Role role){
 		System.out.println("role : " + role);
 		roleService.updateRole(role);
 		return "redirect:/sysRole/role_list/" + currentPage;
 	}
 	
+	@RequiresPermissions("role:delete")
 	@RequestMapping(value = "/role_delete/{role_id}")
 	public String delete(@PathVariable(value = "role_id") Long role_id){
 		roleService.deleteRoleById(role_id);
 		return "redirect:/sysRole/role_list/1";
+	}
+	
+	@RequestMapping(value = "/update_privilege",method = RequestMethod.GET)
+	public String update_privilege(@PathVariable(value = "role_id") Long role_id,Map<String, Object> map){
+		Role role = roleService.getRoleById(role_id);
+		List<Privilege> privilegeList = privilegeService.getAllPrivilege();
+		System.out.println("privilegeList : " + privilegeList);
+		List<Long> priIds = (List<Long>) privilege_roleService.getPriIdsByRoleId(role_id);
+		role.setPriIds(priIds);
+		return "update_privilegeUI";
 	}
 }

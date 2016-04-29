@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class SalesOrderController {
 	private UserService userService;
 
 	// 添加订单页面
+	@RequiresPermissions("sales:save")
 	@RequestMapping("/addOrderUI")
 	public String addOrderUI(Map<String, Object> map) {
 		List<Customer> customerList = customerService.getAllCustomer();
@@ -52,6 +54,7 @@ public class SalesOrderController {
 	}
 
 	// 添加订单
+	@RequiresPermissions("sales:save")
 	@RequestMapping("/addOrder")
 	public String addOrder(SalesOrder salesOrder ) throws ParseException {
 		System.out.println("待添加的：" + salesOrder.getContacts().getId());
@@ -61,6 +64,7 @@ public class SalesOrderController {
 	}
 
 	// 查询所有的销售订单
+	@RequiresPermissions("sales:query")
 	@RequestMapping("/queryOrders")
 	public ModelAndView queryOrders() {
 
@@ -76,6 +80,7 @@ public class SalesOrderController {
 	}
 
 	// 根据id删除订单
+	@RequiresPermissions("sales:delete")
 	@RequestMapping("deleteOrderById")
 	public String deleteOrderById(int id) {
 		System.out.println("前台传入id：" + id);
@@ -84,6 +89,7 @@ public class SalesOrderController {
 	}
 
 	// 修改订单页面
+	@RequiresPermissions("sales:update")
 	@RequestMapping("editOrderById")
 	public String editOrderById(int id, HttpServletRequest request) {
 		System.out.println("修改:" + id);
@@ -94,6 +100,7 @@ public class SalesOrderController {
 	}
 
 	// 修改订单
+	@RequiresPermissions("sales:update")
 	@RequestMapping("editOrder")
 	public String editOrder(SalesOrder salesOrder) {
 		System.out.println("修改后：" + salesOrder);

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class CustomerController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
+	@RequiresPermissions("customer:list")
 	@RequestMapping("/customer_list")
 	public String CustomerList(Map<String , Object> map){
 		List<Customer> customerList =customerService.getAllCustomer();
@@ -42,6 +44,7 @@ public class CustomerController extends BaseController {
 		return "customer/customer_list";
 	}
 	
+	@RequiresPermissions("customer:detail")
 	@RequestMapping("/customer_detail/{id}")
 	public String customerDetail(Map<String , Object> map ,@PathVariable("id") Long id){
 		Customer customer = customerService.getCustomerById(id);
@@ -50,6 +53,7 @@ public class CustomerController extends BaseController {
 		return "customer/customer_detail";
 	}
 	
+	@RequiresPermissions("customer:save")
 	@RequestMapping(value = "/customer_saveUI")
 	public String saveUI(Map<String, Object> map){
 		List<Contacts> contactsList = contactService.getAllContacts();
@@ -59,6 +63,7 @@ public class CustomerController extends BaseController {
 		return "customer/saveUI";
 	}
 	
+	@RequiresPermissions("customer:update")
 	@RequestMapping(value = "/customer_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		Customer customer = customerService.getCustomerById(id);
@@ -70,6 +75,7 @@ public class CustomerController extends BaseController {
 		return "customer/saveUI";
 	}
 	
+	@RequiresPermissions("customer:save")
 	@RequestMapping(value = "/customer_save" )
 	public String save(Customer customer){
 		System.out.println(customer);
@@ -77,19 +83,22 @@ public class CustomerController extends BaseController {
 		return "redirect:/customer/customer_list";
 	}
 	
+	@RequiresPermissions("customer:update")
 	@RequestMapping(value = "/customer_update" )
 	public String update(Customer customer){
 		System.out.println("customer : " + customer);
 		customerService.updateCustomer(customer);
 		return "redirect:/customer/customer_list";
 	}
-				
+			
+	@RequiresPermissions("customer:delete")
 	@RequestMapping(value = "/customer_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
 		customerService.deleteCustomerById(id);
 		return "redirect:/customer/customer_list";
 	}
 	
+	@RequiresPermissions("customer:query")
 	@RequestMapping(value = "/query")
 	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");

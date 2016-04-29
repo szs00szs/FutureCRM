@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class NewsController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
+	@RequiresPermissions("news:detail")
 	@RequestMapping("/news_detail/{id}")
 	public String newsDetail(@PathVariable("id") long id , Model model){
 		News news = newsService.getNewsById(id);
@@ -40,6 +42,7 @@ public class NewsController extends BaseController{
 		return "news/news_detail";
 	}
 	
+	@RequiresPermissions("news:list")
 	@RequestMapping("/news_list")
 	public String newsList(Map<String , Object> map){
 		List<News> newsList = newsService.getAllNewsByTimedesc();//按时间排序，显示最新新闻
@@ -47,12 +50,15 @@ public class NewsController extends BaseController{
 		return "news/news_list";
 	}
 
+	@RequiresPermissions("news:save")
 	@RequestMapping(value = "/news_saveUI")
 	public String saveUI(Map<String, Object> map){
 		List<User> userList = userService.getAllUser();
 		map.put("userList", userList);
 		return "news/saveUI";
 	}
+	
+	@RequiresPermissions("news:save")
 	@RequestMapping(value = "/news_save" )
 	public String save(News news){
 		System.out.println(news);
@@ -60,6 +66,7 @@ public class NewsController extends BaseController{
 		return "redirect:/news/news_list";
 	}
 	
+	@RequiresPermissions("news:update")
 	@RequestMapping(value = "/news_updateUI/{id}")
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		News news = newsService.getNewsById(id);
@@ -69,19 +76,22 @@ public class NewsController extends BaseController{
 		return "news/saveUI";
 	}
 	
+	@RequiresPermissions("news:update")
 	@RequestMapping(value = "/news_update" )
 	public String update(News news){
 		System.out.println("news : " + news);
 		newsService.updateNews(news);
 		return "redirect:/news/news_list";
 	}
-				
+			
+	@RequiresPermissions("news:delete")
 	@RequestMapping(value = "/news_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
 		newsService.deleteNewsById(id);
 		return "redirect:/news/news_list";
 	}
 	
+	@RequiresPermissions("news:query")
 	@RequestMapping(value = "/query")
 	public String query(HttpServletRequest request , Map<String , Object> map){
 		String selectType = request.getParameter("selectType");

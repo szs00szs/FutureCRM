@@ -3,6 +3,7 @@ package com.future.hist.crm.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ public class UserController {
 	@Autowired
 	private DepartmentService departmentService;
 	
+	@RequiresPermissions("user:save")
 	@RequestMapping(value = "/user_saveUI" )
 	public String saveUI(Map<String, Object> map){
 		List<Department> departmentList = departmentService.getAllDepartment();
@@ -40,9 +42,10 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
+	@RequiresPermissions("user:save")
 	@RequestMapping(value = "/user_save" ,method = RequestMethod.POST)
 	public String save( User user){
-		user.setPassword("f379eaf3c831b04de153469d1bec345e");   //给用户设置初始密码（666666）
+		//user.setPassword("f379eaf3c831b04de153469d1bec345e");   //给用户设置初始密码（666666）
 		userService.insertUser(user);
 		int totalCount = userService.getTotalCount();
 		PageParameter pageParameter = new PageParameter();
@@ -50,6 +53,7 @@ public class UserController {
 		return "redirect:/sysUser/user_list/" + totalPage;
 	}
 	
+	@RequiresPermissions("user:view")
 	@RequestMapping("user_list/{currentPage}")
 	public String list(@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
 		BaseSearch baseSearch = new BaseSearch();
@@ -63,7 +67,7 @@ public class UserController {
 		System.out.println("userList : " + userList);
 		return "user/user_list";
 	}
-	
+	@RequiresPermissions("user:update")
 	@RequestMapping(value = "/user_updateUI/{user_id}/{currentPage}")
 	public String updateUI(@PathVariable(value = "user_id") Long user_id,@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
 		User user = userService.getUserById(user_id);
@@ -75,6 +79,7 @@ public class UserController {
 		return "user/saveUI";
 	}
 	
+	 @RequiresPermissions("user:update")
 	@RequestMapping(value = "/user_update/{currentPage}")
 	public String update(@PathVariable(value = "currentPage") Integer currentPage,User user){
 		System.out.println("user : " + user);
@@ -87,7 +92,7 @@ public class UserController {
 		
 		return "";
 	}
-	
+	@RequiresPermissions("user:view")
 	@RequestMapping(value = "/user_query")
 	public String view_query(Map<String, Object> map , User user){
 		List<User> userList = userService.getUserByLike(user);
@@ -96,7 +101,7 @@ public class UserController {
 		return "user/user_list";
 	}
 	
-	
+	@RequiresPermissions("user:delete")
 	@RequestMapping(value = "/user_delete/{user_id}")
 	public String delete(@PathVariable(value = "user_id") Long user_id){
 //TODO 删除要返回到删除页
