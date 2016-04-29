@@ -43,7 +43,7 @@ public class RoleController {
 	 * @return
 	 */
 	@RequiresPermissions("role:save")
-	@RequestMapping(value = "role_save",method = RequestMethod.GET)
+	@RequestMapping(value = "role_save",method = RequestMethod.POST)
 	public String save(Role role){
 		System.out.println(role);
 		roleService.insertRole(role);
