@@ -24,6 +24,7 @@ public class Customer {
 	private String mobile; // 手机
 	private String tel2; // 电话2
 	private int touchTimes;//联系次数
+	private int isTouched;//规定时间内是否联系。两种状态：-1：超时未联系、0：待联系
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date touchDate;//联系时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -208,6 +209,14 @@ public class Customer {
 		this.touchTimes = touchTimes;
 	}
 	
+	public int getIsTouched() {
+		return isTouched;
+	}
+	
+	public void setIsTouched(int isTouched) {
+		this.isTouched = isTouched;
+	}
+	
 	public Date getTouchDate() {
 		return touchDate;
 	}
@@ -370,13 +379,13 @@ public class Customer {
 				+ contacts + ", regionName=" + regionName + ", source=" + source + ", trade=" + trade + ", scale="
 				+ scale + ", province=" + province + ", city=" + city + ", postCode=" + postCode + ", address="
 				+ address + ", email=" + email + ", web=" + web + ", tel1=" + tel1 + ", mobile=" + mobile + ", tel2="
-				+ tel2 + ", touchTimes=" + touchTimes + ", touchDate=" + touchDate + ", nextTouchDate=" + nextTouchDate
-				+ ", quality=" + quality + ", remark=" + remark + ", dealin=" + dealin + ", kind=" + kind
-				+ ", artificialPerson=" + artificialPerson + ", registeMoney=" + registeMoney + ", bank=" + bank
-				+ ", account=" + account + ", taxCode=" + taxCode + ", creator=" + creator + ", createTime="
-				+ createTime + ", updater=" + updater + ", updateTime=" + updateTime + ", user=" + user
-				+ ", dispensePerson=" + dispensePerson + ", dispenseDate=" + dispenseDate + ", shareFlag=" + shareFlag
-				+ ", shareIds=" + shareIds + "]";
+				+ tel2 + ", touchTimes=" + touchTimes + ", isTouched=" + isTouched + ", touchDate=" + touchDate
+				+ ", nextTouchDate=" + nextTouchDate + ", quality=" + quality + ", remark=" + remark + ", dealin="
+				+ dealin + ", kind=" + kind + ", artificialPerson=" + artificialPerson + ", registeMoney="
+				+ registeMoney + ", bank=" + bank + ", account=" + account + ", taxCode=" + taxCode + ", creator="
+				+ creator + ", createTime=" + createTime + ", updater=" + updater + ", updateTime=" + updateTime
+				+ ", user=" + user + ", dispensePerson=" + dispensePerson + ", dispenseDate=" + dispenseDate
+				+ ", shareFlag=" + shareFlag + ", shareIds=" + shareIds + "]";
 	}
 
 }
