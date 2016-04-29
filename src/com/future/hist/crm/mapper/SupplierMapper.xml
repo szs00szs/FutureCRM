@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.hist.crm.dao.SupplierMapper">
+
+<select id="findSupplierList" resultType="com.future.hist.crm.domain.Supplier">
+	select * from supplier
+</select>
+
+<select id="findSupplierById" parameterType="int" resultType="com.future.hist.crm.domain.Supplier">
+	select * from supplier where id =#{id}
+</select>
+
+<insert id="addSupplier" parameterType="com.future.hist.crm.domain.Supplier">
+	insert into supplier(name,phone)
+	values(#{name},#{phone})
+</insert>
+
+<delete id="deleteSupplier" parameterType="int">
+	delete from supplier where id=#{id}
+</delete>
+
+<update id="editSupplier" parameterType="com.future.hist.crm.domain.Supplier">
+	update supplier 
+	set name=#{name},phone=#{phone}
+   	where id = #{id}
+</update>
+
+
+
+</mapper>

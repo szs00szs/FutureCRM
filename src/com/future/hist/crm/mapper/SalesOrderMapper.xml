@@ -10,12 +10,13 @@
 		<result column="deliveryAddress" property="deliveryAddress" />
 		<result column="contactPhone"  property="contactPhone" />
 		<result column="remark" property="remark" />
-		<result column="goods" property="goods" />
+		<result column="commodityCount" property="commodityCount"/>
 
 		<!-- 关联信息的映射 -->
 		<association property="salesman" column="salesman_id" select="getSalesman" />
 		<association property="customer" column="customer_id" select="getCustomer"/>
 		<association property="contacts" column="contacts_id" select="getContacts"/>
+		<association property="commodity" column="commodity_id" select="getCommodity"/>
 	</resultMap>
 	
 	<select id="getSalesman" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.User">
@@ -29,6 +30,28 @@
 	<select id="getContacts" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Contacts">
 		select * from contacts  where id = #{id}
 	</select>
+	
+	<select id="getCommodity" parameterType="java.lang.Long" resultMap="findCommodity">
+		select * from commodity where id = #{id}
+	</select>
+	
+	<resultMap type="com.future.hist.crm.domain.Commodity" id="findCommodity">
+		<id column="id" property="id" />
+		<result column="commodityNumber" property="commodityNumber" />
+		<result column="name" property="name" />
+		<result column="bid" property="bid" />
+		<result column="price"  property="price" />
+		<result column="description" property="description" />
+		<result column="commodityQuantity" property="commodityQuantity" />
+		<result column="purchaseQuantity" property="purchaseQuantity" />
+		<!-- 关联映射 -->
+		<association property="commodityCategory" column="commodityCategory_id" select="getCategory"/>
+	</resultMap>
+	
+	<select id="getCategory" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.CommodityCategory">
+		select * from commoditycategory where id = #{id}
+	</select>
+	
 	
 	
 
@@ -52,8 +75,8 @@
 	<!-- 添加新订单 -->
 	<insert id="addOrder" parameterType="com.future.hist.crm.domain.SalesOrder">
 	INSERT INTO
-	saleorder(saleNumber,createTime,contactPhone,deliveryAddress,remark,goods,salesman_id,customer_id,contacts_id)
-	VALUES(#{saleNumber},#{createTime},#{contactPhone},#{deliveryAddress},#{remark},#{goods},#{salesman.id},#{customer.id},#{contacts.id})
+	saleorder(saleNumber,createTime,contactPhone,deliveryAddress,remark,commodityCount,salesman_id,customer_id,contacts_id,commodity_id)
+	VALUES(#{saleNumber},#{createTime},#{contactPhone},#{deliveryAddress},#{remark},#{commodityCount},#{salesman.id},#{customer.id},#{contacts.id},#{commodity.id})
 	</insert>
 	
 	

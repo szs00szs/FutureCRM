@@ -2,5 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.CommodityCategoryMapper">
+
+    <select id="findCategoryList" resultType="com.future.hist.crm.domain.CommodityCategory">
+    	select * from commoditycategory
+    </select>
+    
+    <select id="findCategoryById" resultType="com.future.hist.crm.domain.CommodityCategory">
+    	select * from commoditycategory where id=#{id}
+    </select>
+    
+    <insert id="addCategory" parameterType="com.future.hist.crm.domain.CommodityCategory">
+    	insert into 
+    	commoditycategory(name,description)
+    	values(#{name},#{description})
+    </insert>
+    
+    <update id="editCategory" parameterType="int">
+    	update commoditycategory
+    	set name=#{name},description=#{description}
+    	where id = #{id}
+    </update>
+    
+    <delete id="deleteCategory" parameterType="int">
+    	delete from commoditycategory where id = #{id}
+    </delete>
+    
     
 </mapper>

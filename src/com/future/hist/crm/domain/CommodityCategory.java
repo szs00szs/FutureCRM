@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 /**
  * 商品类别
- * @author Administrator
- *
  */
 public class CommodityCategory {
 

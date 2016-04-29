@@ -31,22 +31,76 @@
 		
 	}); 
 </script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    var sFeatures = "height=600, width=810, scrollbars=yes, resizable=yes";
+    jQuery('a[rel="external"]').click( function() {
+        window.open( jQuery(this).attr('href'), '3km', sFeatures );
+        return false;
+    });
+});
+ 
+jQuery(document).ready(function() {
+    jQuery("a[rel=external]").attr('target', '_blank');
+});
+
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#submit").click(function(){
+            var user = $("#salesman").val();
+            if (user=='----请选择----'){
+                alert("请选择 '业务员'");
+                return false;
+            }
+            
+            var customer = $("#customer").val();
+            if (customer=='----请选择----'){
+                alert("请选择 '客户'");
+                return false;
+            }
+            
+            var contacts = $("#contacts").val();
+            if (contacts==''){
+                alert("请选择 '联系人'");
+                return false;
+            }
+            
+            var commodity = $("#commodity").val();
+            if (commodity=='----请选择----'){
+                alert("请选择 '商品名称'");
+                return false;
+            }
+            
+            var commodityCount = $("#commodityCount").val();
+            if (commodityCount==''){
+                alert("请选择 '数量'");
+                return false;
+            }
+            
+            
+            
+        })
+    })
+</script>
+
 </head>
 <body>
 
-<h1 align="center" style="font-family:华义彩云;"> 订单信息添加</h1>
+<h3 align="center" style="font-family:华义彩云;">订单信息添加</h3>
 			<form:form action="${pageContext.request.contextPath }/sales/addOrder.action" method="POST" modelAttribute="salesOrder">
 			      <table width="100%" height="48" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolordark="#aaaaaa"  bordercolorlight="#FFFFFF">
 				    <tr style="padding:5px;">
 				      <td bgcolor="#eeeeee"> 订单编号：</td>
 				      <td>
-				      <input type="text" name="saleNumber"  value=""><font color="red">${requestScope.error }</font> 
+				      <input type="text" name="saleNumber"  value=${saleNumber } readonly="readonly">
 				      </td>
 				       <td bgcolor="#eeeeee"> 业务员：</td>
 				      <td>
 				      	<select name="salesman.id" id="salesman" style="border: solid #ccc 1px;" id="select">
+				      			<option selected="selected">----请选择----</option>
 								<c:forEach items="${salesmanList}" var="salesman">
-									<option value="${salesman.id}" selected="selected" >${salesman.name}</option>
+									<option value="${salesman.id}">${salesman.name}</option>
 								</c:forEach>
 						</select> 
 				      </td>
@@ -56,43 +110,47 @@
 					<tr style="padding:5px;">
 			          		<td bgcolor="#eeeeee"> 客户姓名：</td>
 							<td>
-							<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select" >
+							<select name="customer.id" id="customer" style="border: solid #ccc 1px;" >
+								<option selected="selected">----请选择----</option>
 								<c:forEach items="${customerList}" var="customer">
 									<option value="${customer.id}" onclick="test(${customer.contacts.id});" >${customer.name}</option>
 								</c:forEach>
 							</select>
 						</td>
-						<td bgcolor="#eeeeee"> 客户地址：</td>
-					      <td>
-					    	  <input type="text" name="deliveryAddress"  value="">
-					      </td>
-					  </tr>    
-
-
-					<tr style="padding:5px;">
-					     <td bgcolor="#eeeeee"> 联系人：</td>
-					 	<td>    
-					 		<select name="contacts.id" id="contacts" style="border: solid #ccc 1px;" id="select">
+						 <td bgcolor="#eeeeee"> 联系人：</td>
+					 	<td>   
+					 		<select name="contacts.id" id="contacts" style="border: solid #ccc 1px;">
+					 			<option selected="selected">----请选择----</option>
 								<c:forEach items="${contactsList}" var="contacts">
 									<option value="${contacts.id}">${contacts.name} </option>
 								</c:forEach>
 							</select>
 						</td>
-					      <td bgcolor="#eeeeee"> 联系人电话：</td>
-					      <td>
-					      <input type="text" name="contactPhone"  value="">
-					      </td>
-					  </tr>     
-					     
-					     
+					  </tr>    
+
 					    <tr style="padding:5px;">
 					      
-					      <td bgcolor="#eeeeee"> 购买商品清单：</td>
+					     <td bgcolor="#eeeeee"> 商品列表：</td>
 					      <td>
-					      <input type="text" name="goods"  value="">
+						<select name="commodity.id" id="commodity" style="border: solid #ccc 1px;" >
+							<option selected="selected">----请选择----</option>
+							<c:forEach items="${commodityList }" var="commodity">
+								<option value="${commodity.id }">${commodity.name }</option>
+							</c:forEach>
+						</select>
+							<a href="${pageContext.request.contextPath }/commodity/addCommodityUI.action" rel="external">新建</a>
 					      </td>
 					      
-					      <td bgcolor="#eeeeee">创建时间:</td>
+				       <td bgcolor="#eeeeee"> 商品数量：</td>
+				      <td>
+				      <input type="text" name="commodityCount" id="commodityCount" >
+				      </td>
+					      
+			    
+		    </tr>
+
+			<tr style="padding:5px;">
+				  <td bgcolor="#eeeeee">创建日期:</td>
 				<td>
 				<div id="datetimepicker1" class="input-append date">
 					<input name="createTime" id="datetimepicker1" data-format="yyyy-MM-dd hh:mm:ss" type="text" />
@@ -101,32 +159,17 @@
 					</span>
 				</div>
 				</td>
-		    </tr>
-
-			<tr style="padding:5px;">
-				
 				<td bgcolor="#eeeeee">备注：</td>
 				<td>
-					<input type="text" name="remark" value="">
+					<input type="text" name="remark" value="无">
 				</td>
-			</tr>
-			
-			<!-- 测试 -->
-			<tr>
-				<td>
-					<select name="customer.id" id="customer" style="border: solid #ccc 1px;" id="select">
-								<c:forEach items="${customerList}" var="customer">
-									<option value="${customer.contacts.id}" selected="selected">${customer.contacts.name}</option>
-								</c:forEach>
-							</select>
-				</td>
-			
+				
 			</tr>
 			
 			
 		</table>
 			      <p align="center">
-			      <input type="submit" value="提交">
+			      <input type="submit" id="submit" value="提交">
 			      <input type="reset" value="重置">
 			      </p>
 		</form:form>

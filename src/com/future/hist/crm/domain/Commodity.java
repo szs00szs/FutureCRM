@@ -13,7 +13,7 @@ public class Commodity {
 	private double bid;                                //进价
 	private double price;                              //售价
 	private String description;                        //描述
-	private Long commodityQuantity;                    //商品数量
+	private Long commodityQuantity;                    //库存商品数量
 	private Long purchaseQuantity;                     //进货量
 	public Long getId() {
 		return id;

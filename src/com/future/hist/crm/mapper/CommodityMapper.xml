@@ -2,5 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.CommodityMapper">
+
+<resultMap type="com.future.hist.crm.domain.Commodity" id="commodityMap">
+		<id column="id" property="id" />
+		<result column="commodityNumber" property="commodityNumber" />
+		<result column="name" property="name" />
+		<result column="bid" property="bid" />
+		<result column="price"  property="price" />
+		<result column="description" property="description" />
+		
+		<result column="commodityQuantity" property="commodityQuantity" />
+		<result column="purchaseQuantity" property="purchaseQuantity" />
+
+		<!-- 关联信息的映射 -->
+		<association property="commodityCategory" column="commodityCategory_id" select="getcommodityCategory" />
+	</resultMap>
+	
+	<select id="getcommodityCategory" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.CommodityCategory">
+		select * from commoditycategory where id = #{id}
+	</select>
+	
+	
+	<!-- 查询所有商品 -->
+    <select id="findCommodityList" resultMap="commodityMap">
+    	select * from commodity
+    </select>
+    
+    <!-- 根据id查询商品 -->
+    <select id="findCommodityById" parameterType="int" resultMap="commodityMap">
+    	select * from commodity where id=#{id}
+    </select>
+    
+    <!-- 添加商品 -->
+    <insert id="addCommodity" parameterType="com.future.hist.crm.domain.Commodity">
+    	INSERT INTO 
+    	commodity (commodityNumber, NAME, bid, price, description, commodityQuantity, purchaseQuantity, commodityCategory_id ) 
+    	VALUES (#{commodityNumber}, #{name}, #{bid}, #{price}, #{description}, #{commodityQuantity}, #{purchaseQuantity},#{commodityCategory.id})
+    </insert>
+    
+    <!-- 修改商品 -->
+    <update id="editCommodity" parameterType="com.future.hist.crm.domain.Commodity">
+    	UPDATE commodity 
+    	SET commodityNumber=#{commodityNumber},name=#{name},bid=#{bid},price=#{price},description=#{description},commodityQuantity=#{commodityQuantity},purchaseQuantity=#{purchaseQuantity}, commodityCategory_id=#{commodityCategory.id}
+    	WHERE id=#{id}
+    </update>
+    
+    <!-- 删除商品 -->
+    <delete id="deleteCommodity" parameterType="int">
+    	DELETE FROM commodity WHERE id = #{id}
+    </delete>
     
 </mapper>

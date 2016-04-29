@@ -16,13 +16,14 @@ public class SalesOrder {
 	private String saleNumber;            //销售单号
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createTime;              //开单日期
+	private int commodityCount;				//销售数量
 	private User salesman;                //业务员
 	private Customer customer;            //客户
 	private Contacts contacts;            //联系人
 	private String contactPhone;          //联系人电话
 	private String deliveryAddress;       //送货地址
 	private String remark;                //备注
-	private String goods;                 //购买商品清单
+	private Commodity commodity;          //购买商品清单
 
 	public Long getId() {
 		return id;
@@ -38,6 +39,16 @@ public class SalesOrder {
 
 	public void setSaleNumber(String saleNumber) {
 		this.saleNumber = saleNumber;
+	}
+	
+	
+
+	public int getCommodityCount() {
+		return commodityCount;
+	}
+
+	public void setCommodityCount(int commodityCount) {
+		this.commodityCount = commodityCount;
 	}
 
 	public Date getCreateTime() {
@@ -96,19 +107,23 @@ public class SalesOrder {
 		this.remark = remark;
 	}
 
-	public String getGoods() {
-		return goods;
+	public Commodity getCommodity() {
+		return commodity;
 	}
 
-	public void setGoods(String goods) {
-		this.goods = goods;
+	public void setCommodity(Commodity commodity) {
+		this.commodity = commodity;
 	}
 
 	@Override
 	public String toString() {
 		return "SalesOrder [id=" + id + ", saleNumber=" + saleNumber + ", createTime=" + createTime + ", salesman="
 				+ salesman + ", customer=" + customer + ", contacts=" + contacts + ", contactPhone=" + contactPhone
-				+ ", deliveryAddress=" + deliveryAddress + ", remark=" + remark + ", goods=" + goods + "]";
+				+ ", deliveryAddress=" + deliveryAddress + ", remark=" + remark + ", commodity=" + commodity + "]";
 	}
+	
+	
+
+
 
 }

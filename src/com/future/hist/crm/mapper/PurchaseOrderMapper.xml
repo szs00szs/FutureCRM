@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.hist.crm.dao.PurchaseOrderMapper">
+
+
+	<resultMap type="com.future.hist.crm.domain.PurchaseOrder" id="salesOrderMap">
+		<id column="id" property="id"/>
+		<result column="commodityCount" property="commodityCount"/>
+		<result column="createTime" property="createTime"/>
+		<result column="remark" property="remark"/>
+		<result column="purchaseNo" property="purchaseNo"/>
+		<!-- 关联信息的映射 -->
+		<association property="supplier" column="supplier_id" select="getSupplier"/>
+		<association property="user" column="user_id" select="getUser"/>
+		<association property="commodity" column="commodity_id" select="getCommodity"/>
+	</resultMap>
+	
+	<select id="getSupplier" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.Supplier">
+		select * from supplier where id= #{id}
+	</select>
+	
+	<select id="getUser" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.User">
+		select * from sysuser where id = #{id}
+	</select>
+	
+	<select id="getCommodity" parameterType="java.lang.Long" resultMap="findCommodity">
+		select * from commodity where id = #{id}
+	</select>
+	<resultMap type="com.future.hist.crm.domain.Commodity" id="findCommodity">
+		<id column="id" property="id" />
+		<result column="commodityNumber" property="commodityNumber" />
+		<result column="name" property="name" />
+		<result column="bid" property="bid" />
+		<result column="price"  property="price" />
+		<result column="description" property="description" />
+		<result column="commodityQuantity" property="commodityQuantity" />
+		<result column="purchaseQuantity" property="purchaseQuantity" />
+		<!-- 关联映射 -->
+		<association property="commodityCategory" column="commodityCategory_id" select="getCategory"/>
+	</resultMap>
+	
+	<select id="getCategory" parameterType="java.lang.Long" resultType="com.future.hist.crm.domain.CommodityCategory">
+		select * from commoditycategory where id = #{id}
+	</select>
+
+
+	<!-- 查询所有进货记录 -->
+	<select id="findOrdersList" resultMap="salesOrderMap">
+		select * from purchaseorder
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="findOrderById" parameterType="java.lang.Long" resultMap="salesOrderMap">
+		select * from purchaseorder where id = #{id}
+	</select>
+	
+	<insert id="addOrder" parameterType="com.future.hist.crm.domain.PurchaseOrder">
+		insert into purchaseorder(purchaseNo,createTime,commodityCount,remark,user_id,commodity_id,supplier_id) 
+		values(#{purchaseNo},#{createTime},#{commodityCount},#{remark},#{user.id},#{commodity.id},#{supplier.id})
+	</insert>
+	
+	<delete id="deleteOrderById" parameterType="int">
+		delete from purchaseorder where id =#{id}
+	</delete>
+
+</mapper>
