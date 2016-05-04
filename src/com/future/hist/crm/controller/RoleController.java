@@ -93,13 +93,20 @@ public class RoleController {
 		return "redirect:/sysRole/role_list/1";
 	}
 	
-	@RequestMapping(value = "/update_privilege",method = RequestMethod.GET)
-	public String update_privilege(@PathVariable(value = "role_id") Long role_id,Map<String, Object> map){
+	@RequestMapping(value = "/set_privilege/{role_id}",method = RequestMethod.GET)
+	public String set_privilege(@PathVariable(value = "role_id") Long role_id,Map<String, Object> map){
 		Role role = roleService.getRoleById(role_id);
 		List<Privilege> privilegeList = privilegeService.getAllPrivilege();
+		List<Privilege> topPrivilegeList = privilegeService.findTopPrivileges();
+		
+		System.out.println("topPrivilegeList : " + topPrivilegeList);
 		System.out.println("privilegeList : " + privilegeList);
-		List<Long> priIds = (List<Long>) privilege_roleService.getPriIdsByRoleId(role_id);
-		role.setPriIds(priIds);
-		return "update_privilegeUI";
+		List<Long> privilegeIds = (List<Long>) privilege_roleService.getPriIdsByRoleId(role_id);
+//		List<Privilege> children = privilegeService.findChildren();
+		System.out.println("priIds : " + privilegeIds);
+		role.setPriIds(privilegeIds);
+		map.put("role", role);
+		map.put("topPrivilegeList", topPrivilegeList);
+		return "/role/set_privilegeUI";
 	}
 }

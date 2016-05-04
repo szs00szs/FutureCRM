@@ -65,19 +65,13 @@
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo")
-				.click(
-						function() {
-							var url = "${pageContext.request.contextPath }/sysUser/user_update/"
-									+ $
-							{
-								currentPage
-							}
-							;
-							//更改form的action
-							$("#user_form").attr("action", url);
-							//触发submit事件，提交表单 
-							$("#user_form").submit();
-						});
+				.click(function() {
+					var url = "${pageContext.request.contextPath }/sysUser/user_update/"+ ${currentPage};
+					//更改form的action
+					$("#user_form").attr("action", url);
+					//触发submit事件，提交表单 
+					$("#user_form").submit();
+				});
 		$("#addInfo").click(function() {
 			var url = "${pageContext.request.contextPath }/sysUser/user_save";
 			//	alert(url);

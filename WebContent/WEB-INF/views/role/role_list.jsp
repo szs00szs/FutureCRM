@@ -32,7 +32,7 @@
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
 									<a
-								href="${pageContext.request.contextPath }/sysRole/update_privilege/${role.id }"
+								href="${pageContext.request.contextPath }/sysRole/set_privilege/${role.id }"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;修改权限</a>
 								<a
