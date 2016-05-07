@@ -14,4 +14,6 @@ public interface PrivilegeService {
 	List<Privilege> findMenus(Set<String> permissions);
 
 	List<Privilege> getAllPrivilege();
+
+	List<Privilege> findTopPrivileges();
 }

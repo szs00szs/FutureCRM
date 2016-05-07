@@ -15,11 +15,11 @@
 <!-- shishuai -->
 <a href="${pageContext.request.contextPath}/sales/queryOrders.action">查询销售订单</a>
 <br>
-<a href="${pageContext.request.contextPath}/sales/addOrderUI.action">添加订单</a>
+<a href="${pageContext.request.contextPath}/sales/addOrder.action">添加订单</a>
 <br>
 <a href="${pageContext.request.contextPath}/purchase/queryOrders.action">查询进货单</a>
 <br>
-<a href="${pageContext.request.contextPath}/purchase/addOrderUI.action">添加进货单</a>
+<a href="${pageContext.request.contextPath}/purchase/addOrder.action">添加进货单</a>
 <br>
 <br>
 

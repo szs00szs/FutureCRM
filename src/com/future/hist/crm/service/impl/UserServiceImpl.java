@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private User_RoleService user_roleService;
 	
+	
+	
 	@Autowired
 	private RoleService roleService;
 	
@@ -103,4 +105,14 @@ public class UserServiceImpl implements UserService{
         user.setRoleIds(roleIds);
         return roleService.findPermissions(user.getRoleIds().toArray(new Long[0]));
     }
+
+	@Override
+	public boolean isExistLoginName(String loginName) {
+		User user = userMapper.getUserByLoginName(loginName);
+		if(user != null){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h3 align="center" style="font-family:华义彩云;"> 商品列表</h3>
-	<h5 align="left" style="font-family:华义彩云;"><a href="${pageContext.request.contextPath }/commodity/addCommodityUI.action">添加商品</a></h5>
+	<h5 align="left" style="font-family:华义彩云;"><a href="${pageContext.request.contextPath }/commodity/addCommodity.action">添加商品</a></h5>
 	<table width="100%" height="48" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolordark="#aaaaaa"  bordercolorlight="#FFFFFF">
 	<tr>
 	<td>商品编号</td>
@@ -36,7 +36,7 @@
 		
 		<td><a href="${pageContext.request.contextPath }/commodity/deleteCommodity.action?id=${commodity.id}">删除</a>
 			&nbsp;
-			<a href="${pageContext.request.contextPath }/commodity/editCommodityUI.action?id=${commodity.id}">修改</a>
+			<a href="${pageContext.request.contextPath }/commodity/editCommodity.action?id=${commodity.id}">修改</a>
 		</td>		
 	</tr>
 	

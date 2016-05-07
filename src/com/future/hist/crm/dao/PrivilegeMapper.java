@@ -15,4 +15,6 @@ public interface PrivilegeMapper {
 
 	List<Privilege> getAllPrivilege();
 
+	List<Privilege> findTopPrivileges();
+
 }

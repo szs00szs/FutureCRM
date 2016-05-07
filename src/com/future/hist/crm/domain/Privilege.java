@@ -10,7 +10,7 @@ public class Privilege {
 	private String description;         //描述
 	private String url;                
 	private PrivilegeType type = PrivilegeType.menu;                
-	private Privilege parent;           //父权限
+	private Long parent_id;           //父权限
 	private String permission; //权限字符串
 	private Set<Privilege> children = new HashSet<Privilege>(); //孩子权限
 	private Set<Role> roles = new HashSet<Role>();
@@ -27,12 +27,6 @@ public class Privilege {
             return info;
         }
     }
-	public Privilege(String name, String url, Privilege parent) {
-		super();
-		this.name = name;
-		this.url = url;
-		this.parent = parent;
-	}
 	
 	public Privilege() {
 		// TODO Auto-generated constructor stub
@@ -88,12 +82,15 @@ public class Privilege {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Privilege getParent() {
-		return parent;
+	
+	public Long getParent_id() {
+		return parent_id;
 	}
-	public void setParent(Privilege parent) {
-		this.parent = parent;
+
+	public void setParent_id(Long parent_id) {
+		this.parent_id = parent_id;
 	}
+
 	public Set<Privilege> getChildren() {
 		return children;
 	}
@@ -109,8 +106,9 @@ public class Privilege {
 
 	@Override
 	public String toString() {
-		return "Privilege [id=" + id + ", name=" + name + ", description=" + description + ", url=" + url + ", parent="
-				+ parent + ", permission=" + permission + ", children=" + children + ", roles=" + roles + "]";
+		return "Privilege [id=" + id + ", name=" + name + ", description=" + description + ", url=" + url + ", type="
+				+ type + ", parent_id=" + parent_id + ", permission=" + permission + ", children=" + children
+				+ ", roles=" + roles + ", parentIds=" + parentIds + "]";
 	}
-	
+
 }

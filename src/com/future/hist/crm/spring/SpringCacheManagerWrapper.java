@@ -22,7 +22,7 @@ import net.sf.ehcache.Ehcache;
 
 /**
  * 包装Spring cache抽象
- * <p>Date: 13-3-23 上午8:26
+ * <p>Date: 16-4-23 上午8:26
  * <p>Version: 1.0
  */
 public class SpringCacheManagerWrapper implements CacheManager {

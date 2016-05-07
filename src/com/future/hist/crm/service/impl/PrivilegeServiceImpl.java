@@ -78,4 +78,18 @@ public class PrivilegeServiceImpl implements PrivilegeService{
         return false;
 	}
 
+	@SuppressWarnings("null")
+	@Override
+	public List<Privilege> findTopPrivileges() {
+		List<Privilege> privileges = getAllPrivilege();
+		System.out.println("privileges : " + privileges);
+		List<Privilege> topPrivileges = new ArrayList<Privilege>();
+		for(Privilege privilege : privileges){
+			if(privilege.getParent_id() == null){
+				topPrivileges.add(privilege);
+			}
+		}
+		return topPrivileges;
+	}
+
 }

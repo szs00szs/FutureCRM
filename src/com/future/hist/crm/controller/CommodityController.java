@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.Commodity;
 import com.future.hist.crm.domain.CommodityCategory;
@@ -29,6 +31,7 @@ public class CommodityController {
 	/**
 	 * 查询所有商品
 	 */
+	@RequiresPermissions("commodity:queryCommodities")
 	@RequestMapping("/queryCommodities")
 	public String queryCommodities(Map<String, Object> map) {
 		List<Commodity> commodityList = commodityService.findCommodityList();
@@ -39,7 +42,8 @@ public class CommodityController {
 	/**
 	 * 添加商品页面
 	 */
-	@RequestMapping("/addCommodityUI")
+	@RequiresPermissions("commodity:addCommodity")
+	@RequestMapping(value = "/addCommodity",method = RequestMethod.GET)
 	public String addCommodityUI(Map<String, Object> map) {
 		List<CommodityCategory> categoryList = commodityCategoryService.findCategoryList();
 
@@ -52,7 +56,8 @@ public class CommodityController {
 	/**
 	 * 执行商品添加
 	 */
-	@RequestMapping("/addCommodity")
+	@RequiresPermissions("commodity:addCommodity")
+	@RequestMapping(value = "/addCommodity" , method = RequestMethod.POST)
 	public String addCommodity(Commodity commodity) {
 		commodityService.addCommodity(commodity);
 		return "forward:queryCommodities.action";
@@ -61,7 +66,8 @@ public class CommodityController {
 	/**
 	 * 修改商品页面
 	 */
-	@RequestMapping("/editCommodityUI")
+	@RequiresPermissions("commodity:editCommodity")
+	@RequestMapping(value = "/editCommodity" , method = RequestMethod.GET)
 	public String editCommodityUI(int id, Map<String, Object> map) {
 		Commodity commodity = commodityService.findCommodityById(id);
 		List<CommodityCategory> categoryList = commodityCategoryService.findCategoryList();
@@ -74,7 +80,8 @@ public class CommodityController {
 	/**
 	 * 执行商品修改
 	 */
-	@RequestMapping("/editCommodity")
+	@RequiresPermissions("commodity:editCommodity")
+	@RequestMapping(value = "/editCommodity" , method = RequestMethod.POST)
 	public String editCommodity(Commodity commodity) {
 		commodityService.editCommodity(commodity);
 
@@ -84,6 +91,7 @@ public class CommodityController {
 	/**
 	 * 删除商品
 	 */
+	@RequiresPermissions("commodity:deleteCommodity")
 	@RequestMapping("/deleteCommodity")
 	public String deleteCommodity(int id) {
 		commodityService.deleteCommodity(id);

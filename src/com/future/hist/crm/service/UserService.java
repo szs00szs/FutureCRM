@@ -32,4 +32,6 @@ public interface UserService {
 	public Set<String> findRoles(String loginName);
 
 	public Set<String> findPermissions(String loginName);
+
+	public boolean isExistLoginName(String loginName);
 }

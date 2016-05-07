@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.User;
@@ -75,7 +76,7 @@ public class ContactsController extends BaseController {
 	 * @return 返回到添加联系人页面
 	 */
 	@RequiresPermissions("contacts:save")
-	@RequestMapping(value = "/contacts_saveUI")
+	@RequestMapping(value = "/contacts_save" , method = RequestMethod.GET)
 	public String saveUI(Map<String, Object> map){
 		//准备数据（ContactList）
 		List<Contacts> contactsList = contactService.getAllContacts();
@@ -105,7 +106,7 @@ public class ContactsController extends BaseController {
 	 * @return 返回到联系人列表页面
 	 */
 	@RequiresPermissions("contacts:save")
-	@RequestMapping(value = "/contacts_save" )
+	@RequestMapping(value = "/contacts_save" ,method = RequestMethod.POST)
 	public String save(Contacts contacts){
 		
 		contactService.addContact(contacts);
@@ -120,7 +121,7 @@ public class ContactsController extends BaseController {
 	 * @return 返回到更新联系人页面
 	 */
 	@RequiresPermissions("contacts:update")
-	@RequestMapping(value = "/contacts_updateUI/{id}")
+	@RequestMapping(value = "/contacts_update/{id}" , method = RequestMethod.GET)
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		//准备数据，通过id得到要更新的联系人数据
 		Contacts contacts = contactService.getContactById(id);
@@ -141,7 +142,7 @@ public class ContactsController extends BaseController {
 	 * @return 返回到联系人列表页面
 	 */
 	@RequiresPermissions("contacts:update")
-	@RequestMapping(value = "/contacts_update" )
+	@RequestMapping(value = "/contacts_update" ,method = RequestMethod.POST )
 	public String update(Contacts contacts){
 		
 		contactService.updateContact(contacts);

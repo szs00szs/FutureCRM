@@ -37,21 +37,41 @@
 	});
 </script>
 <script type="text/javascript">
+	$(function(){
+		//checkIsExist();
+		clearCss();
+	})
+	function checkIsExist() {  
+			  var loginName = $.trim($("#loginName").val());  
+			  $.ajax({  
+			      type:"POST",   //http请求方式  
+			      url:"${pageContext.request.contextPath }/system/ajax/user/isExist", //发送给服务器的url  
+			      data:"loginName="+loginName, //发送给服务器的参数  
+			      dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+			      complete : function(msg) {  
+			        var result = eval("(" + msg.responseText + ")");  
+			        if(result.success) {  
+			            $("#showResult").html(result.message);  
+			          } else {  
+			              $("#showResult").html(result.message);  
+			          }   
+			     }   
+			  });
+	 }  
+	function clearCss() {  
+		 $("#showResult").html("");    
+    }
+</script>
+<script type="text/javascript">
 	$(function() {
 		$("#updateInfo")
-				.click(
-						function() {
-							var url = "${pageContext.request.contextPath }/sysUser/user_update/"
-									+ $
-							{
-								currentPage
-							}
-							;
-							//更改form的action
-							$("#user_form").attr("action", url);
-							//触发submit事件，提交表单 
-							$("#user_form").submit();
-						});
+				.click(function() {
+					var url = "${pageContext.request.contextPath }/sysUser/user_update/"+ ${currentPage};
+					//更改form的action
+					$("#user_form").attr("action", url);
+					//触发submit事件，提交表单 
+					$("#user_form").submit();
+				});
 		$("#addInfo").click(function() {
 			var url = "${pageContext.request.contextPath }/sysUser/user_save";
 			//	alert(url);
@@ -76,8 +96,10 @@
 			</c:if>
 			<tr>
 				<td>用户名</td>
-				<td><input type="text" name="loginName"
-					value="${user.loginName}" /></td>
+				<td><%-- <input type="text" name="loginName"
+					value="${user.loginName}" /></td> --%>
+					<form:input path="loginName" onblur="checkIsExist();" onfocus="clearCss();" />
+					<span id="showResult"></span>
 				<td>中文名</td>
 				<td><input type="text" name="name" value="${user.name}" /></td>
 			</tr>

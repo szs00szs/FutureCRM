@@ -3,9 +3,11 @@ package com.future.hist.crm.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.CommodityCategory;
 import com.future.hist.crm.service.CommodityCategoryService;
@@ -23,6 +25,7 @@ public class CommodityCategoryController {
 	/**
 	 * 查询所有商品类别
 	 */
+	@RequiresPermissions("category:queryCategories")
 	@RequestMapping("/queryCategories")
 	public String queryCategories(Map<String, Object> map) {
 		List<CommodityCategory> categoryList = commodityCategoryService.findCategoryList();
@@ -33,7 +36,8 @@ public class CommodityCategoryController {
 	/**
 	 * 添加商品类别页面
 	 */
-	@RequestMapping("/addCategoryUI")
+	@RequiresPermissions("category:addCategory")
+	@RequestMapping(value = "/addCategory" ,method = RequestMethod.GET)
 	public String addCategoryUI() {
 		return "category/addCategory";
 	}
@@ -41,7 +45,9 @@ public class CommodityCategoryController {
 	/**
 	 * 执行商品类别添加
 	 */
-	@RequestMapping("/addCategory")
+	
+	@RequiresPermissions("category:addCategory")
+	@RequestMapping(value = "/addCategory" , method = RequestMethod.POST)
 	public String addCategory(CommodityCategory commodityCategory) {
 		commodityCategoryService.addCategory(commodityCategory);
 		return "forward:queryCategories.action";
@@ -50,7 +56,8 @@ public class CommodityCategoryController {
 	/**
 	 * 修改商品类别页面
 	 */
-	@RequestMapping("/editCategoryUI")
+	@RequiresPermissions("category:editCategory")
+	@RequestMapping(value = "/editCategory" ,method = RequestMethod.GET)
 	public String editCategoryUI(int id, Map<String, Object> map) {
 		CommodityCategory category = commodityCategoryService.findCategoryById(id);
 		map.put("category", category);
@@ -60,7 +67,8 @@ public class CommodityCategoryController {
 	/**
 	 * 执行商品类别修改
 	 */
-	@RequestMapping("/editCategory")
+	@RequiresPermissions("category:editCategory")
+	@RequestMapping(value = "/editCategory" , method = RequestMethod.POST)
 	public String editCategory(CommodityCategory commodityCategory) {
 		commodityCategoryService.editCategory(commodityCategory);
 		return "forward:queryCategories.action";
@@ -69,6 +77,7 @@ public class CommodityCategoryController {
 	/**
 	 * 商品类别删除
 	 */
+	@RequiresPermissions("category:deleteCategory")
 	@RequestMapping("/deleteCategory")
 	public String deleteCategory(int id) {
 		commodityCategoryService.deleteCategory(id);

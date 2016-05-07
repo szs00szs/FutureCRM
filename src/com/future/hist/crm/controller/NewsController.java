@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
@@ -78,7 +79,7 @@ public class NewsController extends BaseController{
 	 * @return 返回到添加新闻页面
 	 */
 	@RequiresPermissions("news:save")
-	@RequestMapping(value = "/news_saveUI")
+	@RequestMapping(value = "/news_save" , method = RequestMethod.GET)
 	public String saveUI(Map<String, Object> map){
 		//准备数据，userList
 		List<User> userList = userService.getAllUser();
@@ -93,7 +94,7 @@ public class NewsController extends BaseController{
 	 * @return 返回到新闻列表页面
 	 */
 	@RequiresPermissions("news:save")
-	@RequestMapping(value = "/news_save" )
+	@RequestMapping(value = "/news_save" ,method = RequestMethod.POST)
 	public String save(News news){
 		
 		newsService.addNews(news);
@@ -108,7 +109,7 @@ public class NewsController extends BaseController{
 	 * @return 返回到更新新闻页面
 	 */
 	@RequiresPermissions("news:update")
-	@RequestMapping(value = "/news_updateUI/{id}")
+	@RequestMapping(value = "/news_update/{id}" ,method = RequestMethod.POST)
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		//数据准备，通过id得到待更新的新闻详情
 		News news = newsService.getNewsById(id);
@@ -126,7 +127,7 @@ public class NewsController extends BaseController{
 	 * @return 返回到新闻列表页面
 	 */
 	@RequiresPermissions("news:update")
-	@RequestMapping(value = "/news_update" )
+	@RequestMapping(value = "/news_update" ,method = RequestMethod.POST)
 	public String update(News news){
 		
 		newsService.updateNews(news);
