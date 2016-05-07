@@ -26,7 +26,7 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/contacts/contacts_saveUI.action">添加联系人</a>
+					<a href="${pageContext.request.contextPath}/contacts/contacts_save.action">添加联系人</a>
 				</td>
 			</tr>
 		</table>			
@@ -83,7 +83,7 @@
 							<td>${contacts.remark}</td>
 							<td>
 								<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/contacts/contacts_updateUI/${contacts.id }"style="margin-right: 10%;">
+								<a href="${pageContext.request.contextPath }/contacts/contacts_update/${contacts.id }"style="margin-right: 10%;">
 									<img src="${pageContext.request.contextPath }/images/bian.png">
 									&nbsp;&nbsp;编辑 
 								</a>

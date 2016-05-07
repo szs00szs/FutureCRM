@@ -105,6 +105,7 @@ public class RoleController {
 //		List<Privilege> children = privilegeService.findChildren();
 		System.out.println("priIds : " + privilegeIds);
 		role.setPriIds(privilegeIds);
+		map.put("privilegeIds", privilegeIds);
 		map.put("role", role);
 		map.put("topPrivilegeList", topPrivilegeList);
 		return "/role/set_privilegeUI";

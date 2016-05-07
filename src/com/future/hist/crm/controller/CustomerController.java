@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.future.hist.crm.domain.Contacts;
@@ -93,7 +94,7 @@ public class CustomerController extends BaseController {
 	 * @return 
 	 */
 	@RequiresPermissions("customer:save")
-	@RequestMapping(value = "/customer_saveUI")
+	@RequestMapping(value = "/customer_save" , method = RequestMethod.GET)
 	public String saveUI(Map<String, Object> map){
 		//准备数据（联系人、用户列表），放入map中
 		List<Contacts> contactsList = contactService.getAllContacts();
@@ -112,7 +113,7 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:update")
-	@RequestMapping(value = "/customer_updateUI/{id}")
+	@RequestMapping(value = "/customer_update/{id}" , method = RequestMethod.POST)
 	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
 		//通过id得到要更新的客户的原始信息，并放入map中
 		Customer customer = customerService.getCustomerById(id);
@@ -134,7 +135,7 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:save")
-	@RequestMapping(value = "/customer_save" )
+	@RequestMapping(value = "/customer_save" ,method = RequestMethod.POST)
 	public String save(Customer customer){
 //		System.out.println(customer);
 		
@@ -150,7 +151,7 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:update")
-	@RequestMapping(value = "/customer_update" )
+	@RequestMapping(value = "/customer_update" ,method = RequestMethod.POST)
 	public String update(Customer customer){
 //		System.out.println("customer : " + customer);
 		
@@ -251,6 +252,7 @@ public class CustomerController extends BaseController {
 	 * @return
 	 * @throws ParseException 
 	 */
+	@RequiresPermissions("customer:touchCustomer_list")
 	@RequestMapping("touchCustomer_list")
 	public String touchCustomerList(Map<String , Object> map) throws ParseException{
 		
@@ -270,7 +272,8 @@ public class CustomerController extends BaseController {
 	 * @param id ：客户id
 	 * @return 跳转到发送邮件页面
 	 */
-	@RequestMapping("toSendEmailPage/{id}")
+	@RequiresPermissions("customer:toSendEmailPage")
+	@RequestMapping(value = "toSendEmailPage/{id}")
 	public ModelAndView ToSendEmailPage(@PathVariable(value="id") long id){
 //		System.out.println("the customer id is : " + id);
 		//通过id得到客户信息
@@ -307,6 +310,7 @@ public class CustomerController extends BaseController {
 	 * @param map
 	 * @return
 	 */
+	@RequiresPermissions("customer:touchQuery")
 	@RequestMapping(value = "/touchQuery")
 	public String touchQuery(HttpServletRequest request , Map<String , Object> map){
 		//查询条件，即根据什么查询客户

@@ -20,7 +20,7 @@
 		<td>${supplier.name }</td>
 		<td>${supplier.phone }</td>
 		<td><a href="${pageContext.request.contextPath }/supplier/deleteSupplier.action?id=${supplier.id}">删除</a>
-			<a href="${pageContext.request.contextPath }/supplier/editSupplierUI.action?id=${supplier.id}">修改</a>
+			<a href="${pageContext.request.contextPath }/supplier/editSupplier.action?id=${supplier.id}">修改</a>
 		</td>		
 	</tr>
 	

@@ -47,12 +47,12 @@ public class AnnouncementController extends BaseController {
 	@Autowired
 	private DepartmentService departmentService;
 	
-	@RequiresPermissions("announcement:list")
 	/**
 	 * 公告列表
 	 * @param model
 	 * @return 返回到公告列表页面
 	 */
+	@RequiresPermissions("announcement:list")
 	@RequestMapping("/announcement_list")
 	public String announcementList(Model model){
 		//查找所有公告

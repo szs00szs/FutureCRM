@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>登陆页面</h1>
-<div>
+<div class="error">${error}</div>
 	<form action="login">
 	<table>
 		<tr>
@@ -24,6 +24,5 @@
 		</tr>
 	</table>
 	</form>
-</div>
 </body>
 </html>
