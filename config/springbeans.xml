@@ -52,6 +52,5 @@
 	<!-- 定义异常处理器 -->
 	<bean id="customException" class="com.future.hist.crm.exception.CustomException"></bean>
 	<import resource="classpath:spring-context-shiro.xml"/> 
-	
 	<import resource="classpath:spring-config-cache.xml"/>
 </beans>
