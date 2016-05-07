@@ -30,7 +30,7 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/customer/customer_saveUI.action">添加客户</a>
+					<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
 				</td>
 			</tr>
 		</table>			

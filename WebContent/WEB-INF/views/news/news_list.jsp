@@ -25,7 +25,7 @@
 				</td>
 				<td><input type="submit" value="查询"  /></td>
 				<td>
-					<a href="${pageContext.request.contextPath}/news/news_saveUI.action">添加新闻</a>
+					<a href="${pageContext.request.contextPath}/news/news_save.action">添加新闻</a>
 				</td>
 			</tr>
 		</table>			
@@ -58,7 +58,7 @@
 							<td>${news.newsType }</td>
 							<td>
 								<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/news/news_updateUI/${news.id }"
+								<a href="${pageContext.request.contextPath }/news/news_update/${news.id }"
 									style="margin-right: 10%;">
 									<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
 									编辑

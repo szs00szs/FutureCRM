@@ -3,11 +3,12 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>login</title>
+<title>登录</title>
+    <style>.error{color:red;}</style>
 <script src="${pageContext.request.contextPath}/js/jquery-2.1.4.js"></script>
 </head>
 <body>
-
+	<div class="error">${error}</div>
 	<form action="" method="post">
     用户名：<input type="text" name="username" value="<shiro:principal/>" /><br/>
     密码：<input type="password" name="password" /><br/>

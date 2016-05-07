@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h3 align="center" style="font-family:华义彩云;"> 商品类别列表</h3>
-	<h5 align="left" style="font-family:华义彩云;"><a href="${pageContext.request.contextPath }/category/addCategoryUI.action">添加商品类别</a></h5>
+	<h5 align="left" style="font-family:华义彩云;"><a href="${pageContext.request.contextPath }/category/addCategory.action">添加商品类别</a></h5>
 	<table width="100%" height="48" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolordark="#aaaaaa"  bordercolorlight="#FFFFFF">
 	<tr>
 	<td>类别名称</td>
@@ -21,7 +21,7 @@
 		<td>${category.name }</td>
 		<td>${category.description }</td>
 		<td><a href="${pageContext.request.contextPath }/category/deleteCategory.action?id=${category.id}">删除</a>
-			<a href="${pageContext.request.contextPath }/category/editCategoryUI.action?id=${category.id}">修改</a>
+			<a href="${pageContext.request.contextPath }/category/editCategory.action?id=${category.id}">修改</a>
 		</td>		
 	</tr>
 	

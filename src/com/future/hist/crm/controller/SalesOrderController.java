@@ -9,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.future.hist.crm.domain.Commodity;
@@ -44,7 +45,7 @@ public class SalesOrderController {
 
 	// 添加订单页面
 	@RequiresPermissions("sales:save")
-	@RequestMapping("/addOrderUI")
+	@RequestMapping(value = "/addOrder" , method = RequestMethod.GET)
 	public String addOrderUI(Map<String, Object> map) {
 		List<Customer> customerList = customerService.getAllCustomer();
 		List<Contacts> contactsList = contactService.getAllContacts();
@@ -63,7 +64,7 @@ public class SalesOrderController {
 
 	// 添加订单
 	@RequiresPermissions("sales:save")
-	@RequestMapping("/addOrder")
+	@RequestMapping(value = "/addOrder" , method = RequestMethod.POST)
 	public String addOrder(SalesOrder salesOrder) throws ParseException {
 
 		salesOrderService.addOrder(salesOrder);
@@ -96,8 +97,8 @@ public class SalesOrderController {
 	}
 
 	// 订单详情
+	@RequiresPermissions("sales:orderDetails")
 	@RequestMapping("orderDetails")
-
 	public String orderDetails(int id, Map<String, Object> map) {
 		SalesOrder salesOrder = salesOrderService.findOrderById(id);
 		map.put("salesOrder", salesOrder);
