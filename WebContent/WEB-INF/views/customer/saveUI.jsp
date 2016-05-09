@@ -13,18 +13,7 @@
 	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
 <title>Insert title here</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#datetimepicker').datetimepicker({
-			  format: 'yyyy-MM-dd hh:MM:ss'
-		});
-	});
-</script>
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
@@ -44,11 +33,10 @@
 			$("#form").submit();
 		});
 	})
-	
 </script>
 </head>
 <body>
-<div align="center">
+<div class="container" align="center">
 	<form:form action="#" id="form" method="POST"
 		modelAttribute="customer">
 		<table>
@@ -79,7 +67,6 @@
 				    	<c:if test="${contacts.id != customer.contacts.getId() }">
 				    		<option value="${contacts.id}">${contacts.name}</option>
 				    	</c:if>
-				    	<option>1</option>
 				    </c:forEach>
 				 </select>
  				<%-- <input name="contacts.name" value="${customer.contacts.getName() }" /> --%>
@@ -138,11 +125,23 @@
  			<td><input name="tel2" value="${customer.tel2 }"></td>
  		</tr>
  		<tr>
+ 			<td>联系时间</td>
+ 			<td>
+ 				<fmt:formatDate value="${customer.touchDate }" pattern="yyyy-MM-dd HH:mm:ss" var="touchDate"/>
+ 				<div id="datetimepicker" class="input-append date">
+	 				<input name="touchDate" type="text" value="${touchDate }" data-format="yyyy-MM-dd hh:mm:ss" id="datetimepicker"  >
+					<span class="add-on"> 
+						<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+					</span>
+				</div>
+ 			</td>
+ 		</tr>
+ 		<tr>
  			<td>下次联系时间</td>
  			<td>
  				<fmt:formatDate value="${customer.nextTouchDate }" pattern="yyyy-MM-dd HH:mm:ss" var="nextTouchDate"/>
- 				<div id="datetimepicker" class="input-append date">
-	 				<input name="nextTouchDate" id="datetimepicker" type="text" value="${nextTouchDate }">
+ 				<div id="datetimepicker1" class="input-append date">
+	 				<input name="nextTouchDate" type="text" value="${nextTouchDate }" data-format="yyyy-MM-dd hh:mm:ss" id="datetimepicker1"  >
 					<span class="add-on"> 
 						<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 					</span>
@@ -280,5 +279,21 @@
 <div align="right">
 <a href="${pageContext.request.contextPath }/customer/customer_list">返回用户列表</a>
 </div>
+<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+	<script type="text/javascript" 
+		src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#datetimepicker").datetimepicker({
+				
+			});
+			$("#datetimepicker1").datetimepicker({
+				
+			});
+		});
+</script>
 </body>
 </html>

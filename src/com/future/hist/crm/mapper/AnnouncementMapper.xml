@@ -48,11 +48,20 @@
 			department_id = #{department.id}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getAnnouncementCount" resultType="java.lang.Integer">
+		select count(1) from announcement
+	</select>
 
 	<select id="getAllAnnouncement" resultMap="resultMap">
 		select * from announcement
 	</select>
 
+	<select id="getAllAnnouncementByPage" parameterType="com.future.hist.crm.domain.BaseSearch"
+	resultMap="resultMap">
+		select * from announcement
+	</select>
+	
 	<select id="getAnnouncementById" parameterType="java.lang.Long"
 		resultMap="resultMap">
 		select

@@ -27,16 +27,35 @@ $(function() {
 	<table>
 		<caption>发送邮件</caption>
 		<tbody>
+			
+			<tr>
+				<td>发送人：</td>
+				<td><input type="text" name="from" /></td>
+			</tr>
+			<tr>
+				<td>授权密码：</td>
+				<td><input type="text" name="password" /></td>
+				<td><span>注：授权密码不是登陆密码</span></td>
+			</tr>
+			
 			<tr>
 			
 				<td>接收人：</td>
 				<td><input type="text" name="customer_email" value="${customer.email }"/></td>
 			</tr>
 			<tr>
+				<td>标题</td>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
 				<td>内容：</td>
 				<td>
 					<textarea name="content" rows="10" cols="20"></textarea>
 				</td>
+			</tr>
+			<tr>
+				<td>附件：</td>
+				<td><input type="file" name="attached" /></td>
 			</tr>
 			<tr>
 				<td></td>

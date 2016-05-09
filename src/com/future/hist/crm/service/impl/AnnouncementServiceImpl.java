@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.AnnouncementMapper;
 import com.future.hist.crm.domain.Announcement;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.AnnouncementService;
@@ -47,8 +48,18 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 	
 	@Override
+	public int getAnnouncementCount(){
+		return announcementMapper.getAnnouncementCount();
+	}
+	
+	@Override
 	public List<Announcement> getAllAnnouncement(){
 		return announcementMapper.getAllAnnouncement();
+	}
+	
+	@Override
+	public List<Announcement> getAllAnnouncementByPage(BaseSearch baseSearch){
+		return announcementMapper.getAllAnnouncementByPage(baseSearch);
 	}
 
 	@Override

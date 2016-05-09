@@ -7,7 +7,8 @@
 		trade, scale, province,
 		city, postCode, address,
 		email, web, tel1, mobile,
-		tel2, nextTouchDate, quality,
+		tel2,touchTimes,isTouched,touchDate, 
+		nextTouchDate, quality,
 		remark, dealin, kind,
 		artificialPerson, registeMoney, bank,
 		account, taxCode, creator,
@@ -69,6 +70,9 @@
 		tel1 = #{tel1},
 		mobile = #{mobile},
 		tel2 = #{tel2},
+		touchTimes=#{touchTimes},
+		isTouched=#{isTouched},
+		touchDate=#{touchDate},
 		nextTouchDate = #{nextTouchDate},
 		quality = #{quality},
 		remark = #{remark},
@@ -92,6 +96,15 @@
 	</update>
 
 	<select id="getAllCustomer" resultMap="resultMap">
+		select * from customer
+	</select>
+	
+	<select id="getAllCustomerCount" resultType="java.lang.Integer">
+		select count(1) from customer
+	</select>
+	
+	<select id="getAllCustomerByPage" parameterType="com.future.hist.crm.domain.BaseSearch"
+	resultMap="resultMap">
 		select * from customer
 	</select>
 	

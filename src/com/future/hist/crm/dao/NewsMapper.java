@@ -2,6 +2,7 @@ package com.future.hist.crm.dao;
 
 import java.util.List;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.News;
 import com.future.hist.crm.domain.User;
 
@@ -52,6 +53,19 @@ public interface NewsMapper {
 	 */
 	List<News> getAllNews();
 
+	/**
+	 * 得到新闻的个数
+	 * @return
+	 */
+	int getAllNewsCount();
+	
+	/**
+	 * 通过分页得到新闻
+	 * @param baseSearch 
+	 * @return
+	 */
+	List<News> getAllNewsByPage(BaseSearch baseSearch);
+	
 	/**
 	 * 升序查找所有新闻
 	 * @return

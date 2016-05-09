@@ -12,9 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.future.hist.crm.domain.Announcement;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.AnnouncementService;
 import com.future.hist.crm.service.DepartmentService;
@@ -52,13 +55,23 @@ public class AnnouncementController extends BaseController {
 	 * @param model
 	 * @return 返回到公告列表页面
 	 */
-	@RequiresPermissions("announcement:list")
-	@RequestMapping("/announcement_list")
-	public String announcementList(Model model){
+	@RequiresPermissions("announcement:view")
+	@RequestMapping("/announcement_list/{currentPage}")
+	public String announcementList(@PathVariable(value = "currentPage") Integer currentPage, Model model){
+		//分页相关数据
+		BaseSearch baseSearch = new BaseSearch();
+		//公告总页数
+		int totalCount = announcementService.getAnnouncementCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+		
+		baseSearch.setPage(pageParameter);
+		model.addAttribute("pageParameter", pageParameter);
+		
 		//查找所有公告
-		List<Announcement> announcementList = announcementService.getAllAnnouncement();
+		List<Announcement> announcementList = announcementService.getAllAnnouncementByPage(baseSearch);
 		//以model的形式返回数据
 		model.addAttribute(announcementList);
+		
 		//跳转到公告列表页面
 		return "announcement/announcement_list";
 	}
@@ -86,7 +99,7 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回公告添加页面
 	 */
 	@RequiresPermissions("announcement:save")
-	@RequestMapping(value = "/announcement_saveUI")
+	@RequestMapping(value = "/announcement_save", method=RequestMethod.GET)
 	public String saveUI(Map<String, Object> map){
 		//准备数据（userList）
 		List<User> userList	 = userService.getAllUser();
@@ -108,9 +121,13 @@ public class AnnouncementController extends BaseController {
 	public String save(Announcement announcement){
 //		System.out.println(announcement);
 		
-		announcementService.addAnnouncement(announcement);;
+		announcementService.addAnnouncement(announcement);
 		
-		return "redirect:/announcement/announcement_list";
+		//添加后返回最后一页，查看添加情况
+		int totalCount = announcementService.getAnnouncementCount();
+		PageParameter pageParameter = new PageParameter();
+		int totalPage = (totalCount + pageParameter.getPageSize() - 1) / pageParameter.getPageSize();
+		return "redirect:/announcement/announcement_list/" + totalPage;
 	}
 	
 	/**
@@ -120,8 +137,8 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回到更新公告页面
 	 */
 	@RequiresPermissions("announcement:update")
-	@RequestMapping(value = "/announcement_updateUI/{id}")
-	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
+	@RequestMapping(value = "/announcement_updateUI/{id}/{currentPage}", method=RequestMethod.GET)
+	public String updateUI(@PathVariable(value = "id") Long id, @PathVariable(value = "currentPage") Integer currentPage, Map<String, Object> map){
 		//通过id得到公告
 		Announcement announcement = announcementService.getAnnouncementById(id);
 		map.put("announcement" , announcement);
@@ -148,7 +165,7 @@ public class AnnouncementController extends BaseController {
 		//更新公告
 		announcementService.updateAnnouncement(announcement);;
 		
-		return "redirect:/announcement/announcement_list";
+		return "redirect:/announcement/announcement_list/1";
 	}
 				
 	/**
@@ -160,7 +177,7 @@ public class AnnouncementController extends BaseController {
 	@RequestMapping(value = "/announcement_delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id){
 		announcementService.deleteAnnouncementById(id);
-		return "redirect:/announcement/announcement_list";
+		return "redirect:/announcement/announcement_list/1";
 	}
 	
 	/**
@@ -208,7 +225,7 @@ public class AnnouncementController extends BaseController {
 		}
 		map.put("announcementList", announcementList);
 		
-		return "announcement/announcement_list";
+		return "announcement/announcement_list/1";
 	}
 	
 }

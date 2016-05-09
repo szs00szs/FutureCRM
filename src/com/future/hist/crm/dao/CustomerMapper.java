@@ -3,6 +3,7 @@ package com.future.hist.crm.dao;
 import java.util.Date;
 import java.util.List;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
 import com.future.hist.crm.domain.User;
@@ -53,6 +54,19 @@ public interface CustomerMapper {
 	 * @return
 	 */
 	List<Customer> getAllCustomer();
+	
+	/**
+	 * 得到客户总个数
+	 * @return
+	 */
+	int getAllCustomerCount();
+	
+	/**
+	 * 通过分页得到客户
+	 * @param baseSearch
+	 * @return
+	 */
+	List<Customer> getAllCustomerByPage(BaseSearch baseSearch);
 	
 	/**
 	 * 得到升序客户列表

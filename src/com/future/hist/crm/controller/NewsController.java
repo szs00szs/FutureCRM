@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.future.hist.crm.domain.Contacts;
-import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.News;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.NewsService;
 import com.future.hist.crm.service.UserService;
@@ -47,11 +47,20 @@ public class NewsController extends BaseController{
 	 * @param map
 	 * @return 返回到新闻列表页面
 	 */
-	@RequiresPermissions("news:list")
-	@RequestMapping("/news_list")
-	public String newsList(Map<String , Object> map){
+	@RequiresPermissions("news:view")
+	@RequestMapping("/news_list/{currentPage}")
+	public String newsList(@PathVariable(value = "currentPage") Integer currentPage, Map<String , Object> map){
+		//分页相关数据
+		BaseSearch baseSearch = new BaseSearch();
+		//公告总页数
+		int totalCount = newsService.getAllNewsCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+		
+		baseSearch.setPage(pageParameter);
+		map.put("pageParameter", pageParameter);
+		
 		//准备数据，得到所有的新闻
-		List<News> newsList = newsService.getAllNewsByTimedesc();//按时间排序，显示最新新闻
+		List<News> newsList = newsService.getAllNewsByPage(baseSearch);//按时间排序，显示最新新闻
 		map.put("newsList", newsList);
 		
 		return "news/news_list";
@@ -98,8 +107,12 @@ public class NewsController extends BaseController{
 	public String save(News news){
 		
 		newsService.addNews(news);
+		//添加后到最后一页查看添加情况
+		int totalCount = newsService.getAllNewsCount();
+		PageParameter pageParameter = new PageParameter();
+		int totalPage = (totalCount + pageParameter.getPageSize() - 1) / pageParameter.getPageSize();
 		
-		return "redirect:/news/news_list";
+		return "redirect:/news/news_list/" + totalPage;
 	}
 	
 	/**
@@ -132,7 +145,7 @@ public class NewsController extends BaseController{
 		
 		newsService.updateNews(news);
 		
-		return "redirect:/news/news_list";
+		return "redirect:/news/news_list/1";
 	}
 			
 				
@@ -147,7 +160,7 @@ public class NewsController extends BaseController{
 		
 		newsService.deleteNewsById(id);
 		
-		return "redirect:/news/news_list";
+		return "redirect:/news/news_list/1";
 	}
 	
 	/**
@@ -186,7 +199,7 @@ public class NewsController extends BaseController{
 		}
 		map.put("newsList", newsList);
 		
-		return "news/news_list";
+		return "news/news_list/1";
 	}
 	
 }

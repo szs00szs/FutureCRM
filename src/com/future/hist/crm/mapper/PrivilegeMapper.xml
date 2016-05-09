@@ -9,7 +9,7 @@
 	<result column="type" property="type"/>
 	<result column="description" property="description"/>
 	<result column="url" property="url"/>
-	<result column="permition" property="permition"/>
+	<result column="permission" property="permission"/>
 	<!-- <association property="parent" column="parent_id"
 			select="getPrarentPrivilege"></association> -->
 	<!-- <collection property="children" javaType="java.util.Set" ofType="Privilege">  
@@ -27,7 +27,7 @@
 	<result column="type" property="type"/>
 	<result column="description" property="description"/>
 	<result column="url" property="url"/>
-	<result column="permition" property="permition"/>
+	<result column="permission" property="permission"/>
 </resultMap>
 
 <!-- 添加权限 -->

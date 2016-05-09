@@ -6,10 +6,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+	<script type="text/javascript">
+		$(function(){
+		/* 	alert(1)
+			var date = JSON.stringify("${contactsList}");
+			alert(date)
+			$("#export").click(function(){
+				$.post("${pageContext.request.contextPath}/contacts/export",
+					date,
+				  function(data,status){
+				    alert("Data: " + data + "\nStatus: " + status);
+				  })
+			}) */
+		})
+	</script>
 </head>
-<body>
+ <body>
 	<div align="center">
 		<table>
 			<tr>
@@ -26,11 +42,20 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/contacts/contacts_save.action">添加联系人</a>
+					<a href="${pageContext.request.contextPath}/contacts/contacts_saveUI.action">添加联系人</a>
 				</td>
 			</tr>
 		</table>			
 		
+	</div>
+	<div>
+	<a href="${pageContext.request.contextPath }/contacts/export">导出</a>
+	<%-- <a href="${pageContext.request.contextPath }/contacts/import">导入</a> --%>
+	<form:form action="${pageContext.request.contextPath }/contacts/import">
+		<input type="file" name="file" />
+		<button>导入</button>
+	</form:form>
+	<a href="${pageContext.request.contextPath }/contacts/import/template">下载模板</a>
 	</div>
 	<div align="center">
 		<table border="1" cellspacing="0" style="font-size: 12px;table-layout: fixed;">
@@ -83,7 +108,7 @@
 							<td>${contacts.remark}</td>
 							<td>
 								<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/contacts/contacts_update/${contacts.id }"style="margin-right: 10%;">
+								<a href="${pageContext.request.contextPath }/contacts/contacts_updateUI/${contacts.id }"style="margin-right: 10%;">
 									<img src="${pageContext.request.contextPath }/images/bian.png">
 									&nbsp;&nbsp;编辑 
 								</a>
@@ -102,6 +127,52 @@
 
 		</tbody>
 	</table>
+	</div>
+	
+	<div id=PageSelectorBar>
+		<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页 &nbsp;
+			每页显示：${pageParameter.pageSize}条 &nbsp; 总记录数：${pageParameter.totalCount}条</div>
+		<div id=PageSelectorSelectorArea>
+	
+			<a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
+				<img src="${pageContext.request.contextPath}/images/pageSelector/firstPage.png"/>
+			</a>
+			
+			<c:forEach begin="${pageParameter.beginPageIndex}" end="${pageParameter.endPageIndex}" var="num">
+				<c:if test="${num == currentPage}"> <%-- 当前页 --%>
+					<span class="PageSelectorNum PageSelectorSelected" ><font color="red">${num}</font></span>
+				</c:if>
+				<c:if test="${num != currentPage}"> <%-- 非当前页 --%>
+					<span class="PageSelectorNum" style="cursor: hand;" onClick="gotoPage(${num});">${num}</span>
+				</c:if>
+			</c:forEach>
+			
+			<a href="javascript: gotoPage(${pageParameter.totalPage})" title="尾页" style="cursor: hand;">
+				<img src="${pageContext.request.contextPath}/images/pageSelector/lastPage.png"/>
+			</a>
+			
+			转到：
+			<select onchange="gotoPage(this.value)" id="_pn">
+				<c:forEach begin="1" end="${pageParameter.totalPage}" var="num">
+					<option value="${num}">${num}</option>
+				</c:forEach>
+			</select>
+			<script type="text/javascript">
+				$("#_pn").val("${pageParameter.currentPage}");
+			</script>
+			<script type="text/javascript">
+				function gotoPage( pageNum ){
+					window.location.href = "${pageContext.request.contextPath}/contacts/contacts_list/" + pageNum;
+					/* $(document.forms[0]).append("<input type='hidden' name='currentPage' value='" + pageNum +"'>");
+					
+					document.forms[0].submit(); */
+				}
+			</script>
+		</div>
+	</div>
+	
+	<div>
+		<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
 	</div>
 </body>
 </html>
