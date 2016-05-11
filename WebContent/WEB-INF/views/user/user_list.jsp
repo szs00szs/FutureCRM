@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,8 +35,9 @@
 </script>
 </head>
 <body>
-
-<a href="${pageContext.request.contextPath}/sysUser/user_saveUI.action">增加用户</a>
+	<shiro:hasPermission name="user:save">
+		<a href="${pageContext.request.contextPath}/sysUser/user_save.action">增加用户</a>
+	</shiro:hasPermission>
 	<hr>
 	<br>
 	<form:form action="${pageContext.request.contextPath}/sysUser/user_query" method="post" modelAttribute="user">
@@ -214,13 +216,18 @@
 							<td>${user.address }</td>
 							<td>${user.department.getName() }</td>
 							<td>${user.remark }</td>
-							<td><a
-								href="${pageContext.request.contextPath }/sysUser/user_updateUI/${user.id }/${currentPage }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
-								<a
-								href="${pageContext.request.contextPath }/sysUser/user_delete/${user.id }"><img
-									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+							<td>
+								<shiro:hasPermission name="user:update">
+									<a
+									href="${pageContext.request.contextPath }/sysUser/user_update/${user.id }/${currentPage }"
+									style="margin-right: 10%;"><img
+										src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="user:delete">
+									<a
+									href="${pageContext.request.contextPath }/sysUser/user_delete/${user.id }"><img
+										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+								</shiro:hasPermission>
 							</td>
 						</tr>
 					</c:forEach>

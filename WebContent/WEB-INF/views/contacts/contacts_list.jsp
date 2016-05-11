@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,7 +27,9 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/contacts/contacts_save.action">添加联系人</a>
+					<shiro:hasPermission name="contacts:save">
+						<a href="${pageContext.request.contextPath}/contacts/contacts_save.action">添加联系人</a>
+					</shiro:hasPermission>
 				</td>
 			</tr>
 		</table>			
@@ -82,15 +85,21 @@
 							<td>${contacts.taboo}</td>
 							<td>${contacts.remark}</td>
 							<td>
-								<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/contacts/contacts_update/${contacts.id }"style="margin-right: 10%;">
-									<img src="${pageContext.request.contextPath }/images/bian.png">
-									&nbsp;&nbsp;编辑 
-								</a>
+								<shiro:hasPermission name="contacts:detail">
+									<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="contacts:update">
+									<a href="${pageContext.request.contextPath }/contacts/contacts_update/${contacts.id }"style="margin-right: 10%;">
+										<img src="${pageContext.request.contextPath }/images/bian.png">
+										&nbsp;&nbsp;编辑 
+									</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="contacts:delete">
 									<a href="${pageContext.request.contextPath }/contacts/contacts_delete/${contacts.id }">
-									<img src="${pageContext.request.contextPath }/images/shan.png">
-									&nbsp;&nbsp;删除     
-								</a>   
+										<img src="${pageContext.request.contextPath }/images/shan.png">
+										&nbsp;&nbsp;删除     
+									</a>   
+								</shiro:hasPermission>
 							</td> 
 						</tr>
 					</c:forEach>

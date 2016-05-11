@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div align="center">
+	<div align="center"> 
 		<table>
 			<tr>
 			<form action="${pageContext.request.contextPath}/customer/query" method="post">
@@ -30,7 +31,9 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
+					<shiro:hasPermission name="customer:save">
+						<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
+					</shiro:hasPermission>
 				</td>
 			</tr>
 		</table>			
@@ -74,14 +77,20 @@
 							<td>${customer.kind }</td>
 							<td>${customer.email }</td>
 							<td >
-								<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
-							<a
-								href="${pageContext.request.contextPath }/customer/customer_update/${customer.id }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
-								<a
-								href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
-									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
+								<shiro:hasPermission name="customer:detail">
+									<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="customer:update">
+									<a
+										href="${pageContext.request.contextPath }/customer/customer_update/${customer.id }"
+										style="margin-right: 10%;"><img
+											src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
+								</shiro:hasPermission>
+								<shiro:hasRole name="customer:delete">
+									<a
+									href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
+										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
+								</shiro:hasRole>
 							</td> 
 						</tr>
 					</c:forEach>

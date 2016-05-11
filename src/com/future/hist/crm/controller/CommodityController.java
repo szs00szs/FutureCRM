@@ -91,7 +91,7 @@ public class CommodityController {
 	/**
 	 * 删除商品
 	 */
-	@RequiresPermissions("commodity:deleteCommodity")
+	@RequiresPermissions("commodity:delete")
 	@RequestMapping("/deleteCommodity")
 	public String deleteCommodity(int id) {
 		commodityService.deleteCommodity(id);

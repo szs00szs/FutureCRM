@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,11 +33,15 @@
 		<td>${order.commodityCount }</td>
 		<td>${order.supplier.name }</td>
 		<td>${order.remark }</td>
-		<td><a href="${pageContext.request.contextPath }/purchase/deleteOrderById.action?id=${order.id}">删除</a>
-			<a href="${pageContext.request.contextPath }/purchase/orderDetails.action?id=${order.id}">查看</a>
-		</td>		
+		<td>
+			<shiro:hasPermission name="purchase:deleteOrder">
+				<a href="${pageContext.request.contextPath }/purchase/deleteOrderById.action?id=${order.id}">删除</a>
+			</shiro:hasPermission>
+			<shiro:hasPermission name="purchase:orderDetails">
+				<a href="${pageContext.request.contextPath }/purchase/orderDetails.action?id=${order.id}">查看</a>
+			</shiro:hasPermission>
+		</td>
 	</tr>
-	
 	</c:forEach>
 </table>
 </body>

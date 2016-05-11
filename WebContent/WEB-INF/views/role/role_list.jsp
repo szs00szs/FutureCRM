@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +9,9 @@
 <title>权限列表</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/sysRole/role_save">增加角色</a>
+<shiro:hasPermission name="role:save">
+	<a href="${pageContext.request.contextPath}/sysRole/role_save">增加角色</a>
+</shiro:hasPermission>
 <br>
 <table border="1" style="font-size: 12px;">
 		<caption>角色管理</caption>
@@ -27,17 +30,22 @@
 						<tr>
 							<td>${role.name }</td>
 							<td>${role.remark }</td>
-							<td><a
-								href="${pageContext.request.contextPath }/sysRole/role_update/${role.id }/${currentPage }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
+							<td>
+								<shiro:hasPermission name="role:update">
+									<a
+									href="${pageContext.request.contextPath }/sysRole/role_update/${role.id }/${currentPage }"
+									style="margin-right: 10%;"><img
+										src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
+								</shiro:hasPermission>
 									<a
 								href="${pageContext.request.contextPath }/sysRole/set_privilege/${role.id }"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;修改权限</a>
-								<a
-								href="${pageContext.request.contextPath }/sysRole/role_delete/${role.id }"><img
-									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+								<shiro:hasPermission name="role:delete">
+									<a
+									href="${pageContext.request.contextPath }/sysRole/role_delete/${role.id }"><img
+										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+								</shiro:hasPermission>
 							</td>
 						</tr>
 					</c:forEach>

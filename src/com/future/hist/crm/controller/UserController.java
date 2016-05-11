@@ -27,7 +27,7 @@ public class UserController {
 	private DepartmentService departmentService;
 	
 	@RequiresPermissions("user:save")
-	@RequestMapping(value = "/user_saveUI" )
+	@RequestMapping(value = "/user_save" ,method = RequestMethod.GET)
 	public String saveUI(Map<String, Object> map){
 		List<Department> departmentList = departmentService.getAllDepartment();
 		map.put("departmentList", departmentList);
@@ -68,7 +68,7 @@ public class UserController {
 		return "user/user_list";
 	}
 	@RequiresPermissions("user:update")
-	@RequestMapping(value = "/user_updateUI/{user_id}/{currentPage}")
+	@RequestMapping(value = "/user_update/{user_id}/{currentPage}" , method = RequestMethod.GET)
 	public String updateUI(@PathVariable(value = "user_id") Long user_id,@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map){
 		User user = userService.getUserById(user_id);
 		List<Department> departmentList = departmentService.getAllDepartment();
@@ -79,8 +79,8 @@ public class UserController {
 		return "user/saveUI";
 	}
 	
-	 @RequiresPermissions("user:update")
-	@RequestMapping(value = "/user_update/{currentPage}")
+	@RequiresPermissions("user:update")
+	@RequestMapping(value = "/user_update/{currentPage}" , method = RequestMethod.POST)
 	public String update(@PathVariable(value = "currentPage") Integer currentPage,User user){
 		System.out.println("user : " + user);
 		userService.updateUser(user);

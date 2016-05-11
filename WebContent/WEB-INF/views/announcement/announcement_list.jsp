@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -15,7 +16,7 @@
 			<tr>
 			<form action="${pageContext.request.contextPath}/announcement/query" method="post">
 				<td>请输入查询内容：<input type="text" name="selectContent" /></td>
-				<td>
+				<td> 
 					请选择查询方式：
 					<select name="selectType">
 						<option value="title">标题</option>
@@ -26,13 +27,15 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/announcement/announcement_saveUI.action">添加公告</a>
+					<shiro:hasPermission name="announcement:save">
+						<a href="${pageContext.request.contextPath}/announcement/announcement_save.action">添加公告</a>
+					</shiro:hasPermission>
 				</td>
 			</tr>
 		</table>			
 		
 	</div>
-	<div align="center">
+	<div align="center"> 
 		<table border="1" cellspacing="0" style="font-size: 12px;table-layout: fixed;">
 		<caption>公告列表</caption>
 		<thead >
@@ -63,14 +66,20 @@
 							</td>
 							<td>${announcement.department.getName() }</td>
 							<td >
-								<a href="${pageContext.request.contextPath }/announcement/announcement_detail/${announcement.id}">详情</a>
-							<a
-								href="${pageContext.request.contextPath }/announcement/announcement_updateUI/${announcement.id }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
+								<shiro:hasPermission name="announcement:detail">
+									<a href="${pageContext.request.contextPath }/announcement/announcement_detail/${announcement.id}">详情</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="announcement:update">
+									<a
+										href="${pageContext.request.contextPath }/announcement/announcement_update/${announcement.id }"
+										style="margin-right: 10%;"><img
+											src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="announcement:delete">
 								<a
 								href="${pageContext.request.contextPath }/announcement/announcement_delete/${announcement.id }"><img
 									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
+								</shiro:hasPermission>
 							</td> 
 						</tr>
 					</c:forEach>

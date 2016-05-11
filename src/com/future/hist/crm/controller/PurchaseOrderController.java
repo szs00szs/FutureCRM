@@ -69,7 +69,7 @@ public class PurchaseOrderController {
 	}
 
 	// 删除进货单
-	@RequiresPermissions("purchase:deleteOrderById")
+	@RequiresPermissions("purchase:deleteOrder")
 	@RequestMapping("/deleteOrderById")
 	public String deleteOrderById(int id) {
 		purchaseOrderService.deleteOrderById(id);

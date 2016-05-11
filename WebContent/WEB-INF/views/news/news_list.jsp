@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,16 +58,22 @@
 							<%-- <td>${news.issur_date }</td> --%>
 							<td>${news.newsType }</td>
 							<td>
-								<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/news/news_update/${news.id }"
-									style="margin-right: 10%;">
-									<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
-									编辑
-								</a>
-								<a href="${pageContext.request.contextPath }/news/news_delete/${news.id }">
-									<img src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;
-									删除
-								</a>
+								<shiro:hasPermission name="news:detail">
+									<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="news:update">
+									<a href="${pageContext.request.contextPath }/news/news_update/${news.id }"
+										style="margin-right: 10%;">
+										<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
+										编辑
+									</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="news:delete">
+									<a href="${pageContext.request.contextPath }/news/news_delete/${news.id }">
+										<img src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;
+										删除
+									</a>
+								</shiro:hasPermission>
 							</td>
 						</tr>
 					</c:forEach>
