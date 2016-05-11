@@ -26,7 +26,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
-			var url = "${pageContext.request.contextPath}/announcement/announcement_update";
+			var url = "${pageContext.request.contextPath}/announcement/announcement_update/${currentPage}";
 			//更改form的action  
 			$("#form").attr("action", url);
 			//触发submit事件，提交表单   
@@ -116,7 +116,7 @@
 	</form:form>
 </div>
 <div align="right">
-<a href="${pageContext.request.contextPath }/announcement/announcement_list">返回公告列表</a>
+<a href="${pageContext.request.contextPath }/announcement/announcement_list/1">返回公告列表</a>
 </div>
 </body>
 </html>

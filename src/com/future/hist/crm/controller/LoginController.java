@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
 	@Autowired
 	private PrivilegeService privilegeService;
 
-	@RequestMapping("login")
+	@RequestMapping("workspace")
 	public String login(HttpServletRequest request, HttpServletResponse response, User user, Model model) {
 		String name = (String) request.getParameter("name");
 		String password = (String) request.getParameter("password");

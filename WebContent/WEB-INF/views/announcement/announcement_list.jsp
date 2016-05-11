@@ -26,7 +26,7 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/announcement/announcement_saveUI.action">添加公告</a>
+					<a href="${pageContext.request.contextPath}/announcement/announcement_save">添加公告</a>
 				</td>
 			</tr>
 		</table>			
@@ -63,13 +63,13 @@
 							</td>
 							<td>${announcement.department.getName() }</td>
 							<td >
-								<a href="${pageContext.request.contextPath }/announcement/announcement_detail/${announcement.id}">详情</a>
+								<a href="${pageContext.request.contextPath }/announcement/announcement_detail/${announcement.id}/${currentPage}">详情</a>
 							<a
-								href="${pageContext.request.contextPath }/announcement/announcement_updateUI/${announcement.id }"
+								href="${pageContext.request.contextPath }/announcement/announcement_update/${announcement.id }/${currentPage}"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
 								<a
-								href="${pageContext.request.contextPath }/announcement/announcement_delete/${announcement.id }"><img
+								href="${pageContext.request.contextPath }/announcement/announcement_delete/${announcement.id }/${currentPage}"><img
 									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
 							</td> 
 						</tr>

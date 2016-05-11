@@ -30,7 +30,7 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-					<a href="${pageContext.request.contextPath}/customer/customer_saveUI.action">添加客户</a>
+					<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
 				</td>
 			</tr>
 		</table>			
@@ -74,13 +74,13 @@
 							<td>${customer.kind }</td>
 							<td>${customer.email }</td>
 							<td >
-								<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
+								<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}/${currentPage}">详情</a>
 							<a
-								href="${pageContext.request.contextPath }/customer/customer_updateUI/${customer.id }"
+								href="${pageContext.request.contextPath }/customer/customer_update/${customer.id }/${currentPage}"
 								style="margin-right: 10%;"><img
 									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
 								<a
-								href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
+								href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }/${currentPage}"><img
 									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
 							</td> 
 						</tr>
@@ -136,7 +136,7 @@
 		</div>
 	</div>
 	<div>
-		<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
+		<span><a href="${pageContext.request.contextPath }/workspace">返回工作页面</a></span>
 	</div>
 </body>
 </html>

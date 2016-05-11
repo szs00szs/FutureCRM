@@ -81,11 +81,12 @@ public class ContactsController extends BaseController {
 	 * @return 返回到联系人详情也米娜
 	 */
 	@RequiresPermissions("contacts:detail")
-	@RequestMapping("/contacts_detail/{id}")
-	public String contactsDetail(Map<String , Object> map ,@PathVariable("id") Long id){
+	@RequestMapping("/contacts_detail/{id}/{currentPage}")
+	public String contactsDetail(Map<String , Object> map ,@PathVariable("id") Long id, @PathVariable("currentPage")int currentPage){
 		//通过id得到要查看的联系人信息
 		Contacts contacts = contactService.getContactById(id);
 		map.put("contacts", contacts);
+		map.put("currentPage", currentPage);
 		
 		return "contacts/contacts_detail";
 	}
@@ -146,8 +147,8 @@ public class ContactsController extends BaseController {
 	 * @return 返回到更新联系人页面
 	 */
 	@RequiresPermissions("contacts:update")
-	@RequestMapping(value = "/contacts_update/{id}" , method = RequestMethod.GET)
-	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
+	@RequestMapping(value = "/contacts_update/{id}/{currentPage}" , method = RequestMethod.GET)
+	public String updateUI(@PathVariable(value = "id") Long id, @PathVariable("currentPage") int currentPage, Map<String, Object> map){
 		//准备数据，通过id得到要更新的联系人数据
 		Contacts contacts = contactService.getContactById(id);
 		map.put("contacts" , contacts);
@@ -158,6 +159,8 @@ public class ContactsController extends BaseController {
 		List<User> userList = userService.getAllUser();
 		map.put("userList", userList);
 		
+		map.put("currentPage", currentPage);
+		
 		return "contacts/saveUI";
 	}
 	
@@ -167,12 +170,12 @@ public class ContactsController extends BaseController {
 	 * @return 返回到联系人列表页面
 	 */
 	@RequiresPermissions("contacts:update")
-	@RequestMapping(value = "/contacts_update" ,method = RequestMethod.POST )
-	public String update(Contacts contacts){
+	@RequestMapping(value = "/contacts_update/{currentPage}" ,method = RequestMethod.POST )
+	public String update(Contacts contacts, @PathVariable("currentPage") int currentPage){
 		
 		contactService.updateContact(contacts);
 		
-		return "redirect:/contacts/contacts_list/1";
+		return "redirect:/contacts/contacts_list/" + currentPage;
 	}
 				
 	/**
@@ -181,12 +184,12 @@ public class ContactsController extends BaseController {
 	 * @return 返回到联系人列表页面
 	 */
 	@RequiresPermissions("contacts:delete")
-	@RequestMapping(value = "/contacts_delete/{id}")
-	public String delete(@PathVariable(value = "id") Long id){
+	@RequestMapping(value = "/contacts_delete/{id}/{currentPage}")
+	public String delete(@PathVariable(value = "id") Long id, @PathVariable("currentPage") int currentPage){
 		
 		contactService.deleteContactById(id);
 		
-		return "redirect:/contacts/contacts_list/1";
+		return "redirect:/contacts/contacts_list/" + currentPage;
 	}
 	
 	/**
@@ -229,7 +232,7 @@ public class ContactsController extends BaseController {
 		
 		map.put("contactsList", contactsList);
 		
-		return "contacts/contacts_list/1";
+		return "contacts/contacts_list";
 	}
 	
 	/**
@@ -267,7 +270,7 @@ public class ContactsController extends BaseController {
 //		workbook.write(fos);
 //		fos.close();
 		
-		return "contacts/contacts_list/1";
+		return "contacts/contacts_list";
 	}
 	
 	/**
@@ -298,7 +301,7 @@ public class ContactsController extends BaseController {
 		
 		map.put("contactsList", contactsList);
 		
-		return "contacts/importContactsList/1";
+		return "contacts/importContactsList";
 	}
 	
 	
@@ -327,6 +330,6 @@ public class ContactsController extends BaseController {
     		
     		workbook.write(os);
     		os.close();
-    		return "contacts/contacts_list/1";
+    		return "contacts/contacts_list";
     }
 }

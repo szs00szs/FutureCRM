@@ -25,7 +25,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
-			var url = "${pageContext.request.contextPath}/contacts/contacts_update";
+			var url = "${pageContext.request.contextPath}/contacts/contacts_update/${currentPage}";
 			//更改form的action  
 			$("#form").attr("action", url);
 			//触发submit事件，提交表单   
@@ -65,8 +65,8 @@
  			<td>
  				<fmt:formatDate value="${contacts.birthday}" pattern="yyyy-MM-dd HH:mm:ss" var="birthday"/>
  				<div id="datetimepicker" class="input-append date">
- 					<input name="birthday" value="${birthday }" />
-					<%-- <input name="issue_date" id="datetimepicker" type="text" value="${issue_date }"/> --%>
+					<input name="birthday" id="datetimepicker" value="${birthday}" data-format="yyyy-MM-dd hh:mm:ss"
+						type="text" /> 
 					<span class="add-on"> 
 						<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
 					</span>
@@ -128,7 +128,7 @@
 	</form:form>
 </div>
 <div align="right">
-<a href="${pageContext.request.contextPath }/contacts/contacts_list">返回用户列表</a>
+<a href="${pageContext.request.contextPath }/contacts/contacts_list/1">返回用户列表</a>
 </div>
 <script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>

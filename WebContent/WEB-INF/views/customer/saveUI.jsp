@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(function() {
 		$("#updateInfo").click(function() {
-			var url = "${pageContext.request.contextPath}/customer/customer_update";
+			var url = "${pageContext.request.contextPath}/customer/customer_update/${currentPage}";
 			//更改form的action  
 			$("#form").attr("action", url);
 			//触发submit事件，提交表单   
@@ -277,7 +277,7 @@
 	</form:form>
 </div>
 <div align="right">
-<a href="${pageContext.request.contextPath }/customer/customer_list">返回用户列表</a>
+<a href="${pageContext.request.contextPath }/customer/customer_list/1">返回用户列表</a>
 </div>
 <script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
