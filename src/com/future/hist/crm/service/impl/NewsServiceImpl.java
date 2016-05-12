@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.NewsMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.News;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.NewsService;
@@ -44,6 +45,14 @@ public class NewsServiceImpl implements NewsService {
 		return newsMapper.getAllNews();
 	}
 
+	public int getAllNewsCount(){
+		return newsMapper.getAllNewsCount();
+	}
+	
+	public List<News> getAllNewsByPage(BaseSearch baseSearch){
+		return newsMapper.getAllNewsByPage(baseSearch);
+	}
+	
 	public News getNewsById(long id) {
 		return newsMapper.getNewsById(id);
 	}

@@ -55,11 +55,20 @@
   	select * from contacts
   </select>
   
+  <select id="getAllContactsCount" resultType="java.lang.Integer">
+  	select count(1) from contacts
+  </select>
+  
+  <select id="getAllContactsByPage" parameterType="com.future.hist.crm.domain.BaseSearch"
+  resultType="com.future.hist.crm.domain.Contacts">
+  	select * from contacts
+  </select>
+  
   <select id="getAllContactsByNameasc" resultType="com.future.hist.crm.domain.Contacts">
   	select * from contacts order by convert(name using gbk)
   </select>
   
-  <select id="getContactsCount" resultType="java.lang.Long">
+  <select id="getContactsCount" resultType="java.lang.Integer">
   	select count(1) from contacts
   </select>
   

@@ -65,6 +65,15 @@
 		select * from news
 	</select>
 	
+	<select id="getAllNewsCount" resultType="java.lang.Integer">
+		select count(1) from news
+	</select>
+	
+	<select id="getAllNewsByPage" parameterType="com.future.hist.crm.domain.BaseSearch"
+	resultMap="resultMap">
+		select * from news
+	</select>
+	
 	<select id="getAllNewsByTimeasc" resultMap = "resultMap">
 		select * from news order by issur_date asc
 	</select>

@@ -13,11 +13,6 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker').datetimepicker({
@@ -135,5 +130,18 @@
 <div align="right">
 <a href="${pageContext.request.contextPath }/contacts/contacts_list">返回用户列表</a>
 </div>
+<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
+	<script type="text/javascript" 
+		src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#datetimepicker").datetimepicker({
+				
+			});
+		});
+</script>
 </body>
 </html>

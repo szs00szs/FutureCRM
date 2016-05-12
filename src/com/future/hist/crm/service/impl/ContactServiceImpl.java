@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.ContactsMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.service.ContactService;
 
@@ -58,6 +59,14 @@ public class ContactServiceImpl implements ContactService {
 	public List<Contacts> getAllContacts(){
 		return contactMapper.getAllContacts();
 	}
+	
+	public int getAllContactsCount(){
+		return contactMapper.getAllContactsCount();
+	}
+	
+	public List<Contacts> getAllContactsByPage(BaseSearch baseSearch){
+		return contactMapper.getAllContactsByPage(baseSearch);
+	}
 
 	/**
 	 * 通过ID 得到联系人
@@ -109,7 +118,7 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public long getContactsCount() {
+	public int getContactsCount() {
 		return contactMapper.getContactsCount();
 	}
 

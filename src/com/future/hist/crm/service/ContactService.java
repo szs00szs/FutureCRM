@@ -2,6 +2,7 @@ package com.future.hist.crm.service;
 
 import java.util.List;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
 
 public interface ContactService {
@@ -41,6 +42,20 @@ public interface ContactService {
 	List<Contacts> getAllContacts();
 	
 	/**
+	 * 得到联系人总数
+	 * @return
+	 */
+	int getAllContactsCount();
+	
+	/**
+	 * 通过分页得到联系人
+	 * @param baseSearch
+	 * @return
+	 */
+	List<Contacts> getAllContactsByPage(BaseSearch baseSearch);
+	
+	
+	/**
 	 * 根据姓名升序
 	 * @return
 	 */
@@ -50,7 +65,7 @@ public interface ContactService {
 	 * 得到联系人的个数
 	 * @return
 	 */
-	long getContactsCount();
+	int getContactsCount();
 	
 	/**
 	 * 通过ID 得到联系人

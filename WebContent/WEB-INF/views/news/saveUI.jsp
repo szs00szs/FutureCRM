@@ -57,7 +57,6 @@
 						    	<c:if test="${issuer.id != news.issuer.getId() }">
 						    		<option value="${issuer.id}">${issuer.name}</option>
 						    	</c:if>
-						    	<option>1</option>
 						    </c:forEach>
 						 </select>
 						<%-- <input type="text" name="issuer.name" value="${news.issuer.getName()}" /> --%>
@@ -83,6 +82,9 @@
 			<input type="button" value="增加" id="addInfo" />
 		</c:if>
 	</form:form>
+</div>
+<div>
+	<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.future.hist.crm.dao;
 import java.util.List;
 
 import com.future.hist.crm.domain.Announcement;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
 import com.future.hist.crm.domain.User;
 
@@ -48,10 +49,24 @@ public interface AnnouncementMapper {
 	void updateAnnouncement(Announcement announcement);
 	
 	/**
+	 * 得到公告个数
+	 * @return
+	 */
+	int getAnnouncementCount();
+	
+	/**
 	 * 得到全部的公告
 	 * @return
 	 */
 	List<Announcement> getAllAnnouncement();
+	
+	/**
+	 * 通过分页得到公告
+	 * @param bashSearch 分页实体类
+	 * @return
+	 */
+	List<Announcement> getAllAnnouncementByPage(BaseSearch baseSearch);
+	
 
 	/**
 	 * 通过ID得到公告

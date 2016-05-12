@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -31,9 +31,13 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
+<<<<<<< HEAD
 					<shiro:hasPermission name="customer:save">
 						<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
 					</shiro:hasPermission>
+=======
+					<a href="${pageContext.request.contextPath}/customer/customer_saveUI.action">添加客户</a>
+>>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 				</td>
 			</tr>
 		</table>			
@@ -77,6 +81,7 @@
 							<td>${customer.kind }</td>
 							<td>${customer.email }</td>
 							<td >
+<<<<<<< HEAD
 								<shiro:hasPermission name="customer:detail">
 									<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
 								</shiro:hasPermission>
@@ -91,6 +96,16 @@
 									href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
 										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
 								</shiro:hasRole>
+=======
+								<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
+							<a
+								href="${pageContext.request.contextPath }/customer/customer_updateUI/${customer.id }"
+								style="margin-right: 10%;"><img
+									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
+								<a
+								href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
+									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
+>>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 							</td> 
 						</tr>
 					</c:forEach>
@@ -102,6 +117,50 @@
 
 		</tbody>
 	</table>
+	</div>
+	<div id=PageSelectorBar>
+		<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页 &nbsp;
+			每页显示：${pageParameter.pageSize}条 &nbsp; 总记录数：${pageParameter.totalCount}条</div>
+		<div id=PageSelectorSelectorArea>
+	
+			<a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
+				<img src="${pageContext.request.contextPath}/images/pageSelector/firstPage.png"/>
+			</a>
+			
+			<c:forEach begin="${pageParameter.beginPageIndex}" end="${pageParameter.endPageIndex}" var="num">
+				<c:if test="${num == currentPage}"> <%-- 当前页 --%>
+					<span class="PageSelectorNum PageSelectorSelected" ><font color="red">${num}</font></span>
+				</c:if>
+				<c:if test="${num != currentPage}"> <%-- 非当前页 --%>
+					<span class="PageSelectorNum" style="cursor: hand;" onClick="gotoPage(${num});">${num}</span>
+				</c:if>
+			</c:forEach>
+			
+			<a href="javascript: gotoPage(${pageParameter.totalPage})" title="尾页" style="cursor: hand;">
+				<img src="${pageContext.request.contextPath}/images/pageSelector/lastPage.png"/>
+			</a>
+			
+			转到：
+			<select onchange="gotoPage(this.value)" id="_pn">
+				<c:forEach begin="1" end="${pageParameter.totalPage}" var="num">
+					<option value="${num}">${num}</option>
+				</c:forEach>
+			</select>
+			<script type="text/javascript">
+				$("#_pn").val("${pageParameter.currentPage}");
+			</script>
+			<script type="text/javascript">
+				function gotoPage( pageNum ){
+					window.location.href = "${pageContext.request.contextPath}/customer/customer_list/" + pageNum;
+					/* $(document.forms[0]).append("<input type='hidden' name='currentPage' value='" + pageNum +"'>");
+					
+					document.forms[0].submit(); */
+				}
+			</script>
+		</div>
+	</div>
+	<div>
+		<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
 	</div>
 </body>
 </html>

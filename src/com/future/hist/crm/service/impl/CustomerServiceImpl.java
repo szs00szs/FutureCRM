@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.hist.crm.dao.CustomerMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
 import com.future.hist.crm.domain.User;
@@ -46,6 +47,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getAllCustomer();
 	}
 
+	public int getAllCustomerCount(){
+		return customerMapper.getAllCustomerCount();
+	}
+	
+	public List<Customer> getAllCustomerByPage(BaseSearch baseSearch){
+		return customerMapper.getAllCustomerByPage(baseSearch);
+	}
+	
 	public Customer getCustomerById(long id) {
 		return customerMapper.getCustomerById(id);
 	}

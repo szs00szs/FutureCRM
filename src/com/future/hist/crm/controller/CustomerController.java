@@ -1,14 +1,14 @@
 package com.future.hist.crm.controller;
 
-import java.io.IOException;
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.ContactService;
 import com.future.hist.crm.service.CustomerService;
 import com.future.hist.crm.service.UserService;
+import com.future.hist.crm.utils.MailUtil;
 
 /**
  * @author 羊羊
@@ -59,11 +62,20 @@ public class CustomerController extends BaseController {
 	 * @param map
 	 * @return 客户列表的view视图
 	 */
-	@RequiresPermissions("customer:list")
-	@RequestMapping("/customer_list")
-	public String CustomerList(Map<String , Object> map){
+	@RequiresPermissions("customer:view")
+	@RequestMapping("/customer_list/{currentPage}")
+	public String CustomerList(@PathVariable(value = "currentPage") Integer currentPage, Map<String , Object> map){
+		//分页相关数据
+		BaseSearch baseSearch = new BaseSearch();
+		//公告总页数
+		int totalCount = customerService.getAllCustomerCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+		
+		baseSearch.setPage(pageParameter);
+		map.put("pageParameter", pageParameter);
+		
 		//得到所有的客户
-		List<Customer> customerList =customerService.getAllCustomer();
+		List<Customer> customerList =customerService.getAllCustomerByPage(baseSearch);
 		//放入map中
 		map.put("customerList", customerList);
 		
@@ -140,9 +152,12 @@ public class CustomerController extends BaseController {
 //		System.out.println(customer);
 		
 		customerService.addCustomer(customer);
+		//添加后到最后一页查看添加情况
+		int totalCount = customerService.getAllCustomerCount();
+		PageParameter pageParameter = new PageParameter();
+		int totalPage = (totalCount + pageParameter.getPageSize() - 1) / pageParameter.getPageSize();
 		
-		//重定向到客户列表
-		return "redirect:/customer/customer_list";
+		return "redirect:/customer/customer_list/" + totalPage;
 	}
 	
 	/**
@@ -157,7 +172,7 @@ public class CustomerController extends BaseController {
 		
 		customerService.updateCustomer(customer);
 		//重定向到客户列表
-		return "redirect:/customer/customer_list";
+		return "redirect:/customer/customer_list/1";
 	}
 			
 				
@@ -172,7 +187,7 @@ public class CustomerController extends BaseController {
 		
 		customerService.deleteCustomerById(id);
 		//重定向到客户列表
-		return "redirect:/customer/customer_list";
+		return "redirect:/customer/customer_list/1";
 	}
 	
 	/**
@@ -238,7 +253,7 @@ public class CustomerController extends BaseController {
 		//将查找到的客户列表放入map中
 		map.put("customerList", customerList);
 		//返回到客户列表
-		return "customer/customer_list";
+		return "customer/customer_list/1";
 	}
 	
 
@@ -253,8 +268,16 @@ public class CustomerController extends BaseController {
 	 * @throws ParseException 
 	 */
 	@RequiresPermissions("customer:touchCustomer_list")
-	@RequestMapping("touchCustomer_list")
-	public String touchCustomerList(Map<String , Object> map) throws ParseException{
+	@RequestMapping("touchCustomer_list/{currentPage}")
+	public String touchCustomerList(@PathVariable(value = "currentPage") Integer currentPage, Map<String , Object> map) throws ParseException{
+		//分页相关数据
+		BaseSearch baseSearch = new BaseSearch();
+		//公告总页数
+		int totalCount = customerService.getAllCustomerCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+		
+		baseSearch.setPage(pageParameter);
+		map.put("pageParameter", pageParameter);
 		
 		List<Customer> touchCustomerList = customerService.getCustomerByTouchDate(new Date());
 		
@@ -287,16 +310,44 @@ public class CustomerController extends BaseController {
 	
 	/**
 	 * 发送邮件
-	 * <string>待实现</string>
+	 * <strong>待实现</strong>
 	 * @param request
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping("sendEmail")
-	public String sendEmail(HttpServletRequest request){
-//		System.out.println(request.getParameter("customer_email"));
-//		System.out.println(request.getParameter("content"));
-		//TODO 实现邮件发送功能
-		return "redirect:/customer/touchCustomer_list";
+	public String sendEmail(HttpServletRequest request) throws Exception{
+		//TODO 实现邮件发送功能、待完善。考虑到调用其他邮箱需要输入授权密码的问题
+		String from = request.getParameter("from");//发送方账户
+		
+		String password = request.getParameter("password");//发送方密码
+		
+		String[] toUser =new String[1] ;//接收方数组，可发送给多个人
+		toUser[0] = request.getParameter("customer_email");
+		
+		String title = request.getParameter("title");
+		
+		String content = request.getParameter("content");//邮件内容
+		
+		String attachedPath= request.getParameter("attached");//附件路径
+		if(attachedPath.equals("")){//不带附件附送普通邮件
+			MailUtil.sendText(from, password, title,  content, toUser);
+		}else{//如果带附件，发送带附件的邮件
+			
+			File attachedFile = new File(attachedPath);
+			String attachedFileName = attachedFile.getName();//附件名
+			
+			Map e = new HashMap<String, String>();
+			e.put(attachedFileName, attachedPath);
+			
+			List<Map<String, String>> files = new ArrayList<>();
+			files.add(e);
+			
+			
+			MailUtil.sendAttached(from, password, title, content, files, toUser);//发送带附件的邮件
+		}
+		
+		return "redirect:/customer/touchCustomer_list/1";
 	}
 	
 	/**
@@ -367,6 +418,6 @@ public class CustomerController extends BaseController {
 		//将查找到的客户列表放入map中
 		map.put("touchCustomerList", touchCustomerList);
 		//返回到客户列表
-		return "customer/touchCustomer_list";
+		return "customer/touchCustomer_list/1";
 	}
 }

@@ -27,7 +27,7 @@ public class UserController {
 	private DepartmentService departmentService;
 	
 	@RequiresPermissions("user:save")
-	@RequestMapping(value = "/user_save" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/user_save",method=RequestMethod.GET )
 	public String saveUI(Map<String, Object> map){
 		List<Department> departmentList = departmentService.getAllDepartment();
 		map.put("departmentList", departmentList);

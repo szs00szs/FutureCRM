@@ -26,7 +26,7 @@
 				</td>
 				<td><input type="submit" value="查询"  /></td>
 				<td>
-					<a href="${pageContext.request.contextPath}/news/news_save.action">添加新闻</a>
+					<a href="${pageContext.request.contextPath}/news/news_saveUI.action">添加新闻</a>
 				</td>
 			</tr>
 		</table>			
@@ -58,6 +58,7 @@
 							<%-- <td>${news.issur_date }</td> --%>
 							<td>${news.newsType }</td>
 							<td>
+<<<<<<< HEAD
 								<shiro:hasPermission name="news:detail">
 									<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
 								</shiro:hasPermission>
@@ -74,6 +75,18 @@
 										删除
 									</a>
 								</shiro:hasPermission>
+=======
+								<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
+								<a href="${pageContext.request.contextPath }/news/news_updateUI/${news.id }"
+									style="margin-right: 10%;">
+									<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
+									编辑
+								</a>
+								<a href="${pageContext.request.contextPath }/news/news_delete/${news.id }">
+									<img src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;
+									删除
+								</a>
+>>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 							</td>
 						</tr>
 					</c:forEach>
@@ -85,6 +98,50 @@
 			
 		</tbody>
 	</table>
+</div>
+<div id=PageSelectorBar>
+	<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页 &nbsp;
+		每页显示：${pageParameter.pageSize}条 &nbsp; 总记录数：${pageParameter.totalCount}条</div>
+	<div id=PageSelectorSelectorArea>
+
+		<a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
+			<img src="${pageContext.request.contextPath}/images/pageSelector/firstPage.png"/>
+		</a>
+		
+		<c:forEach begin="${pageParameter.beginPageIndex}" end="${pageParameter.endPageIndex}" var="num">
+			<c:if test="${num == currentPage}"> <%-- 当前页 --%>
+				<span class="PageSelectorNum PageSelectorSelected" ><font color="red">${num}</font></span>
+			</c:if>
+			<c:if test="${num != currentPage}"> <%-- 非当前页 --%>
+				<span class="PageSelectorNum" style="cursor: hand;" onClick="gotoPage(${num});">${num}</span>
+			</c:if>
+		</c:forEach>
+		
+		<a href="javascript: gotoPage(${pageParameter.totalPage})" title="尾页" style="cursor: hand;">
+			<img src="${pageContext.request.contextPath}/images/pageSelector/lastPage.png"/>
+		</a>
+		
+		转到：
+		<select onchange="gotoPage(this.value)" id="_pn">
+			<c:forEach begin="1" end="${pageParameter.totalPage}" var="num">
+				<option value="${num}">${num}</option>
+			</c:forEach>
+		</select>
+		<script type="text/javascript">
+			$("#_pn").val("${pageParameter.currentPage}");
+		</script>
+		<script type="text/javascript">
+			function gotoPage( pageNum ){
+				window.location.href = "${pageContext.request.contextPath}/news/news_list/" + pageNum;
+				/* $(document.forms[0]).append("<input type='hidden' name='currentPage' value='" + pageNum +"'>");
+				
+				document.forms[0].submit(); */
+			}
+		</script>
+	</div>
+</div>
+<div>
+	<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
 </div>
 </body>
 </html>

@@ -1,19 +1,30 @@
 package com.future.hist.crm.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.jeecgframework.poi.excel.ExcelExportUtil;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ExportParams;
+import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Contacts;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.ContactService;
 import com.future.hist.crm.service.UserService;
@@ -44,11 +55,20 @@ public class ContactsController extends BaseController {
 	 * @param map
 	 * @return 返回到联系人列表页面
 	 */
-	@RequiresPermissions("contacts:list")
-	@RequestMapping("/contacts_list")
-	public String contactsList(Map<String , Object> map){
+	@RequiresPermissions("contacts:view")
+	@RequestMapping("/contacts_list/{currentPage}")
+	public String contactsList(@PathVariable(value = "currentPage") Integer currentPage, Map<String , Object> map){
+		//分页相关数据
+		BaseSearch baseSearch = new BaseSearch();
+		//公告总页数
+		int totalCount = contactService.getAllContactsCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+		
+		baseSearch.setPage(pageParameter);
+		map.put("pageParameter", pageParameter);
+		
 		//准备数据，得到全部联系人
-		List<Contacts> contactsList =contactService.getAllContacts();
+		List<Contacts> contactsList =contactService.getAllContactsByPage(baseSearch);
 		map.put("contactsList", contactsList);
 		
 		return "contacts/contacts_list";
@@ -111,7 +131,12 @@ public class ContactsController extends BaseController {
 		
 		contactService.addContact(contacts);
 		
-		return "redirect:/contacts/contacts_list";
+		//添加后到最后一页，查看添加情况
+		int totalCount = contactService.getContactsCount();
+		PageParameter pageParameter = new PageParameter();
+		int totalPage = (totalCount + pageParameter.getPageSize() - 1) / pageParameter.getPageSize();
+		
+		return "redirect:/contacts/contacts_list/" + totalPage;
 	}
 	
 	/**
@@ -147,7 +172,7 @@ public class ContactsController extends BaseController {
 		
 		contactService.updateContact(contacts);
 		
-		return "redirect:/contacts/contacts_list";
+		return "redirect:/contacts/contacts_list/1";
 	}
 				
 	/**
@@ -161,7 +186,7 @@ public class ContactsController extends BaseController {
 		
 		contactService.deleteContactById(id);
 		
-		return "redirect:/contacts/contacts_list";
+		return "redirect:/contacts/contacts_list/1";
 	}
 	
 	/**
@@ -204,6 +229,104 @@ public class ContactsController extends BaseController {
 		
 		map.put("contactsList", contactsList);
 		
-		return "contacts/contacts_list";
+		return "contacts/contacts_list/1";
 	}
+	
+	/**
+	 * 导出excel
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequiresPermissions("contacts:export")
+	@RequestMapping("/export")
+	public String exportExcel(HttpServletResponse response) throws IOException{
+		List<Contacts> list = contactService.getAllContacts();
+		
+		Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("联系人列表", "联系人"),Contacts.class,list);
+		
+		File saveFile = new File("d:/");
+		if(!saveFile.exists()){
+			saveFile.mkdirs();
+		}
+
+		String fileName = "contactsList.xls";
+		
+		// 定义输出流，以便打开保存对话框______________________begin
+		OutputStream os = response.getOutputStream();// 取得输出流
+		response.reset();// 清空输出流
+		response.setHeader("Content-disposition", "attachment; filename="+ new String(fileName.getBytes("UTF-8"), "UTF-8"));
+		// 设定输出文件头
+		response.setContentType("application/msexcel");// 定义输出类型
+		// 定义输出流，以便打开保存对话框_______________________end
+		
+		workbook.write(os);
+		os.close();
+		
+//		FileOutputStream fos = new FileOutputStream("d:/test.xls");
+//		workbook.write(fos);
+//		fos.close();
+		
+		return "contacts/contacts_list/1";
+	}
+	
+	/**
+	 * 导入excel
+	 * @param request
+	 * @param map
+	 * @return
+	 */
+	@RequiresPermissions("contacts:import")
+	@RequestMapping("/import")
+	public String importExcel(HttpServletRequest request, Map<String , Object> map){
+		System.out.println("in the method");
+		
+		String filePath = request.getParameter("file");
+		System.out.println(filePath);
+		
+		File file = new File(filePath);
+		
+		ImportParams params = new ImportParams();
+		params.setTitleRows(1);
+		params.setHeadRows(1);
+		
+		List<Contacts> list = ExcelImportUtil.importExcel(file, Contacts.class, params);
+		
+		System.out.println("the list of imported excel is : " + list.size());
+		
+		List<Contacts> contactsList = list;
+		
+		map.put("contactsList", contactsList);
+		
+		return "contacts/importContactsList/1";
+	}
+	
+	
+	/**
+	 * 下载导入用户数据模板
+	 * @param response
+	 * @param redirectAttributes
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequiresPermissions("contacts:export")
+    @RequestMapping(value = "/import/template")
+    public String importFileTemplate(HttpServletResponse response) throws IOException {
+            String fileName = "联系人数据导入模板.xls";
+    		List<Contacts> list = new ArrayList<>();
+    		
+    		Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("联系人导入模板", "联系人"),Contacts.class,list);
+    		
+    		// 定义输出流，以便打开保存对话框______________________begin
+    		OutputStream os = response.getOutputStream();// 取得输出流
+    		response.reset();// 清空输出流
+    		response.setHeader("Content-disposition", "attachment; filename="+ new String(fileName.getBytes("GB2312"), "ISO8859-1"));
+    		// 设定输出文件头
+    		response.setContentType("application/msexcel");// 定义输出类型
+    		// 定义输出流，以便打开保存对话框_______________________end
+    		
+    		workbook.write(os);
+    		os.close();
+    		return "contacts/contacts_list/1";
+    }
 }
