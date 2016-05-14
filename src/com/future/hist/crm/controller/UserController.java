@@ -3,17 +3,22 @@ package com.future.hist.crm.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Department;
 import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.User;
+import com.future.hist.crm.domain.form.UserPwd;
 import com.future.hist.crm.service.DepartmentService;
 import com.future.hist.crm.service.UserService;
 @Controller
@@ -111,4 +116,27 @@ public class UserController {
 	
 //TODO 根据字段查询  （模糊查询）
 	
+	@RequiresPermissions("user:updatePwd")
+	@RequestMapping(value = "/user_updatePwd/{user_id}" , method = RequestMethod.GET)
+	public String updatePwdUI(@PathVariable("user_id") Long user_id, Model model){
+		User user = userService.getUserById(user_id);
+		System.out.println("user.getLoginName() : " + user.getLoginName());
+		model.addAttribute("user", user);
+		model.addAttribute("user_id", user_id);
+		UserPwd userPwd = new UserPwd();
+		model.addAttribute("userPed", userPwd);
+		return "user/changePassword";
+	}
+	
+	@RequiresPermissions("user:updatePwd")
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public String changePassword(UserPwd userPwd,String newPassword, RedirectAttributes redirectAttributes) {
+//TODO
+		Long user_id = userPwd.getUser_id();
+		System.out.println("user_id : "  + user_id);
+		
+		userService.changePassword(user_id, newPassword);
+        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
+        return "redirect:/sysUser/user_list/1";
+    }
 }

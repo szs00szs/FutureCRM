@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.future.hist.crm.dao.UserMapper;
 import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.User;
-import com.future.hist.crm.service.Privilege_RoleService;
 import com.future.hist.crm.service.RoleService;
 import com.future.hist.crm.service.UserService;
 import com.future.hist.crm.service.User_RoleService;
@@ -114,5 +113,14 @@ public class UserServiceImpl implements UserService{
 		}else{
 			return false;
 		}
+	}
+
+	@Override
+	public void changePassword(Long user_id, String newPassword) {
+		User user = userMapper.getUserById(user_id);
+		user.setPassword(newPassword.trim());
+		System.out.println("newPassword : "  + newPassword);
+		passwordHelper.encryptPassword(user);
+		userMapper.update(user);
 	}
 }

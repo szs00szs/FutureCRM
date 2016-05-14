@@ -58,7 +58,6 @@
 							<%-- <td>${news.issur_date }</td> --%>
 							<td>${news.newsType }</td>
 							<td>
-<<<<<<< HEAD
 								<shiro:hasPermission name="news:detail">
 									<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
 								</shiro:hasPermission>
@@ -75,18 +74,6 @@
 										删除
 									</a>
 								</shiro:hasPermission>
-=======
-								<a href="${pageContext.request.contextPath }/news/news_detail/${news.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/news/news_updateUI/${news.id }"
-									style="margin-right: 10%;">
-									<img src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;
-									编辑
-								</a>
-								<a href="${pageContext.request.contextPath }/news/news_delete/${news.id }">
-									<img src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;
-									删除
-								</a>
->>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 							</td>
 						</tr>
 					</c:forEach>

@@ -3,7 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.UserMapper">
 	<!-- 根据ID查询用户 -->
-
 	<select id="getUserById" parameterType="long" resultMap="getUser">
 		SELECT
 		*
@@ -105,26 +104,6 @@
 	<select id="getAllUser" resultType="User">
 			select * from sysUser user where user.id is not null
 	</select>
-	<sql id="baseClass">
-		id, creator, createTime, updater, updateTime, remark, name, password,
-		address, telephone,
-		email, beginDate, endDate, department_id, accessFileLevel, status,
-		commendMan, moveTelephone,
-		nowAddress, nowTelephone, identityCode, insuranceCode, instancyLinkMan,
-		instancyTelephone,
-		sex, birthday, personnelType, duty, workDate, highSchool, finishSchool,
-		finishSchoolDate,
-		consortName, youngoneName, officeTelephone, consortTelephone, avocation,
-		consortCompany,
-		strongSuit, communicate, bringup, organise, analyse, planing, empolder, relation
-	</sql>
-
-	<!-- 更新用户密码 -->
-	<update id="updatePassword" parameterType="User">
-		UPDATE sysuser SET
-		password = #{password}
-		WHERE id = #{id}
-	</update>
 
 	<!-- 通过ID删除用户 -->
 	<delete id="deleteById" parameterType="long">
@@ -453,6 +432,9 @@
 			</if>
 			<if test="loginName != null">
 				loginName = #{loginName},
+			</if>
+			<if test="salt != null">
+				salt = #{salt},
 			</if>
 			<if test="password != null">
 				password = #{password},

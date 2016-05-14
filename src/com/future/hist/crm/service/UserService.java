@@ -34,4 +34,6 @@ public interface UserService {
 	public Set<String> findPermissions(String loginName);
 
 	public boolean isExistLoginName(String loginName);
+
+	public void changePassword(Long user_id, String newPassword);
 }

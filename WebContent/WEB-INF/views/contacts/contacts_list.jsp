@@ -43,13 +43,9 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-<<<<<<< HEAD
 					<shiro:hasPermission name="contacts:save">
 						<a href="${pageContext.request.contextPath}/contacts/contacts_save.action">添加联系人</a>
 					</shiro:hasPermission>
-=======
-					<a href="${pageContext.request.contextPath}/contacts/contacts_saveUI.action">添加联系人</a>
->>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 				</td>
 			</tr>
 		</table>			
@@ -114,7 +110,6 @@
 							<td>${contacts.taboo}</td>
 							<td>${contacts.remark}</td>
 							<td>
-<<<<<<< HEAD
 								<shiro:hasPermission name="contacts:detail">
 									<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
 								</shiro:hasPermission>
@@ -125,13 +120,6 @@
 									</a>
 								</shiro:hasPermission>
 								<shiro:hasPermission name="contacts:delete">
-=======
-								<a href="${pageContext.request.contextPath }/contacts/contacts_detail/${contacts.id}">详情</a>
-								<a href="${pageContext.request.contextPath }/contacts/contacts_updateUI/${contacts.id }"style="margin-right: 10%;">
-									<img src="${pageContext.request.contextPath }/images/bian.png">
-									&nbsp;&nbsp;编辑 
-								</a>
->>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 									<a href="${pageContext.request.contextPath }/contacts/contacts_delete/${contacts.id }">
 										<img src="${pageContext.request.contextPath }/images/shan.png">
 										&nbsp;&nbsp;删除     

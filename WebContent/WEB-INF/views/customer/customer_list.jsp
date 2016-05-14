@@ -31,13 +31,9 @@
 				<td><input type="submit" value="查询"  /></td>
 			</form>
 				<td>
-<<<<<<< HEAD
 					<shiro:hasPermission name="customer:save">
 						<a href="${pageContext.request.contextPath}/customer/customer_save.action">添加客户</a>
 					</shiro:hasPermission>
-=======
-					<a href="${pageContext.request.contextPath}/customer/customer_saveUI.action">添加客户</a>
->>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 				</td>
 			</tr>
 		</table>			
@@ -81,7 +77,6 @@
 							<td>${customer.kind }</td>
 							<td>${customer.email }</td>
 							<td >
-<<<<<<< HEAD
 								<shiro:hasPermission name="customer:detail">
 									<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
 								</shiro:hasPermission>
@@ -96,16 +91,6 @@
 									href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
 										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
 								</shiro:hasRole>
-=======
-								<a href="${pageContext.request.contextPath }/customer/customer_detail/${customer.id}">详情</a>
-							<a
-								href="${pageContext.request.contextPath }/customer/customer_updateUI/${customer.id }"
-								style="margin-right: 10%;"><img
-									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
-								<a
-								href="${pageContext.request.contextPath }/customer/customer_delete/${customer.id }"><img
-									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
->>>>>>> branch 'dev' of ssh://wangshigen@10.1.24.239:29418/FutureCRM.git
 							</td> 
 						</tr>
 					</c:forEach>

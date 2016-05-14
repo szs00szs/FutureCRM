@@ -35,6 +35,9 @@
 </script>
 </head>
 <body>
+<c:if test="${not empty msg}">
+    <div class="message">${msg}</div>
+</c:if>
 	<shiro:hasPermission name="user:save">
 		<a href="${pageContext.request.contextPath}/sysUser/user_save.action">增加用户</a>
 	</shiro:hasPermission>
@@ -227,6 +230,11 @@
 									<a
 									href="${pageContext.request.contextPath }/sysUser/user_delete/${user.id }"><img
 										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+								</shiro:hasPermission>
+								<shiro:hasPermission name="user:updatePwd">
+									<a
+									href="${pageContext.request.contextPath }/sysUser/user_updatePwd/${user.id }"><img
+										src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;修改密码</a>
 								</shiro:hasPermission>
 							</td>
 						</tr>
