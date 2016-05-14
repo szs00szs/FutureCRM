@@ -6,10 +6,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,20 +60,17 @@ public class AnnouncementController extends BaseController {
 	@RequiresPermissions("announcement:view")
 	@RequestMapping("/announcement_list/{currentPage}")
 	public String announcementList(@PathVariable(value = "currentPage") Integer currentPage, Model model){
-		//分页相关数据
-		BaseSearch baseSearch = new BaseSearch();
-		//公告总页数
-		int totalCount = announcementService.getAnnouncementCount();
-		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
-		
-		baseSearch.setPage(pageParameter);
-		model.addAttribute("pageParameter", pageParameter);
-		
-		//查找所有公告
-		List<Announcement> announcementList = announcementService.getAllAnnouncementByPage(baseSearch);
-		//以model的形式返回数据
-		model.addAttribute(announcementList);
-		
+			//分页相关数据
+			BaseSearch baseSearch = new BaseSearch();
+			//公告总页数
+			int totalCount = announcementService.getAnnouncementCount();
+			PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, totalCount);
+			baseSearch.setPage(pageParameter);
+			model.addAttribute("pageParameter", pageParameter);
+			//查找所有公告
+			List<Announcement> announcementList = announcementService.getAllAnnouncementByPage(baseSearch);
+			//以model的形式返回数据
+			model.addAttribute(announcementList);
 		//跳转到公告列表页面
 		return "announcement/announcement_list";
 	}
@@ -83,12 +82,13 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回到公告详情页面
 	 */
 	@RequiresPermissions("announcement:detail")
-	@RequestMapping("/announcement_detail/{id}")
-	public String announcementDetail(@PathVariable("id") long id , Model model){
+	@RequestMapping("/announcement_detail/{id}/{currentPage}")
+	public String announcementDetail(@PathVariable("id") long id,@PathVariable("currentPage") int currentPage, Model model){
 		//通过id得到想查看的公告内容
 		Announcement annoucement = announcementService.getAnnouncementById(id);
 		
 		model.addAttribute(annoucement);
+		model.addAttribute("curerntPage", currentPage);
 		//跳转到公告详情页面
 		return "announcement/announcement_detail";
 	}
@@ -137,7 +137,7 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回到更新公告页面
 	 */
 	@RequiresPermissions("announcement:update")
-	@RequestMapping(value = "/announcement_updateUI/{id}/{currentPage}", method=RequestMethod.GET)
+	@RequestMapping(value = "/announcement_update/{id}/{currentPage}", method=RequestMethod.GET)
 	public String updateUI(@PathVariable(value = "id") Long id, @PathVariable(value = "currentPage") Integer currentPage, Map<String, Object> map){
 		//通过id得到公告
 		Announcement announcement = announcementService.getAnnouncementById(id);
@@ -150,6 +150,8 @@ public class AnnouncementController extends BaseController {
 		List<Department> departmentList	 = departmentService.getAllDepartment();
 		map.put("departmentList", departmentList);
 		
+		map.put("currentPage", currentPage);
+		
 		return "announcement/saveUI";
 	}
 	
@@ -159,13 +161,13 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回到公告列表页面
 	 */
 	@RequiresPermissions("announcement:update")
-	@RequestMapping(value = "/announcement_update" )
-	public String update(Announcement announcement){
+	@RequestMapping(value = "/announcement_update/{currentPage}" )
+	public String update(Announcement announcement, @PathVariable(value = "currentPage") int currentPage){
 //		System.out.println("announcement : " + announcement);
 		//更新公告
 		announcementService.updateAnnouncement(announcement);;
 		
-		return "redirect:/announcement/announcement_list/1";
+		return "redirect:/announcement/announcement_list/" + currentPage;
 	}
 				
 	/**
@@ -174,10 +176,10 @@ public class AnnouncementController extends BaseController {
 	 * @return 返回到公告列表页面
 	 */
 	@RequiresPermissions("announcement:delete")
-	@RequestMapping(value = "/announcement_delete/{id}")
-	public String delete(@PathVariable(value = "id") Long id){
+	@RequestMapping(value = "/announcement_delete/{id}/{currentPage}")
+	public String delete(@PathVariable(value = "id") Long id, @PathVariable(value="currentPage") int currentPage){
 		announcementService.deleteAnnouncementById(id);
-		return "redirect:/announcement/announcement_list/1";
+		return "redirect:/announcement/announcement_list/" + currentPage;
 	}
 	
 	/**
@@ -189,9 +191,10 @@ public class AnnouncementController extends BaseController {
 	 * @param map
 	 * @return 返回公告列表页面
 	 */
+	//TODO 查询页面跳转和数据准备
 	@RequiresPermissions("announcement:query")
 	@RequestMapping(value = "/query")
-	public String query(HttpServletRequest request , Map<String , Object> map){
+	public String query(HttpServletRequest request , Model model){
 		String selectType = request.getParameter("selectType");
 		String selectContent = request.getParameter("selectContent");
 		
@@ -223,9 +226,9 @@ public class AnnouncementController extends BaseController {
 			announcementList = announcementService.getAllAnnouncement();
 			break;
 		}
-		map.put("announcementList", announcementList);
+		model.addAttribute(announcementList);
 		
-		return "announcement/announcement_list/1";
+		return "announcement/announcement_list";
 	}
 	
 }

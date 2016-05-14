@@ -2,6 +2,7 @@ package com.future.hist.crm.domain;
 
 import java.util.Date;
 
+import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 联系人
@@ -10,22 +11,52 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class Contacts {
 
+	@Excel(name = "联系人contacts,联系人属性contacts", orderNum = "2", needMerge = false, isImportField = "true_teacherEntity,true_courseEntity")
 	private Long id;
+	
+	@Excel(name="联系人姓名",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String name;
+	
+	@Excel(name="性别",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String sex;
+	
+	@Excel(name = "出生日期", databaseFormat = "yyyy-MM-dd HH:mm:ss", format = "yyyy-MM-dd HH:mm:ss", isImportField = "true_st", width = 20)
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date birthday;
+	
+	@Excel(name="部门职务",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String departmentDuties;        //部门职务
+	
+	@Excel(name="办公室电话",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String officeTelephone;         //办公室电话
+	
+	@Excel(name="家庭电话",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String homePhone;         
+	
+	@Excel(name="手机",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String mobilePhone;             //手机
+	
+	@Excel(name="邮件",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String email;                   //邮件
+	
+	@Excel(name="邮政编码",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String postCode;                //邮政编码
+	
+	@Excel(name="QQ",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String QQNumber;                //QQ
+	
+	@Excel(name="联系地址",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String contactAddress;          //联系地址
+	
+	@Excel(name="爱好",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String hobby;                   //爱好
+	
+	@Excel(name="忌讳",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String taboo;                   //忌讳
+	
+	@Excel(name="备注",orderNum="1",width=25,needMerge=true,isImportField="true")
 	private String remark;                  //备注
+	
 	public Long getId() {
 		return id;
 	}

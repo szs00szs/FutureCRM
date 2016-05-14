@@ -58,9 +58,9 @@
  	</table>
  </div>
  <div align="right">
- 	<a href="${pageContext.request.contextPath }/announcement/announcement_updateUI/${announcement.id}">编辑</a>
+ 	<a href="${pageContext.request.contextPath }/announcement/announcement_update/${announcement.id}/${currentPage}">编辑</a>
  	<br>
- 	<a href="${pageContext.request.contextPath }/announcement/announcement_list">返回公告列表</a>
+ 	<a href="${pageContext.request.contextPath }/announcement/announcement_list/1">返回公告列表</a>
  </div>
 </body>
 </html>

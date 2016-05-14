@@ -181,7 +181,7 @@
 	</div>
 	
 	<div>
-		<span><a href="${pageContext.request.contextPath }/login">返回工作页面</a></span>
+		<span><a href="${pageContext.request.contextPath }/workspace">返回工作页面</a></span>
 	</div>
 </body>
 </html>

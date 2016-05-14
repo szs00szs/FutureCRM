@@ -79,9 +79,9 @@
  	</table>
  </div>
  <div align="right">
- 	<a href="${pageContext.request.contextPath }/contacts/contacts_updateUI/${contacts.id}">编辑</a>
+ 	<a href="${pageContext.request.contextPath }/contacts/contacts_update/${contacts.id}/${currentPage}">编辑</a>
  	<br>
- 	<a href="${pageContext.request.contextPath }/contacts/contacts_list">返回联系人列表</a>
+ 	<a href="${pageContext.request.contextPath }/contacts/contacts_list/1">返回联系人列表</a>
  </div>
 </body>
 </html>

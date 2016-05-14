@@ -76,8 +76,7 @@
 											src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑   </a>
 								</shiro:hasPermission>
 								<shiro:hasPermission name="announcement:delete">
-								<a
-								href="${pageContext.request.contextPath }/announcement/announcement_delete/${announcement.id }"><img
+								<a href="${pageContext.request.contextPath }/announcement/announcement_delete/${announcement.id }/${currentPage}"><img
 									src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除      </a>   
 								</shiro:hasPermission>
 							</td> 

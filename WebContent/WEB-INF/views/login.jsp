@@ -9,7 +9,7 @@
 <body>
 <h1>登陆页面</h1>
 <div class="error">${error}</div>
-	<form action="login">
+	<form action="workspace">
 	<table>
 		<tr>
 			<td> name:</td>

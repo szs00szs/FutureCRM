@@ -89,13 +89,15 @@ public class CustomerController extends BaseController {
 	 * @return客户详细信息view视图
 	 */
 	@RequiresPermissions("customer:detail")
-	@RequestMapping("/customer_detail/{id}")
-	public String customerDetail(Map<String , Object> map ,@PathVariable("id") Long id){
+	@RequestMapping("/customer_detail/{id}/{currentPage}")
+	public String customerDetail(Map<String , Object> map, @PathVariable("currentPage") int currentPage,  @PathVariable("id") Long id){
 		//通过id得到要查看的客户的信息
 		Customer customer = customerService.getCustomerById(id);
 //		System.out.println("the customer is " + customer);
 		
 		map.put("customer", customer);
+		
+		map.put("currentPage", currentPage);
 		
 		return "customer/customer_detail";
 	}
@@ -125,8 +127,8 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:update")
-	@RequestMapping(value = "/customer_update/{id}" , method = RequestMethod.POST)
-	public String updateUI(@PathVariable(value = "id") Long id,Map<String, Object> map){
+	@RequestMapping(value = "/customer_update/{id}/{currentPage}" , method = RequestMethod.GET)
+	public String updateUI(@PathVariable(value = "id") Long id, @PathVariable(value = "currentPage") Integer currentPage, Map<String, Object> map){
 		//通过id得到要更新的客户的原始信息，并放入map中
 		Customer customer = customerService.getCustomerById(id);
 		map.put("customer" , customer);
@@ -137,6 +139,8 @@ public class CustomerController extends BaseController {
 		
 		List<User> userList = userService.getAllUser();
 		map.put("userList", userList);
+		
+		map.put("currentPage", currentPage);
 		
 		return "customer/saveUI";
 	}
@@ -166,13 +170,14 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:update")
-	@RequestMapping(value = "/customer_update" ,method = RequestMethod.POST)
-	public String update(Customer customer){
+	@RequestMapping(value = "/customer_update/{currentPage}" ,method = RequestMethod.POST)
+	public String update(Customer customer, @PathVariable(value = "currentPage") int currentPage){
 //		System.out.println("customer : " + customer);
 		
 		customerService.updateCustomer(customer);
+		
 		//重定向到客户列表
-		return "redirect:/customer/customer_list/1";
+		return "redirect:/customer/customer_list/" + currentPage;
 	}
 			
 				
@@ -182,12 +187,12 @@ public class CustomerController extends BaseController {
 	 * @return
 	 */
 	@RequiresPermissions("customer:delete")
-	@RequestMapping(value = "/customer_delete/{id}")
-	public String delete(@PathVariable(value = "id") Long id){
+	@RequestMapping(value = "/customer_delete/{id}/{currentPage}")
+	public String delete(@PathVariable(value = "id") Long id, @PathVariable("currentPage") int currentPage){
 		
 		customerService.deleteCustomerById(id);
 		//重定向到客户列表
-		return "redirect:/customer/customer_list/1";
+		return "redirect:/customer/customer_list/" + currentPage;
 	}
 	
 	/**
@@ -253,7 +258,7 @@ public class CustomerController extends BaseController {
 		//将查找到的客户列表放入map中
 		map.put("customerList", customerList);
 		//返回到客户列表
-		return "customer/customer_list/1";
+		return "customer/customer_list";
 	}
 	
 
