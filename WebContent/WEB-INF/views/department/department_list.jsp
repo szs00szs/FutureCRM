@@ -106,7 +106,7 @@
 		</div>
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 	function gotoPage( pageNum ){
 		window.location.href = "${pageContext.request.contextPath}/sysDepartment/department_list/" + pageNum;
 		/* $(document.forms[0]).append("<input type='hidden' name='currentPage' value='" + pageNum +"'>");

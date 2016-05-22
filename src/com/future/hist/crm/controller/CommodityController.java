@@ -7,11 +7,14 @@ import java.util.UUID;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Commodity;
 import com.future.hist.crm.domain.CommodityCategory;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.service.CommodityCategoryService;
 import com.future.hist.crm.service.CommodityService;
 
@@ -32,10 +35,17 @@ public class CommodityController {
 	 * 查询所有商品
 	 */
 	@RequiresPermissions("commodity:queryCommodities")
-	@RequestMapping("/queryCommodities")
-	public String queryCommodities(Map<String, Object> map) {
-		List<Commodity> commodityList = commodityService.findCommodityList();
+	@RequestMapping("/queryCommodities/{currentPage}")
+	public String queryCommodities(@PathVariable(value = "currentPage") Integer currentPage,Map<String, Object> map) {
+		
+		BaseSearch baseSearch = new BaseSearch();
+		int ordersCount = commodityService.getCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, ordersCount);
+		baseSearch.setPage(pageParameter);
+		
+		List<Commodity> commodityList = commodityService.findCommodityListByPage(baseSearch);
 		map.put("commodityList", commodityList);
+		map.put("pageParameter", pageParameter);
 		return "commodity/commoditiesList";
 	}
 

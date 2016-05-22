@@ -7,6 +7,17 @@
     	select * from commoditycategory
     </select>
     
+     <select id="findCategoryListByPage" parameterType="com.future.hist.crm.domain.BaseSearch" resultType="com.future.hist.crm.domain.CommodityCategory">
+    	select * from commoditycategory
+    </select>
+    
+    
+   	<!-- 取得记录的总数 -->
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM commoditycategory
+	</select>
+    
+    
     <select id="findCategoryById" resultType="com.future.hist.crm.domain.CommodityCategory">
     	select * from commoditycategory where id=#{id}
     </select>

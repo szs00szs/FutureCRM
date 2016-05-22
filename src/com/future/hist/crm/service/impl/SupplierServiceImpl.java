@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.SupplierMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Supplier;
 import com.future.hist.crm.service.SupplierService;
 
@@ -22,6 +23,11 @@ public class SupplierServiceImpl implements SupplierService {
 		return supplierMapper.findSupplierById(id);
 	}
 
+	public List<Supplier> findSupplierListByPage(BaseSearch baseSearch) {
+
+		return supplierMapper.findSupplierListByPage(baseSearch);
+	}
+	
 	public List<Supplier> findSupplierList() {
 
 		return supplierMapper.findSupplierList();
@@ -39,5 +45,10 @@ public class SupplierServiceImpl implements SupplierService {
 	public void deleteSupplier(int id) {
 		supplierMapper.deleteSupplier(id);
 	}
+
+	public int getCount() {
+		return supplierMapper.getCount();
+	}
+
 
 }

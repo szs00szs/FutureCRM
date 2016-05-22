@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.CommodityCategoryMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.CommodityCategory;
 import com.future.hist.crm.service.CommodityCategoryService;
 
@@ -19,6 +20,10 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
 
 	public List<CommodityCategory> findCategoryList() {
 		return commodityCategoryMapper.findCategoryList();
+	}
+	
+	public List<CommodityCategory> findCategoryListByPage(BaseSearch baseSearch) {
+		return commodityCategoryMapper.findCategoryListByPage(baseSearch);
 	}
 
 	public CommodityCategory findCategoryById(int id) {
@@ -36,6 +41,10 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
 
 	public void deleteCategory(int id) {
 		commodityCategoryMapper.deleteCategory(id);
+	}
+
+	public int getCount() {
+		return commodityCategoryMapper.getCount();
 	}
 
 }

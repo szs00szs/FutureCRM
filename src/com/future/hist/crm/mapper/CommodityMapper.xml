@@ -28,6 +28,17 @@
     	select * from commodity
     </select>
     
+   	<!-- 分页查询所有商品 -->
+    <select id="findCommodityListByPage" parameterType="com.future.hist.crm.domain.BaseSearch" resultMap="commodityMap">
+    	select * from commodity
+    </select>
+    
+  	<!-- 取得记录的总数 -->
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM commodity
+	</select>
+    
+    
     <!-- 根据id查询商品 -->
     <select id="findCommodityById" parameterType="int" resultMap="commodityMap">
     	select * from commodity where id=#{id}

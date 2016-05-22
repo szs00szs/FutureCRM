@@ -45,9 +45,14 @@
 	</select>
 
 
-	<!-- 查询所有进货记录 -->
-	<select id="findOrdersList" resultMap="salesOrderMap">
+	<!-- 分页查询所有进货记录 -->
+	<select id="findOrdersListByPage" parameterType="com.future.hist.crm.domain.BaseSearch" resultMap="salesOrderMap">
 		select * from purchaseorder
+	</select>
+
+	<!-- 取得记录的总数 -->
+	<select id="getOrdersCount" resultType="Integer">
+		SELECT COUNT(*) FROM purchaseorder
 	</select>
 	
 	<!-- 根据id查询 -->

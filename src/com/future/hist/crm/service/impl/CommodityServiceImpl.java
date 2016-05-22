@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.CommodityMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Commodity;
 import com.future.hist.crm.service.CommodityService;
 
@@ -39,6 +40,16 @@ public class CommodityServiceImpl implements CommodityService {
 
 	public void addCommodity(Commodity commodity) {
 		commodityMapper.addCommodity(commodity);
+	}
+
+	@Override
+	public List<Commodity> findCommodityListByPage(BaseSearch baseSearch) {
+		return commodityMapper.findCommodityListByPage(baseSearch);
+	}
+
+	@Override
+	public int getCount() {
+		return commodityMapper.getCount();
 	}
 
 }

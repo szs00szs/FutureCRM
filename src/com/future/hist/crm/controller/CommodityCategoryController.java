@@ -6,10 +6,13 @@ import java.util.Map;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.CommodityCategory;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.service.CommodityCategoryService;
 
 /**
@@ -26,9 +29,15 @@ public class CommodityCategoryController {
 	 * 查询所有商品类别
 	 */
 	@RequiresPermissions("category:queryCategories")
-	@RequestMapping("/queryCategories")
-	public String queryCategories(Map<String, Object> map) {
-		List<CommodityCategory> categoryList = commodityCategoryService.findCategoryList();
+	@RequestMapping("/queryCategories/{currentPage}")
+	public String queryCategories(@PathVariable(value = "currentPage") Integer currentPage, Map<String, Object> map) {
+		BaseSearch baseSearch = new BaseSearch();
+		int ordersCount = commodityCategoryService.getCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, ordersCount);
+		baseSearch.setPage(pageParameter);
+
+		List<CommodityCategory> categoryList = commodityCategoryService.findCategoryListByPage(baseSearch);
+		map.put("pageParameter", pageParameter);
 		map.put("categoryList", categoryList);
 		return "category/categoriesList";
 	}
@@ -37,7 +46,7 @@ public class CommodityCategoryController {
 	 * 添加商品类别页面
 	 */
 	@RequiresPermissions("category:addCategory")
-	@RequestMapping(value = "/addCategory" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
 	public String addCategoryUI() {
 		return "category/addCategory";
 	}
@@ -45,9 +54,9 @@ public class CommodityCategoryController {
 	/**
 	 * 执行商品类别添加
 	 */
-	
+
 	@RequiresPermissions("category:addCategory")
-	@RequestMapping(value = "/addCategory" , method = RequestMethod.POST)
+	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
 	public String addCategory(CommodityCategory commodityCategory) {
 		commodityCategoryService.addCategory(commodityCategory);
 		return "forward:queryCategories.action";
@@ -57,7 +66,7 @@ public class CommodityCategoryController {
 	 * 修改商品类别页面
 	 */
 	@RequiresPermissions("category:editCategory")
-	@RequestMapping(value = "/editCategory" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/editCategory", method = RequestMethod.GET)
 	public String editCategoryUI(int id, Map<String, Object> map) {
 		CommodityCategory category = commodityCategoryService.findCategoryById(id);
 		map.put("category", category);
@@ -68,7 +77,7 @@ public class CommodityCategoryController {
 	 * 执行商品类别修改
 	 */
 	@RequiresPermissions("category:editCategory")
-	@RequestMapping(value = "/editCategory" , method = RequestMethod.POST)
+	@RequestMapping(value = "/editCategory", method = RequestMethod.POST)
 	public String editCategory(CommodityCategory commodityCategory) {
 		commodityCategoryService.editCategory(commodityCategory);
 		return "forward:queryCategories.action";

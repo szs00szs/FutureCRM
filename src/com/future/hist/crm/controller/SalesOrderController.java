@@ -8,13 +8,16 @@ import java.util.UUID;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Commodity;
 import com.future.hist.crm.domain.Contacts;
 import com.future.hist.crm.domain.Customer;
+import com.future.hist.crm.domain.PageParameter;
 import com.future.hist.crm.domain.SalesOrder;
 import com.future.hist.crm.domain.User;
 import com.future.hist.crm.service.CommodityService;
@@ -72,16 +75,21 @@ public class SalesOrderController {
 		return "forward:queryOrders.action";
 	}
 
-	// 查询所有的销售订单
+	
+	// 分页查询所有的销售订单
 	@RequiresPermissions("sales:query")
-	@RequestMapping("/queryOrders")
-	public ModelAndView queryOrders() {
-
+	@RequestMapping("/queryOrders/{currentPage}")
+	public ModelAndView queryOrders(@PathVariable(value = "currentPage") Integer currentPage) {
+		BaseSearch baseSearch = new BaseSearch();
+		int ordersCount = salesOrderService.getOrdersCount();
+		PageParameter pageParameter = new PageParameter(PageParameter.DEFAULT_PAGE_SIZE, currentPage, ordersCount);
+		baseSearch.setPage(pageParameter);
 		// 调用service查询订单列表
-		List<SalesOrder> ordersList = salesOrderService.findOrdersList();
+		List<SalesOrder> ordersList = salesOrderService.findOrdersListByPage(baseSearch);
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("ordersList", ordersList);
+		modelAndView.addObject("pageParameter", pageParameter);
 		modelAndView.setViewName("salesOrder/ordersList");
 		return modelAndView;
 

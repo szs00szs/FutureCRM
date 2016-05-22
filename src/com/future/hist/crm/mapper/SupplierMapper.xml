@@ -3,9 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.SupplierMapper">
 
+<select id="findSupplierListByPage" parameterType="com.future.hist.crm.domain.BaseSearch" resultType="com.future.hist.crm.domain.Supplier">
+	select * from supplier
+</select>
+
 <select id="findSupplierList" resultType="com.future.hist.crm.domain.Supplier">
 	select * from supplier
 </select>
+
+	<!-- 取得记录的总数 -->
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM supplier
+	</select>
 
 <select id="findSupplierById" parameterType="int" resultType="com.future.hist.crm.domain.Supplier">
 	select * from supplier where id =#{id}

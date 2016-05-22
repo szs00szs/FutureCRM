@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.future.hist.crm.dao.CommodityMapper;
 import com.future.hist.crm.dao.SalesOrderMapper;
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.Commodity;
 import com.future.hist.crm.domain.SalesOrder;
 import com.future.hist.crm.service.SalesOrderService;
@@ -27,11 +28,11 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	@Autowired
 	private CommodityMapper commodityMapper;
 
-	public List<SalesOrder> findOrdersList() {
-		return salesOrderMapper.findOrdersList();
+	public List<SalesOrder> findOrdersListByPage(BaseSearch baseSearch) {
+		return salesOrderMapper.findOrdersListByPage(baseSearch);
 	}
 
-	public long getOrdersCount() {
+	public int getOrdersCount() {
 		return salesOrderMapper.getOrdersCount();
 	}
 
@@ -57,5 +58,6 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	public SalesOrder findOrderById(int id) {
 		return salesOrderMapper.findOrderById(id);
 	}
+	
 
 }

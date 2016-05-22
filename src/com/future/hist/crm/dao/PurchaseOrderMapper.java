@@ -2,8 +2,8 @@ package com.future.hist.crm.dao;
 
 import java.util.List;
 
+import com.future.hist.crm.domain.BaseSearch;
 import com.future.hist.crm.domain.PurchaseOrder;
-import com.future.hist.crm.domain.SalesOrder;
 
 /**
  * 进货单
@@ -13,12 +13,12 @@ public interface PurchaseOrderMapper {
 	/**
 	 * 查询所有销售单
 	 */
-	public List<PurchaseOrder> findOrdersList();
+	public List<PurchaseOrder> findOrdersListByPage(BaseSearch baseSearch);
 
 	/**
 	 * 获取所有的订单数量
 	 */
-	public long getOrdersCount();
+	public int getOrdersCount();
 
 	/**
 	 * 添加新的销售单

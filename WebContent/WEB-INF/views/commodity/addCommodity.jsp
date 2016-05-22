@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-2.1.4.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>商品信息添加</title>
 <script type="text/javascript">
 jQuery(document).ready(function() {
     var sFeatures = "height=600, width=810, scrollbars=yes, resizable=yes";

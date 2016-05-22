@@ -57,7 +57,7 @@
 
 
 	<!-- 查询所有销售记录 -->
-	<select id="findOrdersList" resultMap="salesOrderMap">
+	<select id="findOrdersListByPage" parameterType="com.future.hist.crm.domain.BaseSearch" resultMap="salesOrderMap">
 		SELECT * FROM saleorder
 	</select>
 
