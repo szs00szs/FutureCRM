@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+#daohang{
+	margin-top:36px;
+	margin-left:9%;
+	} 
+#daohang li{
+	margin-left:50px;  
+}
+#daohang li:hover{
+	background:url(../images/navbg.png);
+	border-bottom-color:red;
+}
+#daohang li h5{
+	margin-left:-3px;
+}

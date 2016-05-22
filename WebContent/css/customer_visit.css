@@ -1,0 +1,17 @@
+/* CSS Document */
+#one ul li{
+	float:left;
+	margin-left:50px;
+	list-style:none;
+	}
+#form_group{
+	margin-left:50px;
+	margin-top:20px;
+}
+#form_group input{
+	width:260px;
+}
+#form_group select{
+	width:260px;
+}
+
