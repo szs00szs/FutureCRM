@@ -14,6 +14,9 @@ public class Privilege {
 	private String permission; //权限字符串
 	private Set<Privilege> children = new HashSet<Privilege>(); //孩子权限
 	private Set<Role> roles = new HashSet<Role>();
+	
+	private String roleid;
+	
     private String parentIds; //父编号列表
     public static enum PrivilegeType {
         menu("菜单"), button("按钮");
@@ -102,6 +105,14 @@ public class Privilege {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public String getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(String roleid) {
+		this.roleid = roleid;
 	}
 
 	@Override

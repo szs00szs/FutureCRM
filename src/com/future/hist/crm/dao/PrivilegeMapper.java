@@ -17,4 +17,8 @@ public interface PrivilegeMapper {
 
 	List<Privilege> findTopPrivileges();
 
+	List<Privilege> findAllList(Privilege privilege);
+
+	List<Privilege> findByRoleId(Privilege pri);
+
 }

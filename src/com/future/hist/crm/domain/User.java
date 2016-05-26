@@ -80,7 +80,9 @@ public class User implements Serializable{
 	private String empolder; // 人员开发
 	private String relation; // 人际关系
 	private List<Long> roleIds; //拥有的角色列表
-
+	
+	private String[] roleids;
+	
 	public Long getId() {
 		return id;
 	}
@@ -521,6 +523,15 @@ public class User implements Serializable{
 
 	public void setRoleIds(List<Long> roleIds) {
 		this.roleIds = roleIds;
+	}
+	
+
+	public String[] getRoleids() {
+		return roleids;
+	}
+
+	public void setRoleids(String[] roleids) {
+		this.roleids = roleids;
 	}
 
 	@Override

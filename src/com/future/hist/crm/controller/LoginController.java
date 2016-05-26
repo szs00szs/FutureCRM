@@ -1,5 +1,6 @@
 package com.future.hist.crm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.future.hist.crm.domain.News;
@@ -80,12 +82,12 @@ public class LoginController extends BaseController {
 		return "content_menu";
 	}
 
-	@RequestMapping(value = "/loginOut")
+	/*@RequestMapping(value = "/loginOut")
 	public String loginOut() {
 		UserUtils.clearCache();
 		UserUtils.getSubject().logout();
 		return "redirect:" + "sysLogin";
-	}
+	}*/
 
 	@RequestMapping(value = "/sysLogin")
 	public String slogin( Model model, HttpServletRequest request) throws Exception {
@@ -111,13 +113,41 @@ public class LoginController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		String loginName = (String) subject.getPrincipal();
 		System.out.println("loginName : " + loginName);
-//		System.out.println("loginUser.getLoginName() : " + loginUser.getLoginName());
+		System.out.println("loginUser.getLoginName() : " + loginUser.getLoginName());
         Set<String> permissions = userService.findPermissions(loginName);
         List<Privilege> menus = privilegeService.findMenus(permissions);
-        System.out.println("permissions : " + permissions + ", menus : " + menus);
-        model.addAttribute("menus", menus);
-        session.setAttribute("menus", menus);
+        System.out.println("permissions : " + permissions);
+        System.out.println("menus : " + menus);
+//        model.addAttribute("menus", menus);
+//        session.setAttribute("menus", menus);
+        
+//        List<Privilege> list = UserUtils.getPrivilegeList();
+		List<Privilege> parentMenu = new ArrayList<Privilege>();
+		List<Privilege> sonMenu = new ArrayList<Privilege>();
+//
+		for (Privilege menu : menus) {
+			if ("".equals(menu.getParent_id()) || menu.getParent_id() == null) {
+				System.out.println("father" + menu.getName());
+				parentMenu.add(menu);
+			} else {
+				System.out.println("son" + menu.getName());
+				sonMenu.add(menu);
+			}
+		}
+//		User user = userService.getUserByLoginName(loginName);
+		
+		session.setAttribute("parentMenu", parentMenu);
+		session.setAttribute("sonMenu", sonMenu);
+		session.setAttribute("loginName", loginName);
+        
         return "index";
     }
+	
+	@RequestMapping(value="sysLogout")
+	public String logout(){
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return "redirect:sysLogin";
+	}
 
 }

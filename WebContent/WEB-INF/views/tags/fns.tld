@@ -12,8 +12,8 @@
   <function>
     <description>得到菜单</description>
     <name>getPrivilegeList</name>
-    <function-class>com.future.hist.crm.utils.UserUtils</function-class>
-    <function-signature>java.util.List getPrivilegeList()</function-signature>
+    <function-class>com.future.hist.crm.service.PrivilegeService</function-class>
+    <function-signature>java.util.List getAllPrivilege()</function-signature>
     <example>${fns:getPrivilegeList()}</example>
   </function>
   

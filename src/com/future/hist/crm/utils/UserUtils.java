@@ -115,15 +115,14 @@ public class UserUtils {
 		List<Privilege> priList = (List<Privilege>) getCache(CACHE_PRI_LIST);
 		if (priList == null) {
 			User user = getUser();
-			// String[] roleids = user.getRoleids();
-			// if (roleids[0].equals("3")){
-			//
-			// menuList = menuDao.findAllList(new Privilege());
-			// }else{
-			// Privilege pri = new Privilege();
-			// pri.setRoleid(roleids[0]);
-			// menuList = menuDao.findByRoleId(m);
-			// }
+			String[] roleids = user.getRoleids();
+			 if (roleids[0].equals("1")){
+				 priList = privilegeMapper.findAllList(new Privilege());
+			 }else{
+			 Privilege pri = new Privilege();
+			 pri.setRoleid(roleids[0]);
+			 priList = privilegeMapper.findByRoleId(pri);
+			 }
 			putCache(CACHE_PRI_LIST, priList);
 		}
 		return priList;

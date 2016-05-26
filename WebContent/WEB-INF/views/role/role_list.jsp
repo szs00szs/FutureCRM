@@ -7,9 +7,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>权限列表</title>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-2.1.4.js"></script>
+	<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+$(function(){ 
+    //导航切换
+    $(".imglist li").click(function(){
+        $(".imglist li.selected").removeClass("selected")
+        $(this).addClass("selected");
+    })  
+})  
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
 </head>
 <body>
-<shiro:hasPermission name="role:save">
+<%-- <shiro:hasPermission name="role:save">
 	<a href="${pageContext.request.contextPath}/sysRole/role_save">增加角色</a>
 </shiro:hasPermission>
 <br>
@@ -56,7 +88,7 @@
 				</c:otherwise>
 			</c:choose>
 		</tbody>
-		<%-- <%@ include file="/WEB-INF/views/public/pageView.jspf" %> --%>
+		<%@ include file="/WEB-INF/views/public/pageView.jspf" %>
 		<!--分页信息-->
 <div id=PageSelectorBar>
 	<div id=PageSelectorMemo>页次：${currentPage }/${pageParameter.totalPage }页 &nbsp;
@@ -68,10 +100,10 @@
 		</a>
 		
 		<c:forEach begin="${pageParameter.beginPageIndex}" end="${pageParameter.endPageIndex}" var="num">
-			<c:if test="${num == currentPage}"> <%-- 当前页 --%>
+			<c:if test="${num == currentPage}"> 当前页
 				<span class="PageSelectorNum PageSelectorSelected" ><font color="red">${num}</font></span>
 			</c:if>
-			<c:if test="${num != currentPage}"> <%-- 非当前页 --%>
+			<c:if test="${num != currentPage}"> 非当前页
 				<span class="PageSelectorNum" style="cursor: hand;" onClick="gotoPage(${num});">${num}</span>
 			</c:if>
 		</c:forEach>
@@ -93,11 +125,105 @@
 	</div>
 </div>
 
+
+	</table> --%>
+	
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">增加岗位</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+        <div class="formtitle">
+        <shiro:hasPermission name="role:save">
+			<a href="${pageContext.request.contextPath}/sysRole/role_save"><span>增加岗位</span></a>
+		</shiro:hasPermission>
+        </div>
+       <!--  <form class="forminfo">
+        <label>部门名称&nbsp;&nbsp;</label><input name="" type="text" class="dfinput" /><input name="" type="submit" class="dfinput"  value="搜索" style="width:50px; margin-left:0.8%;" />
+       </form> -->
+    </div>
+<div>
+     <table class="imgtable">
+        <thead>
+        <tr>
+	       <th>角色名称</th>
+		   <th>角色备注</th>
+		   <th>编辑</th>
+        </tr>
+        </thead>
+        <tbody>   
+        <c:choose>
+				<c:when test="${!empty roleList }">
+					<c:forEach items="${roleList }" var="role"
+						varStatus="status">
+						<tr>
+							<td>${role.name }</td>
+							<td>${role.remark }</td>
+							<td>
+								<shiro:hasPermission name="role:update">
+									<a
+									href="${pageContext.request.contextPath }/sysRole/role_update/${role.id }/${currentPage }"
+									style="margin-right: 10%;"><img
+										src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;编辑</a>
+								</shiro:hasPermission>
+									<%-- <a
+								href="${pageContext.request.contextPath }/sysRole/set_privilege/${role.id }"
+								style="margin-right: 10%;"><img
+									src="${pageContext.request.contextPath }/images/bian.png">&nbsp;&nbsp;修改权限</a> --%>
+								<shiro:hasPermission name="role:delete">
+									<a
+									href="${pageContext.request.contextPath }/sysRole/role_delete/${role.id }"><img
+										src="${pageContext.request.contextPath }/images/shan.png">&nbsp;&nbsp;删除</a>
+								</shiro:hasPermission>
+							</td>
+						</tr>
+					</c:forEach>
+					
+				</c:when>
+				<c:otherwise>
+						目前本公司没有角色
+				</c:otherwise>
+			</c:choose>
+        </tbody>
+        </table>
+</div>
+    <div class="pagin">
+        <div class="message">共<i class="blue">${pageParameter.totalCount}</i>条记录，页次&nbsp;<i class="blue">${currentPage }/${pageParameter.totalPage }&nbsp;</i>页</div>
+        <ul class="paginList">
+       <!--  <a href="javascript:;"><span class="pagepre"></span></a> -->
+        <li class="paginItem"><a href="javascript: gotoPage(1)" title="首页" style="cursor: hand;">
+					<span class="pagepre"></span>
+		</a></li>
+				
+        <c:forEach begin="${pageParameter.beginPageIndex}"
+					end="${pageParameter.endPageIndex}" var="num">
+					<c:if test="${num == currentPage}">
+						<!-- 当前页 -->
+						<li class="paginItem current"><a href="javascript:;"><font
+							color="red">${num}</font></a></li>
+					</c:if>
+					<c:if test="${num != currentPage}">
+						<!-- 非当前页 -->
+						<li class="paginItem"><a href="javascript:;"><span class="PageSelectorNum" style="cursor: hand;"
+							onClick="gotoPage(${num});">${num}</span></a></li>
+					</c:if>
+		</c:forEach>
+		<li class="paginItem"><a href="javascript: gotoPage(${pageParameter.totalPage})"
+					title="尾页" style="cursor: hand;"><span class="pagenxt"></span>
+		</a></li>
+        </ul>
+    </div>
+<script type="text/javascript">
+    $('.imgtable tbody tr:odd').addClass('odd');
+</script>
 <script type="text/javascript">
 	function gotoPage( pageNum ){
 		window.location.href = "${pageContext.request.contextPath}/sysRole/role_list/" + pageNum;
 	}
-</script>
-	</table>
+</script>	
+	
 </body>
 </html>

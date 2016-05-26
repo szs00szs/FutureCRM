@@ -3,6 +3,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.future.hist.crm.dao.PrivilegeMapper">
 
+<sql id="privilegeColumns">
+		a.id,
+		a.name,
+		a.type,
+		a.url,
+		a.permission,
+		a.parent_id ,
+		a.parent_ids,
+		a.description,
+		p.name AS "parent.name"
+	</sql>
+	
+	<sql id="privilegeJoins">
+		LEFT JOIN sysprivilege p ON p.id = a.parent_id
+    </sql>
+
 <resultMap type="Privilege" id="getPrivilege">
 	<id column="id" property="id" />
 	<result column="name" property="name"/>
@@ -10,16 +26,6 @@
 	<result column="description" property="description"/>
 	<result column="url" property="url"/>
 	<result column="permission" property="permission"/>
-	<!-- <association property="parent" column="parent_id"
-			select="getPrarentPrivilege"></association> -->
-	<!-- <collection property="children" javaType="java.util.Set" ofType="Privilege">  
-            <id column="id" property="id" />
-			<result column="name" property="name"/>
-			<result column="type" property="type"/>
-			<result column="description" property="description"/>
-			<result column="url" property="url"/>
-			<result column="permition" property="permition"/>
-        </collection> -->
 </resultMap>
 <resultMap type="Privilege" id="getPrarentPrivilege">
 	<id column="id" property="id" />
@@ -75,7 +81,11 @@
 	</select>
 	
 	<select id="getAllPrivilege" resultMap="getPrivilege">
-		select *from sysprivilege
+		<!-- select *from sysprivilege -->
+		SELECT
+			<include refid="privilegeColumns"/>
+		FROM sysprivilege a
+			<include refid="privilegeJoins"/>
 	</select>
 	<!--  <select id="getAllPrivilege" resultMap="getPrivilege">  
         SELECT  
@@ -93,5 +103,12 @@
     </select>   -->
 	<select id="findTopPrivileges" resultMap="getPrivilege">
 		select *from sysprivilege where parent_id = null;
+	</select>
+	
+	<select id="findAllList" resultType="Privilege">
+		SELECT
+			<include refid="privilegeColumns"/>
+		FROM sysprivilege a
+			<include refid="privilegeJoins"/>
 	</select>
 </mapper>
